@@ -29,15 +29,7 @@ function loadSong(url) {
 
 }
 
-function rainbow(t) {
-	t.className = 'red';
-	setTimeout(function(){ t.className = 'blue'; }, 200);
-	setTimeout(function(){ t.className = 'green'; }, 400);
-	setTimeout(function(){ t.className = 'black'; }, 600);
-}
-
 function random() {
-	rainbow($('#random')[0]);
 	$('#results').html('<i id="loading" class="fa fa-cog"></i>');
 	$.get('random.php?'+(new Date()).getTime(), function(data) {
 		$('#results').html('');
@@ -115,7 +107,6 @@ function update() {
 		console.log("song finished...");
 		nextSong();
 	}
-
 }
 
 function buildTrack(data) {
@@ -134,9 +125,8 @@ function search() {
 		currentSearch.abort();
 		currentSearch = null;
 	}
-	rainbow($('#submit')[0]);
 	s = $('#search').val();
-	$('#results').html('<i id="loading" class="fa fa-cog"></i>');
+	$('#results').html('<i id="loading" class="fa fa-cog fa-spin"></i>');
 	currentSearch = $.get('search.php?s='+s, function(data) {
 		$('#results').html('');
 		for(i=0;i<data.length;i++) {
@@ -148,14 +138,6 @@ function search() {
 }
 
 $(window).ready(function(){
-	// start fastclick
-	$(function() {
-	    FastClick.attach(document.body);
-	});
-	// wait for a search
-	//$('#search').on('change',function(){
-	//	search();
-	//});
 	$('#search').on('keyup',function(e){
 		if(e.keyCode == 13) {
 			$('#search').blur();

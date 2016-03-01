@@ -1,7 +1,6 @@
 body {
 	padding: 0;
 	margin: 0;
-	font-family: 'Roboto', sans-serif;
 	width: 100%;
 	height: 100%;
 }
@@ -29,14 +28,14 @@ body {
 }
 #submit {
 	font-size: 26px;
-	padding: 7px;
+	padding: 7px 14px;
 	background-color: lightgrey;
 	cursor: pointer;
 }
 #random {
 	background: lightgrey;
 	font-size: 26px;
-	padding: 7px;
+	padding: 7px 14px;
 	transition: color 0.2s linear;
 	cursor: pointer;
 }
@@ -122,18 +121,6 @@ body {
 	cursor: default;
 	color: grey;
 }
-.blue {
-	color: blue;
-}
-.red {
-	color: red;
-}
-.green {
-	color: green;
-}
-.black {
-	color: black;
-}
 #prev, #pauseplay, #next {
 	cursor: pointer;
 }
@@ -144,24 +131,6 @@ body {
 	z-index: 30;
 	color: rgba(0, 0, 0, 0.43);
 	font-size: 50px;
-	animation: spin 2s infinite linear;
-	-webkit-animation: spin 2s infinite linear;
-}
-@keyframes spin {
-	0% { 
-		transform: rotate(0deg); 
-	}
-	100% { 
-		transform: rotate(359deg); 
-	}
-}
-@-webkit-keyframes spin {
-	0% { 
-		-webkit-transform: rotate(0deg); 
-	}
-	100% { 
-		-webkit-transform: rotate(359deg); 
-	}
 }
 #player {
 	display: hidden;
