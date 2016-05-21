@@ -10,7 +10,7 @@ Objectives :
 
 Install instructions will follow.
 
-Timeline : 
-  - Cleaning of the project (2016-03)
-  - Improving functionnalities (2016-04)
-  - Rewamp design (2016-05)
+TODO : 
+  - Clean of the project
+  - Improve functionnalities
+  - Rewamp design
