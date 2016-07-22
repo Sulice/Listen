@@ -1,16 +1,18 @@
 # Listen
-Listen is a simple-as-pie drop-in bit of code enabling listening music from your server.
-
+Listen is a simple-as-pie bit of code enabling listening music from your server.
 This was an old project of mine that I'm trying to improve now.
-Objectives :
-  - first open-source project
-  - mobile friendly
-  - drop-in code with no friction for the user
-  - KISS
+It's now a playing ground for sharpening my skills in angular2.
 
-Install instructions will follow.
+**Project not finished**
 
-TODO : 
-  - Clean of the project
-  - Improve functionnalities
-  - Rewamp design
+### INSTALL
+Listen will search for you music from the DATA link at the root of the project.
+Just change this link to point it to your directory of choice.
+```
+ln -s ~/music/ DATA
+```
+You'll need npm to build the project.
+```
+npm install
+tsc
+```

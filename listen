@@ -1,13 +1,17 @@
-preload = null;
-currentSearch = null;
-searchValue = "";
+/// <reference path="typings/index.d.ts" />
+
+import * as $ from 'jquery';
+
+let preload = null;
+let currentSearch = null;
+let searchValue = "";
 
 function loadSong(url) {
 	$('#navigation').css('display','flex');
 	$('#navigation').css('display','-webkit-flex');
 	$('.playing').removeClass('playing');
 
-	var song = $('#player')[0];
+	let song = $('#player')[0] as HTMLAudioElement;
 	song.src = url;
 
 	pauseplay();
@@ -34,7 +38,7 @@ function random() {
 	$.get('random.php?'+(new Date()).getTime(), function(data) {
 		$('#results').html('');
 		$('#search').val(data[0]);
-		for(i=1;i<data.length;i++) {
+		for(let i=1;i<data.length;i++) {
 			$('#results').append(buildTrack(data[i]));
 		}
 		$('#next').addClass('not-active');
@@ -43,7 +47,7 @@ function random() {
 }
 
 function pauseplay() {
-	var song = $('#player')[0];
+	let song = $('#player')[0] as HTMLAudioElement;
 	if(song.paused) {
 		song.play();
 		$('#pauseplay i').removeClass('fa-play');
@@ -57,7 +61,7 @@ function pauseplay() {
 }
 
 function previousSong() {
-	var prev = $('.playing').prev();
+	let prev = $('.playing').prev();
 	if(prev.length != 0) {
 		loadSong(prev.attr('data-src'));
 	} else {
@@ -66,7 +70,7 @@ function previousSong() {
 }
 
 function nextSong() {
-	var next = $('.playing').next();
+	let next = $('.playing').next();
 	if(next.length != 0) {
 		loadSong(next.attr('data-src'));
 	} else {
@@ -75,9 +79,9 @@ function nextSong() {
 }
 
 function timeUpdate() {
-	var song = $('#player')[0];
-	var playPercent = 100 * (song.currentTime / song.duration);
-	var loadPercent = 100 * (song.buffered.end(0) / song.duration);
+	let song = $('#player')[0] as HTMLAudioElement;
+	let playPercent = 100 * (song.currentTime / song.duration);
+	let loadPercent = 100 * (song.buffered.end(0) / song.duration);
 	$('#timeline').css('width', playPercent+'%');
 	$('#loadline').css('width', loadPercent+'%');
 	if(playPercent >= 100) {
@@ -88,17 +92,17 @@ function timeUpdate() {
 
 function update() {
 
-	var song = $('#player')[0];
+	let song = $('#player')[0] as HTMLAudioElement;
 	
 	// update loadline
 	if(song != null && song.buffered.length > 0) {
-		var loadPercent = 100 * (song.buffered.end(0) / song.duration);
+		let loadPercent = 100 * (song.buffered.end(0) / song.duration);
 		$('#loadline').css('width', loadPercent+'%');
 	}
 
 	// update timeline
 	if(song != null && song.buffered.length > 0) {
-		var playPercent = 100 * (song.currentTime / song.duration);
+		let playPercent = 100 * (song.currentTime / song.duration);
 		$('#timeline').css('width', playPercent+'%');
 	}
 
@@ -110,12 +114,12 @@ function update() {
 }
 
 function buildTrack(data) {
-	var artist = data.replace(/^.*DATA\/([^\/]*)\/.*/,"$1");
-	var album = data.replace(/.*\/([^\/]*)\/.*$/,"$1");
-	var title = data.replace(/.*\/(.*)$/,"$1").replace(/\.\w+$/,'');
-	var src = data;
+	let artist = data.replace(/^.*DATA\/([^\/]*)\/.*/,"$1");
+	let album = data.replace(/.*\/([^\/]*)\/.*$/,"$1");
+	let title = data.replace(/.*\/(.*)$/,"$1").replace(/\.\w+$/,'');
+	let src = data;
 	
-	var output = '<div class="track" onclick="loadSong(\''+src+'\')" data-src="'+src+'"><div class="artist">'+artist+' ['+album+'] '+'</div><div class="title">'+title+'</div></div>'
+	let output = '<div class="track" onclick="loadSong(\''+src+'\')" data-src="'+src+'"><div class="artist">'+artist+' ['+album+'] '+'</div><div class="title">'+title+'</div></div>'
 
 	return output;
 }
@@ -125,11 +129,11 @@ function search() {
 		currentSearch.abort();
 		currentSearch = null;
 	}
-	s = $('#search').val();
+	let s = $('#search').val();
 	$('#results').html('<i id="loading" class="fa fa-cog fa-spin"></i>');
 	currentSearch = $.get('search.php?s='+s, function(data) {
 		$('#results').html('');
-		for(i=0;i<data.length;i++) {
+		for(let i=0;i<data.length;i++) {
 			$('#results').append(buildTrack(data[i]));
 		}
 		$('#next').addClass('not-active');
