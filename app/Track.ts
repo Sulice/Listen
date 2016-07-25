@@ -1,10 +1,10 @@
 export class Track {
-	public artist: String;
-	public album: String;
-	public title: String;
-	public src: String;
+	artist: string;
+	album: string;
+	title: string;
+	src: string;
 	
-	constructor(str: String) {
+	constructor(str: string) {
 		this.artist = str.replace(/.*\/([^\/]*)\/([^\/]*)\/.*$/,"$1");
 		this.album = str.replace(/.*\/([^\/]*)\/.*$/,"$1");
 		this.title = str.replace(/.*\/(.*)$/,"$1").replace(/\.\w+$/,'');

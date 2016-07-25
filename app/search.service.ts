@@ -17,11 +17,11 @@ import { Observable }     	from 'rxjs/Observable';
 
 @Injectable()
 export class SearchService {
-	public waiting: boolean = false;
+	waiting: boolean = false;
 
 	constructor(private http: Http) {}
 	
-	search(s: String) {
+	search(s: string) {
 		return this.http.get('search.php?s='+s).map(this.extractData).catch(this.handleError);
 	}
 

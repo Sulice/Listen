@@ -18,11 +18,10 @@ export class SearchBarComponent {
 	
 	constructor(public searchService: SearchService) {}
 
-	search(s: String) {
+	search(s: string) {
 		this.searchService.search(s).subscribe(
 			r => this.onFoundTracks.emit(r),
 			error => console.log("e:"+error)
 		);
-		//this.onFoundTracks.emit(plop);
 	}
 }

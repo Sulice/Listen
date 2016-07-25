@@ -1,12 +1,12 @@
-import { Component, Input} 			from '@angular/core';
-import { Track } 				from './Track';
-import { SearchService } 		from './search.service';
+import { Component, Input, Output, EventEmitter} 			from '@angular/core';
+import { Track } 											from './Track';
+import { SearchService } 									from './search.service';
 
 @Component({
 	selector: 'results',
 	template: `
 		<div id="results">
-			<div *ngFor="let track of tracks" class="track" (onclick)="loadSong(track.src)">
+			<div *ngFor="let track of tracks" class="track" (click)="loadSong(track)">
 				<div class="artist">{{track.artist}} - {{track.album}} </div>
 				<div class="title">{{track.title}}</div>
 			</div>
@@ -16,9 +16,14 @@ import { SearchService } 		from './search.service';
 	styleUrls: ['app/results.component.css']
 })
 export class ResultsComponent { 
-	@Input() public tracks: Track[] = [];
+	@Input() tracks: Track[] = [];
+	@Output() onPlayTrack = new EventEmitter<Track>();
 
 	constructor(public searchService: SearchService) {}
+
+	public loadSong(t: Track) {
+		this.onPlayTrack.emit(t);
+	}
 
 
 }
