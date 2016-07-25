@@ -18,7 +18,9 @@ for($i=0;$i<count($output);$i++) {
 	$output[$i] = preg_replace("/\/srv\/http/","http://www.nibou.eu",$output[$i]);
 }
 
+$response = array("data"=>$output);
+
 header('Content-Type: text/json; charset=UTF-8');
-echo(json_encode($output));
+echo(json_encode($response));
 
 ?>

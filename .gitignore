@@ -1,6 +1,6 @@
-DATA
 *.swp
 node_modules/
 typings/
 *.js
 dist/
+*.log
