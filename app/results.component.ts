@@ -6,7 +6,7 @@ import { SearchService } 									from './search.service';
 	selector: 'results',
 	template: `
 		<div id="results">
-			<div *ngFor="let track of tracks" class="track" (click)="loadSong(track)">
+			<div *ngFor="let track of tracks" [class.playing]="currentTrack == track" class="track" (click)="loadSong(track)">
 				<div class="artist">{{track.artist}} - {{track.album}} </div>
 				<div class="title">{{track.title}}</div>
 			</div>
@@ -18,10 +18,12 @@ import { SearchService } 									from './search.service';
 export class ResultsComponent { 
 	@Input() tracks: Track[] = [];
 	@Output() onPlayTrack = new EventEmitter<Track>();
+	currentTrack: Track;
 
 	constructor(public searchService: SearchService) {}
 
 	public loadSong(t: Track) {
+		this.currentTrack = t;
 		this.onPlayTrack.emit(t);
 	}
 

@@ -7,9 +7,9 @@ import { Track } 				from './Track';
 	<div id="player">
 		<div class="timeline"></div>
 		<div class="loadline"></div>
-		<div class="navigation">
+		<div [class.hidden]="playedTrack==null" class="navigation">
 			<div (click)="previousSong()" class="prev"><i class="fa fa-step-backward"></i></div>
-			<div (click)="pauseplay()" class="pauseplay"><i class="fa fa-play"></i></div>
+			<div (click)="pauseplay()" class="pauseplay"><i class="fa" [class.fa-play]="isPlaying" [class.fa-pause]="!isPlaying"></i></div>
 			<div (click)="nextSong()" class="next"><i class="fa fa-step-forward"></i></div>
 		</div>
 	</div>
@@ -20,6 +20,9 @@ export class PlayerComponent {
 	@Input() playedTrack: Track;
 	isPlaying: boolean = false;
 	audioPlayer: HTMLAudioElement;
+	playPercent: number = 0;
+	loadPercent: number = 0;
+	pid: number;
 
 	pauseplay() {
 		this.isPlaying = !this.isPlaying;
@@ -32,11 +35,32 @@ export class PlayerComponent {
 	startSong() {
 		if(typeof(this.audioPlayer) != "undefined") {
 			this.audioPlayer.pause();
+			clearInterval(this.pid);
 		}
 		console.log('starting song:'+this.playedTrack);
 		this.isPlaying = true;
 		this.audioPlayer = new Audio(this.playedTrack.src);
 		this.audioPlayer.play();
+		setTimeout(() => 
+			this.pid = setInterval(() => 
+				this.timelineUpdate(this), 
+				1000
+			),
+			1000
+		);
+	}
+	timelineUpdate(that) {
+		let song = that.audioPlayer;
+		let playPercent = 100 * (song.currentTime / song.duration);
+		let loadPercent = 100 * (song.buffered.end(0) / song.duration);
+		let timeline = document.querySelector('#player .timeline') as HTMLElement;
+		timeline.style.width = playPercent+'%';
+		let loadline = document.querySelector('#player .loadline') as HTMLElement;
+		loadline.style.width = loadPercent+'%';
+		//if(playPercent >= 100) {
+		//	console.log("song finished...");
+		//	nextSong();
+		//}
 	}
 
 }

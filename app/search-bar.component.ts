@@ -19,6 +19,9 @@ export class SearchBarComponent {
 	constructor(public searchService: SearchService) {}
 
 	search(s: string) {
+		if(s.length < 1) {
+			return;
+		}
 		this.searchService.search(s).subscribe(
 			r => this.onFoundTracks.emit(r),
 			error => console.log("e:"+error)

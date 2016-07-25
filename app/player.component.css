@@ -27,7 +27,7 @@
 	transition: all 1s linear;
 }
 .navigation {
-	display: none;
+	display: flex;
 	position: absolute;
 	bottom: 0px;
 	left: 50%;
@@ -55,4 +55,7 @@
 	z-index: 30;
 	color: rgba(0, 0, 0, 0.43);
 	font-size: 50px;
+}
+.hidden {
+	display: none !important;
 }
