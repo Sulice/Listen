@@ -8,7 +8,7 @@ if(preg_match("/^\s*$/",$s)==1) {
 }
 
 $s = preg_split("/\ /",$s);
-$command = '/usr/bin/find -H '.$dir.' -type f -regextype posix-extended -iregex ".*'.$s[0].'.*"';
+$command = '/usr/bin/find -H '.$dir.' -type f -name "*.mp3" -regextype posix-extended -iregex ".*'.$s[0].'.*"';
 for($i=1;$i<count($s);$i++) {
 	$command .= ' | grep -i "'.$s[$i].'"';
 }
