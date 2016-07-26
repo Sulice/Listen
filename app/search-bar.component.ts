@@ -6,12 +6,13 @@ import { Observable }        				from 'rxjs/Observable';
 @Component({
 	selector: 'search-bar',
 	template: `
-		<div id="search-bar">
-			<input autocomplete="off" placeholder="search" (keyup)="search(searchInput.value)" type="text" class="search" #searchInput/>
-			<div class="black" (click)="search(searchInput.value)" class="submit"><i class="fa fa-search"></i></div>
+		<div class="search-bar">
+			<div class="input-group">
+				<div class="input-group-addon"><i class="glyphicon glyphicon-music"></i></div>
+				<input autocomplete="off" placeholder="search for songs" (keyup)="search(searchInput.value)" type="text" class="form-control" #searchInput/>
+			</div>
 		</div>
-	`,
-	styleUrls: ['app/search-bar.component.css'],
+	`
 })
 export class SearchBarComponent { 
 	@Output() onFoundTracks = new EventEmitter<Track[]>();

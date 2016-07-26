@@ -5,6 +5,7 @@
 	width: 100%;
 	max-width: 1024px;
 	transform: translate(-50%, 0%);
+	z-index: 20;
 }
 .loadline {
 	height: 3px;

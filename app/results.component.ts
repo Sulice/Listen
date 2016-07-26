@@ -5,15 +5,21 @@ import { SearchService } 									from './search.service';
 @Component({
 	selector: 'results',
 	template: `
-		<div id="results">
-			<div *ngFor="let track of tracks" [class.playing]="currentTrack == track.src" class="track" (click)="loadSong(track.src)" [attr.data-src]="track.src">
-				<div class="artist">{{track.artist}} - {{track.album}} </div>
-				<div class="title">{{track.title}}</div>
-			</div>
-			<i *ngIf="searchService.waiting" id="loading" class="fa fa-cog fa-spin"></i>
+		<div class="results">
+			<table class="table table-hover table-bordered">
+				<tr 
+					*ngFor="let track of tracks" 
+					[class.active]="currentTrack == track.src" 
+					class="list-group-item" 
+					(click)="loadSong(track.src)" 
+					[attr.data-src]="track.src"
+				>
+					<h6>{{track.artist}} - {{track.album}}</h6>
+					<h5>{{track.title}}</h5>
+				</tr>
+			</table>
 		</div>
-	`,
-	styleUrls: ['app/results.component.css']
+	`
 })
 export class ResultsComponent { 
 	@Input() tracks: Track[] = [];
