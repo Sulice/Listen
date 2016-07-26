@@ -1,9 +1,9 @@
-import { Component, ViewChild } 			from '@angular/core';
-import { SearchBarComponent } 				from './search-bar.component';
-import { ResultsComponent } 				from './results.component';
-import { PlayerComponent } 					from './player.component';
-import { Track } 							from './Track';
-import { SearchService } 					from './search.service';
+import { Component, ViewChild, ViewContainerRef } 				from '@angular/core';
+import { SearchBarComponent } 									from './search-bar.component';
+import { ResultsComponent } 									from './results.component';
+import { PlayerComponent } 										from './player.component';
+import { Track } 												from './Track';
+import { SearchService } 										from './search.service';
 
 @Component({
 	selector: 'listen-music-player',
@@ -21,6 +21,8 @@ export class AppComponent {
 	tracks: Track[] = [];
 	@ViewChild(PlayerComponent) player: PlayerComponent;
 	@ViewChild(ResultsComponent) results: ResultsComponent;
+
+	constructor(public viewContainerRef: ViewContainerRef) {}
 
 	onNextSong() {
 		let playing = document.querySelector('.active') as HTMLElement;

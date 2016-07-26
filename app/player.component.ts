@@ -49,7 +49,6 @@ export class PlayerComponent {
 		this.isPlaying = true;
 		let t: Track = new Track(this.playedTrack); 
 		document.getElementsByTagName('title')[0].innerHTML = t.title;
-		console.log(this.playedTrack);
 		this.audioPlayer = new Audio(this.playedTrack);
 		this.audioPlayer.play();
 		setTimeout(() => 
@@ -69,7 +68,6 @@ export class PlayerComponent {
 		let loadline = document.querySelector('#player .loadline') as HTMLElement;
 		loadline.style.width = loadPercent+'%';
 		if(playPercent >= 100) {
-			console.log("song finished...");
 			this.nextSong();
 		}
 	}

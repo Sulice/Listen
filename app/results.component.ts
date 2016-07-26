@@ -31,7 +31,6 @@ export class ResultsComponent {
 
 	loadSong(src: string) {
 		this.currentTrack = src;
-		console.log(this.currentTrack);
 		this.onPlayTrack.emit(this.currentTrack);
 	}
 
