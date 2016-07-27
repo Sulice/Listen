@@ -21,4 +21,5 @@ body {
 .results {
 	position: relative;
 	top: 35px;
+    margin-bottom: 50px;
 }
