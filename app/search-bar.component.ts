@@ -3,7 +3,9 @@ import { SearchService }                                        from "./search.s
 import { Track }                                                from "./Track";
 import { Observable }                                           from "rxjs/Observable";
 import { MODAL_DIRECTIVES, BS_VIEW_PROVIDERS }                  from "ng2-bootstrap/ng2-bootstrap";
+import { AlertComponent }                                       from 'ng2-bootstrap/ng2-bootstrap';
 import { ModalDirective }                                       from "ng2-bootstrap/components/modal";
+import { CORE_DIRECTIVES }                                        from '@angular/common';
 
 @Component({
     selector: "search-bar",
@@ -32,21 +34,36 @@ import { ModalDirective }                                       from "ng2-bootst
         </div>
     </div>
 </div>
+<!-- Alerts -->
+<div class="alert-box">
+    <alert *ngFor="let alert of alerts;let i = index" [type]="alert.type" [dismissible]="true" [dismissOnTimeout]="alert.timeout" (close)="closeAlert(i)">
+      {{ alert?.msg }}
+    </alert>
+</div>
     `,
-    directives: [MODAL_DIRECTIVES, ModalDirective],
+    directives: [MODAL_DIRECTIVES, ModalDirective, AlertComponent, CORE_DIRECTIVES],
     viewProviders: [BS_VIEW_PROVIDERS]
 })
 export class SearchBarComponent {
     @Output() onFoundTracks = new EventEmitter<Track[]>();
     @ViewChild("childModal") public childModal: ModalDirective;
 
-    public showChildModal(): void {
+    showChildModal(): void {
         this.childModal.show();
     }
 
-    public hideChildModal(): void {
+    hideChildModal(): void {
         this.childModal.hide();
     }
+    
+    closeAlert(i:number): void {
+        this.alerts.splice(i, 1);
+    }
+
+    addAlert(text: string, alertType: string, time: number): void {
+        this.alerts.push({msg: text, type: alertType, timeout: time});
+    }
+    alerts:Array<Object> = [];
 
     constructor(public searchService: SearchService) {}
 
@@ -56,7 +73,7 @@ export class SearchBarComponent {
         }
         this.searchService.search(s).subscribe(
             r => this.onFoundTracks.emit(r),
-            error => console.log("e:" + error)
+            error => this.addAlert(error, "danger", 60000)
         );
     }
 }
