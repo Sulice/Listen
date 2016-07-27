@@ -25,7 +25,6 @@ export class ResultsComponent {
     @Input() tracks: Track[] = [];
     @Output() onPlayTrack = new EventEmitter<string>();
     currentTrack: string;
-    // TODO waiting
 
     constructor(public searchService: SearchService) {}
 

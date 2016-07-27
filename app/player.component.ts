@@ -43,32 +43,35 @@ export class PlayerComponent {
     }
     startSong() {
         if (typeof(this.audioPlayer) !== "undefined") {
-            this.audioPlayer.pause();
+            this.audioPlayer.pause(),
             clearInterval(this.pid);
         }
         this.isPlaying = true;
         let t: Track = new Track(this.playedTrack);
         document.getElementsByTagName("title")[0].innerHTML = t.title;
-        this.audioPlayer = new Audio(this.playedTrack);
+        if (typeof(this.audioPlayer) == "undefined") {
+            this.audioPlayer = new Audio(this.playedTrack);
+        } else {
+            this.audioPlayer.src = this.playedTrack;
+        }
         this.audioPlayer.play();
-        setTimeout(() =>
-            this.pid = setInterval(() =>
-                this.timelineUpdate(this),
-                1000
-            ),
-            1000
-        );
+
+        this.pid = setInterval(() => 
+            this.timelineUpdate(this), 
+        1000);
     }
     timelineUpdate(that) {
         let song = that.audioPlayer;
-        let playPercent = 100 * (song.currentTime / song.duration);
-        let loadPercent = 100 * (song.buffered.end(0) / song.duration);
-        let timeline = document.querySelector("#player .timeline") as HTMLElement;
-        timeline.style.width = playPercent + "%";
-        let loadline = document.querySelector("#player .loadline") as HTMLElement;
-        loadline.style.width = loadPercent + "%";
-        if (playPercent >= 100) {
-            this.nextSong();
+        if (song.buffered.length !== 0) {
+            let playPercent = 100 * (song.currentTime / song.duration);
+            let loadPercent = 100 * (song.buffered.end(0) / song.duration);
+            let timeline = document.querySelector("#player .timeline") as HTMLElement;
+            timeline.style.width = playPercent + "%";
+            let loadline = document.querySelector("#player .loadline") as HTMLElement;
+            loadline.style.width = loadPercent + "%";
+            if (playPercent >= 100) {
+                this.nextSong();
+            }
         }
     }
 

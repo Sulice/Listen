@@ -28,7 +28,9 @@ export class AppComponent {
         let playing = document.querySelector(".active") as HTMLElement;
         let next = playing.nextElementSibling as HTMLElement;
         if (next != null) {
-            this.results.loadSong(next.dataset["src"]);
+            let src = next.dataset["src"];
+            this.results.currentTrack = src;
+            this.onPlayTrack(src);
         }
     }
     onPrevSong() {
