@@ -31,3 +31,25 @@ body {
     max-width: 100%;
     z-index: 30;
 }
+.loader_gray {
+    border-style: solid;
+    position: absolute;
+    top: 40%;
+    border-color: #F0F0F0 #D3D3D3 #B6B6B6 #999999;
+    animation: revolve 2s linear infinite;
+}
+.large {
+    position: fixed;
+    top: calc(50% - 50px);
+    left: calc(50% - 50px);
+    width: 100px;
+    height: 100px;
+    border-radius: 100px;
+    border-width: 3px;
+} 
+@keyframes revolve
+{  
+    from { transform: rotate(0deg); }  
+    50%  { transform: rotate(180deg); }  
+    to   { transform: rotate(360deg); }  
+}

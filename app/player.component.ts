@@ -1,5 +1,5 @@
-import { Component, Input, Output, EventEmitter}    from "@angular/core";
-import { Track }                                    from "./Track";
+import { Component, Input, Output, EventEmitter} from "@angular/core";
+import { Track } from "./Track";
 
 @Component({
   selector: "player",

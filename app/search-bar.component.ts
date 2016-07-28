@@ -1,11 +1,11 @@
-import { Component, EventEmitter, Output, ViewChild }           from "@angular/core";
-import { SearchService }                                        from "./search.service";
-import { Track }                                                from "./Track";
-import { Observable }                                           from "rxjs/Observable";
-import { MODAL_DIRECTIVES, BS_VIEW_PROVIDERS }                  from "ng2-bootstrap/ng2-bootstrap";
-import { AlertComponent }                                       from 'ng2-bootstrap/ng2-bootstrap';
-import { ModalDirective }                                       from "ng2-bootstrap/components/modal";
-import { CORE_DIRECTIVES }                                        from '@angular/common';
+import { Component, EventEmitter, Output, ViewChild, Input } from "@angular/core";
+import { SearchService } from "./search.service";
+import { Track } from "./Track";
+import { Observable } from "rxjs/Observable";
+import { MODAL_DIRECTIVES, BS_VIEW_PROVIDERS } from "ng2-bootstrap/ng2-bootstrap";
+import { AlertComponent } from 'ng2-bootstrap/ng2-bootstrap';
+import { ModalDirective } from "ng2-bootstrap/components/modal";
+import { CORE_DIRECTIVES } from '@angular/common';
 
 @Component({
     selector: "search-bar",
@@ -13,8 +13,16 @@ import { CORE_DIRECTIVES }                                        from '@angular
         <div class="search-bar">
             <div class="input-group">
                 <div (click)="smModal.show()" class="input-group-addon"><i class="glyphicon glyphicon-music"></i></div>
-                <input autocomplete="off" placeholder="search for songs" (keyup)="search(searchInput.value)" type="text" class="form-control" #searchInput/>
-
+                <input 
+                    id="searchInput"
+                    autocomplete="off" 
+                    placeholder="search for songs" 
+                    (keyup)="search(searchInput.value)" 
+                    type="text" 
+                    class="form-control" 
+                    [value]="query" 
+                    #searchInput
+                />
             </div>
         </div>
 <!-- Small modal -->
@@ -47,6 +55,7 @@ import { CORE_DIRECTIVES }                                        from '@angular
 export class SearchBarComponent {
     @Output() onFoundTracks = new EventEmitter<Track[]>();
     @ViewChild("childModal") public childModal: ModalDirective;
+    @Input() query: string;
 
     showChildModal(): void {
         this.childModal.show();
@@ -68,6 +77,7 @@ export class SearchBarComponent {
     constructor(public searchService: SearchService) {}
 
     search(s: string) {
+        history.replaceState({}, '', window.location.href.replace(/#.*/,'') + '#/' + s);
         if (s.length < 1) {
             return;
         }

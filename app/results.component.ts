@@ -1,6 +1,6 @@
-import { Component, Input, Output, EventEmitter}            from "@angular/core";
-import { Track }                                            from "./Track";
-import { SearchService }                                    from "./search.service";
+import { Component, Input, Output, EventEmitter} from "@angular/core";
+import { Track } from "./Track";
+import { SearchService } from "./search.service";
 
 @Component({
     selector: "results",

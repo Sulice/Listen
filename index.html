@@ -1,5 +1,6 @@
 <html>
 <head>
+    <base href="/listen/">
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
 	<title>Listen</title>
@@ -17,7 +18,7 @@
 	<script src="systemjs.config.js"></script>
 	<script src="node_modules/ng2-bootstrap/bundles/ng2-bootstrap.min.js"></script>
 	<script>
-		System.import('app').catch(function(err){ console.error(err); });
+		System.import("app").catch(function(err){ console.error(err); });
 	</script>
 	
 	<!-- 3. Personal Styling -->
@@ -25,15 +26,8 @@
 
 </head>
 <body>
-<listen-music-player>
-		<div class="main-app">
-			<div class="search-bar">
-				<div class="input-group">
-					<div class="input-group-addon"><i class="glyphicon glyphicon-music"></i></div>
-					<input autocomplete="off" placeholder="search for songs" type="text" class="form-control" disabled/>
-				</div>
-			</div>
-		</div>
-</listen-music-player>
+    <main>
+        <div class="loader_gray large"></div>
+    </main>
 </body>
 </html>

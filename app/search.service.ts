@@ -1,6 +1,6 @@
-import { Injectable }       from "@angular/core";
-import { Track }            from "./Track";
-import { Http, Response }   from "@angular/http";
+import { Injectable } from "@angular/core";
+import { Track } from "./Track";
+import { Http, Response } from "@angular/http";
 
 // Statics
 import "rxjs/add/observable/throw";
