@@ -4,8 +4,8 @@ import { ResultsComponent } from "./results.component";
 import { PlayerComponent } from "./player.component";
 import { Track } from "./Track";
 import { SearchService } from "./search.service";
-import { ROUTER_DIRECTIVES, ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { ROUTER_DIRECTIVES, ActivatedRoute } from "@angular/router";
+import { Subscription } from "rxjs";
 
 @Component({
     selector: "listen-music-player",
@@ -30,9 +30,9 @@ export class AppComponent implements OnInit {
     constructor(public viewContainerRef: ViewContainerRef, private route: ActivatedRoute) { }
 
     ngOnInit() {
-        this.sub = this.route.params.subscribe(params => { 
-            this.query = params['query'] || ''; 
-            if(this.query !== '') {
+        this.sub = this.route.params.subscribe(params => {
+            this.query = params["query"] || "";
+            if (this.query !== "") {
                 this.searchBar.search(this.query);
             }
         });

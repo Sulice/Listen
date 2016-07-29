@@ -49,15 +49,15 @@ export class PlayerComponent {
         this.isPlaying = true;
         let t: Track = new Track(this.playedTrack);
         document.getElementsByTagName("title")[0].innerHTML = t.title;
-        if (typeof(this.audioPlayer) == "undefined") {
+        if (typeof(this.audioPlayer) === "undefined") {
             this.audioPlayer = new Audio(this.playedTrack);
         } else {
             this.audioPlayer.src = this.playedTrack;
         }
         this.audioPlayer.play();
 
-        this.pid = setInterval(() => 
-            this.timelineUpdate(this), 
+        this.pid = setInterval(() =>
+            this.timelineUpdate(this),
         1000);
     }
     timelineUpdate(that) {
