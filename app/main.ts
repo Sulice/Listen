@@ -1,4 +1,4 @@
-import { Component, provide } from "@angular/core";
+import { Component, ViewContainerRef, provide } from "@angular/core";
 import { bootstrap } from "@angular/platform-browser-dynamic";
 import { AppComponent } from "./app.component";
 import { HTTP_PROVIDERS } from "@angular/http";
@@ -15,6 +15,7 @@ import { ROUTER_DIRECTIVES } from "@angular/router";
 })
 export class MainComponent {
     query: string;
+    constructor(public viewContainerRef: ViewContainerRef) { }
 }
 
 bootstrap(

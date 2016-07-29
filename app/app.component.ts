@@ -1,4 +1,4 @@
-import { Component, ViewChild, ViewContainerRef, Input, OnInit, OnDestroy } from "@angular/core";
+import { Component, ViewChild, Input, OnInit, OnDestroy } from "@angular/core";
 import { SearchBarComponent } from "./search-bar.component";
 import { ResultsComponent } from "./results.component";
 import { PlayerComponent } from "./player.component";
@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
     query: string;
     private sub: Subscription;
 
-    constructor(public viewContainerRef: ViewContainerRef, private route: ActivatedRoute) { }
+    constructor(private route: ActivatedRoute) { }
 
     ngOnInit() {
         this.sub = this.route.params.subscribe(params => {
