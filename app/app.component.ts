@@ -5,7 +5,7 @@ import { PlayerComponent } from "./player.component";
 import { Track } from "./Track";
 import { SearchService } from "./search.service";
 import { ROUTER_DIRECTIVES, ActivatedRoute } from "@angular/router";
-import { Subscription } from "rxjs";
+import { Subscription } from "rxjs/Observable";
 
 @Component({
     selector: "listen-music-player",

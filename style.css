@@ -5,16 +5,17 @@ body {
 	height: 100%;
 }
 .main-app {
+    position: relative;
 	margin: 0 auto;
 	max-width: 1024px;
 	width: 100%;
+    overflow: hidden;
 }
 .search-bar {
 	position: fixed;
 	top: 0;
 	left: 50%;
 	transform: translateX(-50%);
-	max-width: 1024px;
 	width: 100%;
 	z-index: 10;
 }
@@ -22,6 +23,7 @@ body {
 	position: relative;
 	top: 35px;
     margin-bottom: 50px;
+    width: 100%;
 }
 .alert-box {
     position: fixed;

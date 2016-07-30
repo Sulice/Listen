@@ -5,6 +5,8 @@ import { HTTP_PROVIDERS } from "@angular/http";
 import { appRouterProviders } from "./app.routes";
 import { LocationStrategy, HashLocationStrategy } from "@angular/common";
 import { ROUTER_DIRECTIVES } from "@angular/router";
+import {enableProdMode} from '@angular/core';
+
 
 @Component({
     selector: "main",
@@ -18,6 +20,7 @@ export class MainComponent {
     constructor(public viewContainerRef: ViewContainerRef) { }
 }
 
+enableProdMode();
 bootstrap(
     MainComponent,
     [

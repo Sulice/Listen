@@ -1,6 +1,9 @@
 var gulp = require('gulp');
 var tsc = require('gulp-typescript');
 var tslint = require('gulp-tslint');
+var gulp_jspm = require('gulp-jspm');
+var uglify = require('gulp-uglify');
+var concat = require('gulp-concat');
 
 gulp.task('default', function() {
 	console.log('plop');
@@ -20,7 +23,7 @@ gulp.task('tsc', function() {
 					removeComments: false,
 					noImplicitAny: false
 				}))
-				.pipe(gulp.dest('dist'));
+				.pipe(gulp.dest('dist/app'));
 });
 
 gulp.task("tslint", function() {
@@ -32,4 +35,22 @@ gulp.task("tslint", function() {
 			emitError: false,
 			summarizeFailureOutput: true
 		}))
+});
+
+gulp.task("bundle", function() {
+    gulp.src("dist/app/main.js")
+        .pipe(gulp_jspm({inject: true, minify: true, mangle: true}))
+        .pipe(gulp.dest('dist/'))
+});
+
+gulp.task("polyfill", function() {
+    gulp.src([
+        'node_modules/core-js/client/shim.min.js',
+        'node_modules/zone.js/dist/zone.js',
+        'node_modules/reflect-metadata/Reflect.js',
+        'node_modules/systemjs/dist/system.src.js'
+    ])
+        .pipe(concat('polyfill.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest('dist/'))
 });
