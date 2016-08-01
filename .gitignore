@@ -1,5 +1,6 @@
 *.swp
 node_modules/
+jspm_packages/
 typings/
 dist/
 *.log

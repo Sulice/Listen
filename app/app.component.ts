@@ -1,11 +1,11 @@
-import { Component, ViewChild, Input, OnInit, OnDestroy } from "@angular/core";
+import { Component, ViewChild, Input, OnInit, OnDestroy, HostListener } from "@angular/core";
 import { SearchBarComponent } from "./search-bar.component";
 import { ResultsComponent } from "./results.component";
 import { PlayerComponent } from "./player.component";
 import { Track } from "./Track";
 import { SearchService } from "./search.service";
 import { ROUTER_DIRECTIVES, ActivatedRoute } from "@angular/router";
-import { Subscription } from "rxjs/Observable";
+import { Subscription } from "rxjs";
 
 @Component({
     selector: "listen-music-player",
@@ -66,6 +66,24 @@ export class AppComponent implements OnInit {
     onPlayTrack(src: string) {
         this.player.playedTrack = src;
         this.player.startSong();
+    }
+
+    @HostListener('window:keyup', ['$event'])
+    shortcut(e) {
+        if(document.activeElement != document.getElementById("searchInput")) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (e.keyCode == 75) {
+                this.player.pauseplay();
+            }
+            if (e.keyCode == 39 || e.keycode == 78) {
+                this.onNextSong();
+            }
+            if (e.keyCode == 37 || e.keycode == 80) {
+                this.onPrevSong();
+            }
+            return false;
+        }
     }
 
 }

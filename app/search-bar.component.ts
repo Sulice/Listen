@@ -12,7 +12,7 @@ import { CORE_DIRECTIVES } from "@angular/common";
     template: `
         <div class="search-bar">
             <div class="input-group">
-                <div (click)="smModal.show()" class="input-group-addon"><i class="glyphicon glyphicon-music"></i></div>
+                <div (click)="smModal.show()" class="input-group-addon"><i class="glyphicon glyphicon-question-sign"></i></div>
                 <input
                     id="searchInput"
                     autocomplete="off"
@@ -33,10 +33,13 @@ import { CORE_DIRECTIVES } from "@angular/common";
                 <button type="button" class="close" aria-label="Close" (click)="smModal.hide()">
                 <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title">Listen</h4>
+                <h4 class="modal-title">Listen : music player</h4>
             </div>
             <div class="modal-body">
                 Made by Niels Robin-Aubertin.<br>
+                <kbd>k</kbd> : Pause/Play<br>
+                <kbd>n</kbd> : Next song<br>
+                <kbd>p</kbd> : Previous song<br>
                 You can visit the github project <a href="https://github.com/Sulice/listen">here</a>.
             </div>
         </div>

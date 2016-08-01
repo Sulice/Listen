@@ -10,6 +10,9 @@ body {
 	max-width: 1024px;
 	width: 100%;
     overflow: hidden;
+    border-left: 1px solid lightgrey;
+    border-right: 1px solid lightgrey;
+    height: 100%;
 }
 .search-bar {
 	position: fixed;
@@ -17,6 +20,7 @@ body {
 	left: 50%;
 	transform: translateX(-50%);
 	width: 100%;
+	max-width: 1024px;
 	z-index: 10;
 }
 .results {

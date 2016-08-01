@@ -5,9 +5,7 @@ var gulp_jspm = require('gulp-jspm');
 var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
 
-gulp.task('default', function() {
-	console.log('plop');
-});
+gulp.task('default', ['bundle', 'polyfill']);
 
 gulp.task('tsc', function() {
 	return gulp.src([
@@ -37,7 +35,7 @@ gulp.task("tslint", function() {
 		}))
 });
 
-gulp.task("bundle", function() {
+gulp.task("bundle", ['tsc'], function() {
     gulp.src("dist/app/main.js")
         .pipe(gulp_jspm({inject: true, minify: true, mangle: true}))
         .pipe(gulp.dest('dist/'))
