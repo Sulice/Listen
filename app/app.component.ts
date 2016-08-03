@@ -43,14 +43,17 @@ export class AppComponent implements OnInit {
     }
 
     onNextSong() {
+        console.log(Date.now());
         let playing = document.querySelector(".active") as HTMLElement;
         let next = playing.nextElementSibling as HTMLElement;
         if (next != null) {
             let src = next.dataset["src"];
             this.results.currentTrack = src;
             this.onPlayTrack(src);
+            console.log(Date.now());
         }
     }
+
     onPrevSong() {
         let playing = document.querySelector(".active") as HTMLElement;
         let prev = playing.previousElementSibling as HTMLElement;
