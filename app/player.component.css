@@ -17,7 +17,7 @@
 	width: 0%; 
 	background-color: blue;
 	z-index: 40;
-	transition: all .5s linear;
+	transition: all 1s linear;
 }
 .timeline {
 	height: 3px;
@@ -27,7 +27,7 @@
 	width: 0%; 
 	background-color: red;
 	z-index: 50;
-	transition: all .5s linear;
+	transition: all 1s linear;
 }
 .navigation {
 	display: flex;
