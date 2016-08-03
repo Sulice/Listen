@@ -5,6 +5,8 @@ It's now a playing ground for sharpening my skills in angular2.
 
 **Project not finished**
 
+You can test it right now [here](http://nibou.eu/listen) !
+
 ### INSTALL
 Listen will search for you music from the DATA link at the root of the project.
 Just change this link to point it to your directory of choice.
@@ -14,5 +16,5 @@ ln -s ~/music/ DATA
 You'll need npm to build the project.
 ```
 npm install
-tsc
+npm run gulp
 ```
