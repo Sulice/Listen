@@ -76,10 +76,10 @@ export class AppComponent implements OnInit {
             if (e.keyCode == 75) {
                 this.player.pauseplay();
             }
-            if (e.keyCode == 39 || e.keycode == 78) {
+            if (e.keyCode == 39 || e.keyCode == 78) {
                 this.onNextSong();
             }
-            if (e.keyCode == 37 || e.keycode == 80) {
+            if (e.keyCode == 37 || e.keyCode == 80) {
                 this.onPrevSong();
             }
             return false;

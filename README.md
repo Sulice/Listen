@@ -18,3 +18,10 @@ You'll need npm to build the project.
 npm install
 npm run gulp
 ```
+
+### TODO
+- rework design of player
+- add replay button
+- add random function
+- some errors on next song sometimes
+- url needs to be an url string

@@ -9,7 +9,6 @@ body {
 	margin: 0 auto;
 	max-width: 1024px;
 	width: 100%;
-    overflow-x: hidden;
     border-left: 1px solid lightgrey;
     border-right: 1px solid lightgrey;
     height: 100%;
@@ -26,8 +25,9 @@ body {
 .results {
 	position: relative;
 	top: 35px;
-    margin-bottom: 50px;
+    margin-bottom: 25px;
     width: 100%;
+    overflow: hidden;
 }
 .alert-box {
     position: fixed;

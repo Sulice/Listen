@@ -27,9 +27,11 @@ export class PlayerComponent {
     @Output() onPrevSong = new EventEmitter<any>();
 
     nextSong() {
+        console.log("clicked next");
         this.onNextSong.emit(null);
     }
     prevSong() {
+        console.log("clicked previous");
         this.onPrevSong.emit(null);
     }
 
