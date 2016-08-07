@@ -4,15 +4,18 @@ import { Track } from "./Track";
 @Component({
   selector: "player",
   template: `
-      <div id="player">
-          <div class="timeline"></div>
-          <div class="loadline"></div>
-          <div [class.hidden]="playedTrack==null" class="navigation">
-              <div (click)="prevSong()" class="prev"><i class="glyphicon glyphicon-step-backward"></i></div>
-              <div (click)="pauseplay()" class="pauseplay"><i class="glyphicon" [class.glyphicon-play]="!isPlaying" [class.glyphicon-pause]="isPlaying"></i></div>
-              <div (click)="nextSong()" class="next"><i class="glyphicon glyphicon-step-forward"></i></div>
-          </div>
+  <div id="player" [class.hidden]="playedTrack==null">
+      <div class="navigation">
+          <div (click)="prevSong()" class="prev"><i class="glyphicon glyphicon-step-backward"></i></div>
+          <div (click)="pauseplay()" class="pauseplay"><i class="glyphicon" [class.glyphicon-play]="!isPlaying" [class.glyphicon-pause]="isPlaying"></i></div>
+          <div (click)="nextSong()" class="next"><i class="glyphicon glyphicon-step-forward"></i></div>
       </div>
+      <div class="lines">
+          <div class="line timeline"><!--<div class="cursor"></div>--></div>
+          <div class="line loadline"></div>
+          <div class="line placeholderline"></div>
+      </div>
+  </div>
     `,
   styleUrls: ["app/player.component.css"]
 })

@@ -1,47 +1,64 @@
 #player {
-	position: fixed;
-	bottom: 0px;
-	left: 50%;
-	width: 100%;
-	max-width: 1024px;
-	transform: translate(-50%, 0%);
-	z-index: 20;
-    border-left: 1px solid lightgrey;
-    border-right: 1px solid lightgrey;
+    position: relative;
+    top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: calc(100% - 0px);
+    max-width: 960px;
+    z-index: 20;
+    background: linear-gradient(180deg, white, #e6e6e6);
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    box-shadow: 0px 0px 3px #999;
+    padding: 5px 0px;
+}
+.lines {
+    width: calc(100% - 140px);
+    position: relative;
+    bottom: 4px;
+}
+.line {
+    height: 7px;
+    position: relative;
+    margin: 0px 10px;
+    top: 2px;
+    left: 0px;
+    transition: all 1s linear;
+    border-radius: 15px;
+    position: absolute;
+}
+.placeholderline {
+    z-index: 30;
+    background-color: lightgrey;
+    width: 100%;
 }
 .loadline {
-	height: 3px;
-	position: absolute;
-	bottom: 40px;
-	left: 0px;
-	width: 0%; 
-	background-color: blue;
-	z-index: 40;
-	transition: all 1s linear;
+    z-index: 40;
+	background-color: darkgrey;
 }
 .timeline {
-	height: 3px;
-	position: absolute;
-	bottom: 40px;
-	left: 0px;
-	width: 0%; 
-	background-color: red;
+    background-color: grey;
 	z-index: 50;
-	transition: all 1s linear;
+}
+.cursor {
+    width: 30px;
+    height: 10px;
+    background: black;
+    border-radius: 10px;
+    float: right;
 }
 .navigation {
-	display: flex;
-	position: absolute;
-	bottom: 0px;
-	left: 50%;
-	width: 100%;
-	max-width: 1024px;
-	transform: translate(-50%, 0%);
-	justify-content: space-around;
-	font-size: 30px;
-	padding: 5px 0px;
-	background: whitesmoke;
-	border-top: 1px dashed;
+    display: flex;
+    position: relative;
+    width: 80px;
+    max-width: 1024px;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 18px;
+    padding: 10px 0px;
+    color: #444;
+    margin: 0px 15px;
 }
 .not-active {
 	pointer-events: none;

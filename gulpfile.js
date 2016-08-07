@@ -5,6 +5,10 @@ var gulp_jspm = require('gulp-jspm');
 var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
 
+gulp.task('watch', function() {
+    gulp.watch('app/*.*', ['bundle']);
+});
+
 gulp.task('default', ['bundle', 'polyfill']);
 
 gulp.task('tsc', function() {
