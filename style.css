@@ -42,25 +42,45 @@ body {
     max-width: 100%;
     z-index: 30;
 }
-.loader_gray {
-    border-style: solid;
-    position: absolute;
-    top: 40%;
-    border-color: #F0F0F0 #D3D3D3 #B6B6B6 #999999;
-    animation: revolve 2s linear infinite;
+.spinner {
+  width: 40px;
+  height: 40px;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
-.large {
-    position: fixed;
-    top: calc(50% - 50px);
-    left: calc(50% - 50px);
-    width: 100px;
-    height: 100px;
-    border-radius: 100px;
-    border-width: 3px;
-} 
-@keyframes revolve
-{  
-    from { transform: rotate(0deg); }  
-    50%  { transform: rotate(180deg); }  
-    to   { transform: rotate(360deg); }  
+.double-bounce1, .double-bounce2 {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #333;
+  opacity: 0.6;
+  position: absolute;
+  top: 0;
+  left: 0;
+  
+  -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+  animation: sk-bounce 2.0s infinite ease-in-out;
+}
+
+.double-bounce2 {
+  -webkit-animation-delay: -1.0s;
+  animation-delay: -1.0s;
+}
+
+@-webkit-keyframes sk-bounce {
+  0%, 100% { -webkit-transform: scale(0.0) }
+  50% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes sk-bounce {
+  0%, 100% { 
+    transform: scale(0.0);
+    -webkit-transform: scale(0.0);
+  } 50% { 
+    transform: scale(1.0);
+    -webkit-transform: scale(1.0);
+  }
 }
