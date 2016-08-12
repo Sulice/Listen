@@ -81,9 +81,9 @@ export class SearchBarComponent {
 
     search(s: string) {
         history.replaceState({}, "", window.location.href.replace(/#.*/, "") + "#/" + s);
-        if (s.length < 1) {
-            return;
-        }
+        //if (s.length < 1) {
+        //    return;
+        //}
         this.searchService.search(s).subscribe(
             r => this.onFoundTracks.emit(r),
             error => this.addAlert(error, "danger", 60000)

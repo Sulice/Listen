@@ -25,22 +25,23 @@
 
 </head>
 <body>
+    <script>
+        document.getElementsByTagName('body')[0].style.backgroundColor = "lightgrey";
+        document.getElementsByTagName('body')[0].style.backgroundImage = "url(https://unsplash.it/"+window.innerWidth+"/"+window.innerHeight+"/?random)";
+        //document.getElementsByTagName('body')[0].style.backgroundImage = "url(https://images5.alphacoders.com/437/437769.jpg)";
+    </script>
+
     <main>
         <div class="spinner">
           <div class="double-bounce1"></div>
           <div class="double-bounce2"></div>
         </div>
     </main>
+
 	<script src="dist/main.bundle.js"></script>
 	<script>
 		System.import("app").catch(function(err){ console.error(err); });
 	</script>
-
-    <script>
-        //document.getElementsByTagName('body')[0].style.backgroundImage = "url(https://unsplash.it/"+window.innerWidth+"/"+window.innerHeight+"/?random)";
-        document.getElementsByTagName('body')[0].style.backgroundColor = "grey";
-        document.getElementsByTagName('body')[0].style.backgroundImage = "url(https://images5.alphacoders.com/437/437769.jpg)";
-    </script>
     <script src="vendor/jquery.nanoscroller.js" type="text/javascript"></script>
 </body>
 </html>

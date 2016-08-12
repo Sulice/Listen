@@ -11,11 +11,10 @@ import * as $ from 'jquery';
         <div class="results">
             <div class="nano">
                 <div class="nano-content">
-                    <table class="table table-hover table-bordered">
+                    <table>
                         <tr 
                             *ngFor="let track of tracks" 
                             [class.active]="currentTrack == track.src" 
-                            class="list-group-item" 
                             (click)="loadSong(track.src)" 
                             [attr.data-src]="track.src"
                         >
@@ -26,7 +25,8 @@ import * as $ from 'jquery';
                 </div>
             </div>
         </div>
-    `
+    `,
+    styleUrls: ["app/results.component.css"]
 })
 export class ResultsComponent {
     @Input() tracks: Track[] = [];

@@ -10,11 +10,11 @@ import { Subscription } from "rxjs";
 @Component({
     selector: "listen-music-player",
     template: `
+        <search-bar [query]="query" (onFoundTracks)="onFoundTracks($event)"></search-bar>
         <div class="main-app">
-            <search-bar [query]="query" (onFoundTracks)="onFoundTracks($event)"></search-bar>
             <results (onPlayTrack)="onPlayTrack($event)" [tracks]="tracks"></results>
-            <player (onPrevSong)="onPrevSong()" (onNextSong)="onNextSong()"></player>
         </div>
+        <player (onPrevSong)="onPrevSong()" (onNextSong)="onNextSong()"></player>
     `,
     directives: [SearchBarComponent, ResultsComponent, PlayerComponent, ROUTER_DIRECTIVES],
     providers: [SearchService]
