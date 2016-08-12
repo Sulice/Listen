@@ -13,6 +13,7 @@ System.config({
     "npm:*": "jspm_packages/npm/*",
     "node_modules*": "node_modules/*"
   },
+
   packages: {
     "dist/app": {
       "main": "main.js",
@@ -26,6 +27,10 @@ System.config({
     },
     "moment": {
       "main": "moment.js",
+      "defaultExtension": "js"
+    },
+    "jquery": {
+      "main": "jquery.js",
       "defaultExtension": "js"
     },
     "@angular/common": {
@@ -80,6 +85,7 @@ System.config({
     "babel-runtime": "npm:babel-runtime@5.8.38",
     "core-js": "npm:core-js@1.2.7",
     "moment": "node_modules/moment",
+    "jquery": "node_modules/jquery/dist",
     "ng2-bootstrap": "node_modules/ng2-bootstrap",
     "rxjs": "node_modules/rxjs",
     "github:jspm/nodelibs-assert@0.1.0": {
@@ -92,7 +98,7 @@ System.config({
       "path-browserify": "npm:path-browserify@0.0.0"
     },
     "github:jspm/nodelibs-process@0.1.2": {
-      "process": "npm:process@0.11.6"
+      "process": "npm:process@0.11.8"
     },
     "github:jspm/nodelibs-util@0.1.0": {
       "util": "npm:util@0.10.3"
@@ -129,7 +135,7 @@ System.config({
     "npm:path-browserify@0.0.0": {
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
-    "npm:process@0.11.6": {
+    "npm:process@0.11.8": {
       "assert": "github:jspm/nodelibs-assert@0.1.0",
       "fs": "github:jspm/nodelibs-fs@0.1.2",
       "vm": "github:jspm/nodelibs-vm@0.1.0"
