@@ -36,6 +36,7 @@ export class AppComponent implements OnInit {
                 this.searchBar.search(this.query);
             }
         });
+        this.new_bg();
     }
 
     ngOnDestroy() {
@@ -67,6 +68,12 @@ export class AppComponent implements OnInit {
         this.player.playedTrack = src;
         this.player.startSong();
     }
+        
+    new_bg() {
+        let wr:number = window.innerWidth+Math.floor(Math.random()*10);
+        let hr:number = window.innerHeight+Math.floor(Math.random()*10);
+        document.getElementsByTagName('body')[0].style.backgroundImage = "url(https://unsplash.it/"+wr+"/"+hr+"/?random)";
+    }
 
     @HostListener('window:keyup', ['$event'])
     shortcut(e) {
@@ -75,6 +82,9 @@ export class AppComponent implements OnInit {
             e.stopPropagation();
             if (e.keyCode == 75) {
                 this.player.pauseplay();
+            }
+            if (e.keyCode == 87) {
+                this.new_bg();
             }
             if (e.keyCode == 39 || e.keyCode == 78) {
                 this.onNextSong();

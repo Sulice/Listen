@@ -1,6 +1,8 @@
 <?php
 
-$dir = "DATA";
+$p = json_decode(file_get_contents("parameters.json"), true);
+
+$dir = $p['music_dir'];
 $s = $_GET['s'];
 
 if(preg_match("/^\s*$/",$s)==1) {
@@ -15,7 +17,7 @@ for($i=1;$i<count($s);$i++) {
 exec($command.' | head -n100', $output);
 sort($output, SORT_NATURAL);
 for($i=0;$i<count($output);$i++) {
-	$output[$i] = preg_replace("/\/srv\/http/","http://www.nibou.eu",$output[$i]);
+	$output[$i] = str_replace($p['root_dir'],$p['root_url'],$output[$i]);
 }
 
 $response = array("data"=>$output);

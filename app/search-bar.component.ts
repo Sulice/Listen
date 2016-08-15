@@ -9,49 +9,8 @@ import { CORE_DIRECTIVES } from "@angular/common";
 
 @Component({
     selector: "search-bar",
-    template: `
-        <div class="search-bar">
-            <div class="input-group">
-                <div (click)="smModal.show()" class="input-group-addon"><i class="glyphicon glyphicon-question-sign"></i></div>
-                <input
-                    id="searchInput"
-                    autocomplete="off"
-                    placeholder="search for songs"
-                    (keyup)="search(searchInput.value)"
-                    type="text"
-                    class="form-control"
-                    [value]="query"
-                    #searchInput
-                />
-            </div>
-        </div>
-<!-- Small modal -->
-<div bsModal #smModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" aria-label="Close" (click)="smModal.hide()">
-                <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title">Listen : music player</h4>
-            </div>
-            <div class="modal-body">
-                Made by Niels Robin-Aubertin.<br>
-                <kbd>k</kbd> : Pause/Play<br>
-                <kbd>n</kbd> : Next song<br>
-                <kbd>p</kbd> : Previous song<br>
-                You can visit the github project <a href="https://github.com/Sulice/listen">here</a>.
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Alerts -->
-<div class="alert-box">
-    <alert *ngFor="let alert of alerts;let i = index" [type]="alert.type" [dismissible]="true" [dismissOnTimeout]="alert.timeout" (close)="closeAlert(i)">
-      {{ alert?.msg }}
-    </alert>
-</div>
-    `,
+    templateUrl: "app/search-bar.component.html",
+    styleUrls: ['app/search-bar.component.css'],
     directives: [MODAL_DIRECTIVES, ModalDirective, AlertComponent, CORE_DIRECTIVES],
     viewProviders: [BS_VIEW_PROVIDERS]
 })
@@ -81,11 +40,18 @@ export class SearchBarComponent {
 
     search(s: string) {
         history.replaceState({}, "", window.location.href.replace(/#.*/, "") + "#/" + s);
-        //if (s.length < 1) {
-        //    return;
-        //}
+        if (s.length < 1) {
+            let e:any = document.querySelector('.search-bar')
+            e.style.top = "50%";
+            this.onFoundTracks.emit([]);
+            return;
+        }
         this.searchService.search(s).subscribe(
-            r => this.onFoundTracks.emit(r),
+            r => {
+                let e:any = document.querySelector('.search-bar')
+                e.style.top = "0";
+                this.onFoundTracks.emit(r);
+            },
             error => this.addAlert(error, "danger", 60000)
         );
     }
