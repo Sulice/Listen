@@ -83,7 +83,7 @@ export class AppComponent implements OnInit {
             if (e.keyCode == 75) {
                 this.player.pauseplay();
             }
-            if (e.keyCode == 87) {
+            if (e.keyCode == 87 && !e.ctrlKey) {
                 this.new_bg();
             }
             if (e.keyCode == 39 || e.keyCode == 78) {

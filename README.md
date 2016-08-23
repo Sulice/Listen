@@ -20,8 +20,8 @@ npm run gulp
 ```
 
 ### TODO
-- rework design of player
 - add replay button
+- add browsing function
 - add random function
 - some errors on next song sometimes
 - url needs to be an url string

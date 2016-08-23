@@ -1,5 +1,5 @@
 {
     "root_dir": "/data/samba/",
-    "root_url": "http://data.nibou.eu/",
+    "root_url": "https://data.nibou.eu/",
     "music_dir": "/data/samba/Music/"
 }
