@@ -11,7 +11,7 @@ import { Subscription } from "rxjs";
     selector: "listen-music-player",
     template: `
         <search-bar [query]="query" (onFoundTracks)="onFoundTracks($event)"></search-bar>
-        <div class="main-app">
+        <div class="main-app" [class.reduced]="player.playedTrack!=null">
             <results (onPlayTrack)="onPlayTrack($event)" [tracks]="tracks"></results>
         </div>
         <player (onPrevSong)="onPrevSong()" (onNextSong)="onNextSong()"></player>
@@ -83,7 +83,7 @@ export class AppComponent implements OnInit {
             if (e.keyCode == 75) {
                 this.player.pauseplay();
             }
-            if (e.keyCode == 87 && !e.ctrlKey) {
+            if (e.keyCode == 88 && !e.ctrlKey) {
                 this.new_bg();
             }
             if (e.keyCode == 39 || e.keyCode == 78) {

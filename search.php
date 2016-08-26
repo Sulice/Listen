@@ -17,7 +17,7 @@ for($i=1;$i<count($s);$i++) {
 exec($command.' | head -n100', $output);
 sort($output, SORT_NATURAL);
 for($i=0;$i<count($output);$i++) {
-	$output[$i] = str_replace($p['root_dir'],$p['root_url'],$output[$i]);
+	$output[$i] = str_replace($dir,$p['root_url'],$output[$i]);
 }
 
 $response = array("data"=>$output);
