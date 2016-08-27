@@ -6,12 +6,13 @@ import { Track } from "./Track";
   template: `
   <div id="player" [class.hidden]="playedTrack==null">
       <div class="navigation">
-          <div (click)="prevSong()" class="prev"><i class="glyphicon glyphicon-step-backward"></i></div>
+          <!--<div (click)="prevSong()" class="prev"><i class="glyphicon glyphicon-step-backward"></i></div>-->
           <div (click)="pauseplay()" class="pauseplay"><i class="glyphicon" [class.glyphicon-play]="!isPlaying" [class.glyphicon-pause]="isPlaying"></i></div>
-          <div (click)="nextSong()" class="next"><i class="glyphicon glyphicon-step-forward"></i></div>
+          <!--<div (click)="nextSong()" class="next"><i class="glyphicon glyphicon-step-forward"></i></div>-->
       </div>
+      <div class="time"></div>
       <div class="lines">
-          <div class="line timeline"><!--<div class="cursor"></div>--></div>
+          <div class="line timeline"><div class="cursor"></div></div>
           <div class="line loadline"></div>
           <div class="line placeholderline"></div>
       </div>
@@ -62,10 +63,10 @@ export class PlayerComponent {
         this.audioPlayer.play();
 
         this.pid = setInterval(() =>
-            this.timelineUpdate(this),
+            this.timeUpdate(this),
         1000);
     }
-    timelineUpdate(that) {
+    timeUpdate(that) {
         let song = that.audioPlayer;
         if (song.buffered.length !== 0) {
             let playPercent = 100 * (song.currentTime / song.duration);
@@ -77,7 +78,29 @@ export class PlayerComponent {
             if (playPercent >= 100) {
                 this.nextSong();
             }
+            let time = document.querySelector("#player .time") as HTMLElement;
+            time.innerHTML = this.toTimeString(song.currentTime) + " / " + this.toTimeString(song.duration);
         }
+    }
+    toTimeString(t: number): string {
+
+        t = Math.floor(t);
+        let m = Math.floor(t/60);
+        let s = t % 60;
+        let ms: string = "";
+        let ss: string = "";
+
+        if(m < 10) {
+            ms = "0" + m.toString();
+        } else {
+            ms = m.toString();
+        }
+        if(s < 10) {
+            ss = "0" + s.toString();
+        } else {
+            ss = s.toString();
+        }
+        return ms + ":" + ss;
     }
 
 }

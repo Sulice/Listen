@@ -8,7 +8,9 @@ It's now a playing ground for sharpening my skills in angular2.
 You can test it right now [here](http://nibou.eu/listen) !
 
 ### INSTALL
+
 Listen will search for you music in the directory specified in parameters.json.
+
 You'll have to specify also the root url to replace the path of the music directory.
 
 npm is needed to build the project.
