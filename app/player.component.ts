@@ -18,7 +18,7 @@ import { Track } from "./Track";
       </div>
   </div>
     `,
-  styleUrls: ["app/player.component.css"]
+  styleUrls: ["player.component.css"]
 })
 export class PlayerComponent {
     @Input() playedTrack: string;
@@ -62,11 +62,11 @@ export class PlayerComponent {
         }
         this.audioPlayer.play();
 
-        this.pid = setInterval(() =>
+        this.pid = window.setInterval(() =>
             this.timeUpdate(this),
         1000);
     }
-    timeUpdate(that) {
+    timeUpdate(that:any) {
         let song = that.audioPlayer;
         if (song.buffered.length !== 0) {
             let playPercent = 100 * (song.currentTime / song.duration);

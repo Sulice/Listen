@@ -2,17 +2,12 @@ import { Component, EventEmitter, Output, ViewChild, Input } from "@angular/core
 import { SearchService } from "./search.service";
 import { Track } from "./Track";
 import { Observable } from "rxjs/Observable";
-import { MODAL_DIRECTIVES, BS_VIEW_PROVIDERS } from "ng2-bootstrap/ng2-bootstrap";
-import { AlertComponent } from "ng2-bootstrap/ng2-bootstrap";
-import { ModalDirective } from "ng2-bootstrap/components/modal";
-import { CORE_DIRECTIVES } from "@angular/common";
+import { ModalDirective, ModalModule, AlertModule } from "ng2-bootstrap";
 
 @Component({
     selector: "search-bar",
-    templateUrl: "app/search-bar.component.html",
-    styleUrls: ['app/search-bar.component.css'],
-    directives: [MODAL_DIRECTIVES, ModalDirective, AlertComponent, CORE_DIRECTIVES],
-    viewProviders: [BS_VIEW_PROVIDERS]
+    templateUrl: "search-bar.component.html",
+    styleUrls: ['search-bar.component.css'],
 })
 export class SearchBarComponent {
     @Output() onFoundTracks = new EventEmitter<Track[]>();

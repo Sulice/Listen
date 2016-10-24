@@ -3,7 +3,8 @@
 import { Component, Input, Output, EventEmitter, AfterViewInit} from "@angular/core";
 import { Track } from "./Track";
 import { SearchService } from "./search.service";
-import * as $ from 'jquery';
+//import * as $ from 'jquery';
+declare var $:JQueryStatic;
 
 @Component({
     selector: "results",
@@ -26,7 +27,7 @@ import * as $ from 'jquery';
             </div>
         </div>
     `,
-    styleUrls: ["app/results.component.css"]
+    styleUrls: ["results.component.css"]
 })
 export class ResultsComponent {
     @Input() tracks: Track[] = [];

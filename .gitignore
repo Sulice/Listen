@@ -1,6 +1,8 @@
 *.swp
 node_modules/
-jspm_packages/
 typings/
 dist/
+aot/
 *.log
+app/*.js
+app/*.js.map

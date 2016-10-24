@@ -6,6 +6,7 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     background-color: lightgrey;
+    background-image: url('https://slack.unsplash.com/img/search.jpg');
 }
 .main-app {
     position: fixed;

@@ -1,8 +1,9 @@
 {
   "globalDependencies": {
-    "core-js": "registry:dt/core-js#0.0.0+20160602141332",
-    "jquery": "registry:dt/jquery#1.10.0+20160704162008",
-    "moment": "registry:dt/moment#2.8.0+20160316155526",
-    "moment-node": "registry:dt/moment-node#2.11.1+20160511043338"
+    "core-js": "registry:dt/core-js",
+    "jquery": "registry:dt/jquery",
+    "moment": "registry:dt/moment",
+    "jasmine": "registry:dt/jasmine",
+    "node": "registry:dt/node"
   }
 }
