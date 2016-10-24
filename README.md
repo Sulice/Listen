@@ -15,13 +15,12 @@ You'll have to specify also the root url to replace the path of the music direct
 
 npm is needed to build the project.
 ```
-npm install
-npm run gulp
+./install.sh
 ```
 
 ### TODO
+- rework design
 - add replay button
 - add browsing function
 - add random function
 - some errors on next song sometimes
-- url needs to be an url string
