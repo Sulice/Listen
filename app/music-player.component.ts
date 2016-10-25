@@ -32,8 +32,9 @@ export class MusicPlayerComponent implements OnInit {
 
     ngOnInit() {
         this.sub = this.route.params.subscribe(params => {
-            this.query = decodeURI(params["query"]) || "";
-            if (this.query !== "") {
+            this.query = params["query"] || "";
+            if (this.query !== "" && this.query !== undefined && this.query !== null) {
+                this.query = decodeURI(this.query);
                 this.searchBar.search(this.query);
             }
         });

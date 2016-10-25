@@ -34,7 +34,12 @@ export class SearchBarComponent {
     constructor(public searchService: SearchService) {}
 
     search(s: string) {
-        history.replaceState({}, "", window.location.href.replace(/#.*/, "") + "#/" + encodeURI(s));
+        if (s !== undefined && s !== "" && s !== null) {
+            s = encodeURI(s);
+        } else {
+            s = "";
+        }
+        history.replaceState({}, "", window.location.href.replace(/#.*/, "") + "#/" + s);
         if (s.length < 1) {
             let e:any = document.querySelector('.search-bar')
             e.style.top = "50%";

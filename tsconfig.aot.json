@@ -9,12 +9,12 @@
         "removeComments": false,
         "noImplicitAny": true,
         "suppressImplicitAnyIndexErrors": true,
-        "types":[]
+        "typeRoots": [ "./node_modules/@types/" ],
+        "types":["node", "jquery", "moment", "core-js", "rx"]
     },
     "files": [
         "app/app.module.ts",
-        "app/main.ts",
-        "./typings/index.d.ts"
+        "app/main.ts"
     ],
     "angularCompilerOptions": {
         "genDir": "aot",

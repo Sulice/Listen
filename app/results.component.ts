@@ -1,9 +1,6 @@
-/// <reference path="../typings/index.d.ts" />
-
 import { Component, Input, Output, EventEmitter, AfterViewInit} from "@angular/core";
 import { Track } from "./Track";
 import { SearchService } from "./search.service";
-//import * as $ from 'jquery';
 declare var $:JQueryStatic;
 
 @Component({
