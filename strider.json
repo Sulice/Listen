@@ -1,0 +1,13 @@
+{
+    "plugins": [
+        {
+            "id": "custom",
+            "enabled": true,
+            "showStatus": true,
+            "config": {
+                "prepare": ".scripts/prepare.sh",
+                "test": ".scripts/test.sh"
+            }
+        }
+    ]
+}
