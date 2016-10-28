@@ -5,7 +5,6 @@
   "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "typings": "typings",
     "gulp": "gulp",
     "ngc": "node_modules/.bin/ngc -p tsconfig.aot.json",
     "rollup": "node_modules/.bin/rollup -c rollup-config.js"
