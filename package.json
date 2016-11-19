@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "gulp": "gulp",
     "ngc": "node_modules/.bin/ngc -p tsconfig.aot.json",
-    "rollup": "node_modules/.bin/rollup -c rollup-config.js"
+    "rollup": "node_modules/.bin/rollup -c rollup-config.js",
+    "build": "npm run ngc && npm run rollup"
   },
   "repository": {
     "type": "git",

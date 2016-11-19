@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Track } from "./Track";
+import { File } from "./File";
 import { Http, Response } from "@angular/http";
 
 // Statics
@@ -16,15 +16,21 @@ export class SearchService {
 
     constructor(private http: Http) {}
 
+    browse(s: string) {
+        console.log(s);
+        return this.http.get("browse.php?s=" + s).map(this.extractData).catch(this.handleError);
+    }
+
     search(s: string) {
+        console.log(s);
         return this.http.get("search.php?s=" + s).map(this.extractData).catch(this.handleError);
     }
 
     private extractData(res: Response) {
         let body = res.json().data || {};
-        let tl: Track[] = [];
+        let tl: File[] = [];
         for (let i = 0; i < body.length; i++ ) {
-            tl.push(new Track(body[i]));
+            tl.push(new File(body[i]));
         }
         return tl || { };
     }

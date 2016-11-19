@@ -3,7 +3,7 @@
 $p = json_decode(file_get_contents("parameters.json"), true);
 
 $dir = $p['music_dir'];
-$s = $_GET['s'];
+$s = urldecode($_GET['s']);
 
 if(preg_match("/^\s*$/",$s)==1) {
 	exit;

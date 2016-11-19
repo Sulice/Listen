@@ -1,10 +1,10 @@
 import { Component, Input, Output, EventEmitter} from "@angular/core";
-import { Track } from "./Track";
+import { File } from "./File";
 
 @Component({
   selector: "player",
   template: `
-  <div id="player" [class.hidden]="playedTrack==null">
+  <div id="player" [class.hidden]="playedSong==null">
       <div class="navigation">
           <!--<div (click)="prevSong()" class="prev"><i class="glyphicon glyphicon-step-backward"></i></div>-->
           <div (click)="pauseplay()" class="pauseplay"><i class="glyphicon" [class.glyphicon-play]="!isPlaying" [class.glyphicon-pause]="isPlaying"></i></div>
@@ -21,7 +21,7 @@ import { Track } from "./Track";
   styleUrls: ["player.component.css"]
 })
 export class PlayerComponent {
-    @Input() playedTrack: string;
+    @Input() playedSong: string;
     isPlaying: boolean = false;
     audioPlayer: HTMLAudioElement;
     playPercent: number = 0;
@@ -48,17 +48,18 @@ export class PlayerComponent {
         }
     }
     startSong() {
+        console.log(this.playedSong);
         if (typeof(this.audioPlayer) !== "undefined") {
             this.audioPlayer.pause(),
             clearInterval(this.pid);
         }
         this.isPlaying = true;
-        let t: Track = new Track(this.playedTrack);
-        document.getElementsByTagName("title")[0].innerHTML = t.title;
+        let t: File = new File(this.playedSong);
+        document.getElementsByTagName("title")[0].innerHTML = t.name;
         if (typeof(this.audioPlayer) === "undefined") {
-            this.audioPlayer = new Audio(this.playedTrack);
+            this.audioPlayer = new Audio(this.playedSong);
         } else {
-            this.audioPlayer.src = this.playedTrack;
+            this.audioPlayer.src = this.playedSong;
         }
         this.audioPlayer.play();
 
@@ -102,5 +103,4 @@ export class PlayerComponent {
         }
         return ms + ":" + ss;
     }
-
 }

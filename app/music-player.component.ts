@@ -2,7 +2,7 @@ import { Component, ViewChild, Input, OnInit, OnDestroy, HostListener, ViewConta
 import { SearchBarComponent } from "./search-bar.component";
 import { ResultsComponent } from "./results.component";
 import { PlayerComponent } from "./player.component";
-import { Track } from "./Track";
+import { File } from "./File";
 import { SearchService } from "./search.service";
 import { Subscription } from "rxjs";
 import { ActivatedRoute } from '@angular/router';
@@ -10,19 +10,20 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
     selector: "music-player",
     template: `
-        <search-bar [query]="query" (onFoundTracks)="onFoundTracks($event)"></search-bar>
-        <div class="main-app" [class.reduced]="player.playedTrack!=null">
-            <results (onPlayTrack)="onPlayTrack($event)" [tracks]="tracks"></results>
+        <search-bar [query]="query" (onFoundFiles)="onFoundFiles($event)"></search-bar>
+        <div class="main-app" [class.reduced]="player.playedSong!=null">
+            <results (onPlaySong)="onPlaySong($event)" (onOpenDir)="onOpenDir($event)" [files]="files"></results>
         </div>
         <player (onPrevSong)="onPrevSong()" (onNextSong)="onNextSong()"></player>
     `
 })
 export class MusicPlayerComponent implements OnInit {
-    tracks: Track[] = [];
+    files: File[] = [];
     @ViewChild(PlayerComponent) player: PlayerComponent;
     @ViewChild(ResultsComponent) results: ResultsComponent;
     @ViewChild(SearchBarComponent) searchBar: SearchBarComponent;
     query: string;
+    mode: string;
     private sub: Subscription;
     private viewContainerRef: ViewContainerRef;
 
@@ -33,10 +34,24 @@ export class MusicPlayerComponent implements OnInit {
     ngOnInit() {
         this.sub = this.route.params.subscribe(params => {
             this.query = params["query"] || "";
+            this.mode = params["mode"] || "";
             if (this.query !== "" && this.query !== undefined && this.query !== null) {
-                this.query = decodeURI(this.query);
-                this.searchBar.search(this.query);
+                this.query = decodeURIComponent(this.query);
             }
+            switch (this.mode) {
+                case "s":
+                    this.searchBar.selectMode("s");
+                    this.searchBar.search(this.query);
+                    break;
+                case "b":
+                    this.searchBar.selectMode("b");
+                    this.searchBar.browse(this.query);
+                    break;
+                default:
+                    console.log("unknown mode");
+                    break;
+            }
+            console.log(this.mode, this.query);
         });
     }
 
@@ -50,8 +65,8 @@ export class MusicPlayerComponent implements OnInit {
         let next = playing.nextElementSibling as HTMLElement;
         if (next != null) {
             let src = next.dataset["src"];
-            this.results.currentTrack = src;
-            this.onPlayTrack(src);
+            this.results.currentSong = src;
+            this.onPlaySong(src);
         }
     }
     onPrevSong() {
@@ -62,13 +77,19 @@ export class MusicPlayerComponent implements OnInit {
         }
     }
 
-    onFoundTracks(t: Track[]) {
-        this.tracks = t;
+    onFoundFiles(t: File[]) {
+        this.files = t;
+    }
+    
+    onPlaySong(src: string) {
+        this.player.playedSong = src;
+        this.player.startSong();
     }
 
-    onPlayTrack(src: string) {
-        this.player.playedTrack = src;
-        this.player.startSong();
+    onOpenDir(src: string) {
+        console.log("open dir" + src);
+        this.searchBar.selectMode("b");
+        this.searchBar.browse(src);
     }
 
     @HostListener('window:keyup', ['$event'])

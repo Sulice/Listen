@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, AfterViewInit} from "@angular/core";
-import { Track } from "./Track";
+import { File } from "./File";
 import { SearchService } from "./search.service";
 declare var $:JQueryStatic;
 
@@ -11,13 +11,14 @@ declare var $:JQueryStatic;
                 <div class="nano-content">
                     <table>
                         <tr 
-                            *ngFor="let track of tracks" 
-                            [class.active]="currentTrack == track.src" 
-                            (click)="loadSong(track.src)" 
-                            [attr.data-src]="track.src"
+                            *ngFor="let file of files" 
+                            [class.active]="currentSong == file.src" 
+                            (click)="selectFile(file.src)" 
+                            [attr.data-src]="file.src"
                         >
-                            <h6>{{track.artist}} - {{track.album}}</h6>
-                            <h5>{{track.title}}</h5>
+                            <h6 *ngIf="file.artist.length > 0">{{file.artist}} - {{file.album}}</h6>
+                            <i *ngIf="file.artist.length == 0" class="glyphicon glyphicon-folder-close fileIcon"></i>
+                            <h5>{{file.name}}</h5>
                         </tr>
                     </table>
                 </div>
@@ -27,9 +28,10 @@ declare var $:JQueryStatic;
     styleUrls: ["results.component.css"]
 })
 export class ResultsComponent {
-    @Input() tracks: Track[] = [];
-    @Output() onPlayTrack = new EventEmitter<string>();
-    currentTrack: string;
+    @Input() files: File[] = [];
+    @Output() onPlaySong = new EventEmitter<string>();
+    @Output() onOpenDir = new EventEmitter<string>();
+    currentSong: string;
 
     constructor(public searchService: SearchService) {}
 
@@ -40,9 +42,19 @@ export class ResultsComponent {
         }, 1000);
     }
 
-    loadSong(src: string) {
-        this.currentTrack = src;
-        this.onPlayTrack.emit(this.currentTrack);
+    selectFile(src: string) {
+        console.log(src);
+        if(src.match(/\.mp3$/)) {
+            console.log("read song");
+            this.loadSong(src);
+        } else {
+            console.log("opendir");
+            this.onOpenDir.emit(src);
+        }
     }
 
+    loadSong(src: string) {
+        this.currentSong = src;
+        this.onPlaySong.emit(this.currentSong);
+    }
 }

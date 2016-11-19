@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output, ViewChild, Input } from "@angular/core";
 import { SearchService } from "./search.service";
-import { Track } from "./Track";
+import { File } from "./File";
 import { Observable } from "rxjs/Observable";
 import { ModalDirective, ModalModule, AlertModule } from "ng2-bootstrap";
 
@@ -10,9 +10,43 @@ import { ModalDirective, ModalModule, AlertModule } from "ng2-bootstrap";
     styleUrls: ['search-bar.component.css'],
 })
 export class SearchBarComponent {
-    @Output() onFoundTracks = new EventEmitter<Track[]>();
+    @Output() onFoundFiles = new EventEmitter<File[]>();
     @ViewChild("childModal") public childModal: ModalDirective;
     @Input() query: string;
+    mode: string = "s";
+    path: string = "";
+
+    selectMode(mode : string): void {
+        switch (mode) {
+            case "s":
+                this.mode = "s";
+                document.querySelector('.search-bar .modeToggle > i').classList.remove("glyphicon-search");
+                document.querySelector('.search-bar .modeToggle > i').classList.add("glyphicon-folder-close");
+                document.getElementById('searchInput').removeAttribute("disabled");
+                this.path = "";
+                break;
+            case "b":
+                this.mode = "b";
+                document.querySelector('.search-bar .modeToggle > i').classList.add("glyphicon-search");
+                document.querySelector('.search-bar .modeToggle > i').classList.remove("glyphicon-folder-close");
+                document.getElementById('searchInput').setAttribute("disabled","true");
+                break;
+            default:
+                console.log("unknown mode");
+                break;
+        }
+        console.log(this.mode);
+    }
+
+    alternateMode(): void {
+        if(this.mode == "s") {
+            this.selectMode("b");
+            this.browse("");
+        } else {
+            this.selectMode("s");
+            this.search("");
+        }
+    }
 
     showChildModal(): void {
         this.childModal.show();
@@ -32,25 +66,44 @@ export class SearchBarComponent {
     alerts: Array<Object> = [];
 
     constructor(public searchService: SearchService) {}
-
-    search(s: string) {
+    
+    browse(s: string) {
         if (s !== undefined && s !== "" && s !== null) {
-            s = encodeURI(s);
+            s = encodeURIComponent(s.replace(/\s+/gi," "));
         } else {
             s = "";
         }
-        history.replaceState({}, "", window.location.href.replace(/#.*/, "") + "#/" + s);
+        console.log(s);
+        history.replaceState({}, "", window.location.href.replace(/#.*/, "") + "#/b/" + s);
+        this.searchService.browse(s).subscribe(
+            r => {
+                console.log(r);
+                let e:any = document.querySelector('.search-bar')
+                e.style.top = "0";
+                this.onFoundFiles.emit(r);
+            },
+            error => this.addAlert(error, "danger", 60000)
+        );
+    }
+
+    search(s: string) {
+        if (s !== undefined && s !== "" && s !== null) {
+            s = encodeURIComponent(s.replace(/\s+/gi," "));
+        } else {
+            s = "";
+        }
+        history.replaceState({}, "", window.location.href.replace(/#.*/, "") + "#/s/" + s);
         if (s.length < 1) {
             let e:any = document.querySelector('.search-bar')
             e.style.top = "50%";
-            this.onFoundTracks.emit([]);
+            this.onFoundFiles.emit([]);
             return;
         }
         this.searchService.search(s).subscribe(
             r => {
                 let e:any = document.querySelector('.search-bar')
                 e.style.top = "0";
-                this.onFoundTracks.emit(r);
+                this.onFoundFiles.emit(r);
             },
             error => this.addAlert(error, "danger", 60000)
         );

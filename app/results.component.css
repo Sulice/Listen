@@ -18,3 +18,9 @@
     overflow-x: hidden;
     height: 100%;
 }
+.fileIcon {
+    float: left;
+    margin-right: 10px;
+    position: relative;
+    top: 8px;
+}

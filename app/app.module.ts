@@ -15,7 +15,8 @@ import { PlayerComponent } from "./player.component";
 import { SearchService } from "./search.service";
 
 const routes: Routes = [
-    { path: ":query", component: MusicPlayerComponent },
+    { path: ":mode/:query", component: MusicPlayerComponent },
+    { path: ":mode", component: MusicPlayerComponent },
     { path: "", component: MusicPlayerComponent }
 ];
 
