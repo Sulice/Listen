@@ -9,7 +9,7 @@ import "rxjs/add/observable/throw";
 import "rxjs/add/operator/catch";
 import "rxjs/add/operator/map";
 
-import { Observable }       from "rxjs/Observable";
+import { Observable } from "rxjs/Observable";
 
 @Injectable()
 export class SearchService {
@@ -17,20 +17,19 @@ export class SearchService {
     constructor(private http: Http) {}
 
     browse(s: string) {
-        console.log(s);
         return this.http.get("browse.php?s=" + s).map(this.extractData).catch(this.handleError);
     }
 
     search(s: string) {
-        console.log(s);
         return this.http.get("search.php?s=" + s).map(this.extractData).catch(this.handleError);
     }
 
     private extractData(res: Response) {
         let body = res.json().data || {};
         let tl: File[] = [];
-        for (let i = 0; i < body.length; i++ ) {
-            tl.push(new File(body[i]));
+        let s = body[0];
+        for (let i = 1; i < body.length; i++ ) {
+            tl.push(new File(body[i], s));
         }
         return tl || { };
     }

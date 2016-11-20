@@ -11,6 +11,7 @@ import { MusicPlayerComponent } from "./music-player.component";
 import { SearchBarComponent } from "./search-bar.component";
 import { ResultsComponent } from "./results.component";
 import { PlayerComponent } from "./player.component";
+import { FileComponent } from "./file.component";
 
 import { SearchService } from "./search.service";
 
@@ -34,7 +35,8 @@ const routes: Routes = [
       MusicPlayerComponent,
       SearchBarComponent,
       ResultsComponent,
-      PlayerComponent
+      PlayerComponent,
+      FileComponent
   ],
   providers: [
       SearchService

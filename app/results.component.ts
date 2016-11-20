@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter, AfterViewInit} from "@angular/core";
+import { FileComponent } from "./file.component";
 import { File } from "./File";
 import { SearchService } from "./search.service";
 declare var $:JQueryStatic;
@@ -10,16 +11,14 @@ declare var $:JQueryStatic;
             <div class="nano">
                 <div class="nano-content">
                     <table>
-                        <tr 
+                        <file 
                             *ngFor="let file of files" 
                             [class.active]="currentSong == file.src" 
                             (click)="selectFile(file.src)" 
                             [attr.data-src]="file.src"
+                            [file]="file"
                         >
-                            <h6 *ngIf="file.artist.length > 0">{{file.artist}} - {{file.album}}</h6>
-                            <i *ngIf="file.artist.length == 0" class="glyphicon glyphicon-folder-close fileIcon"></i>
-                            <h5>{{file.name}}</h5>
-                        </tr>
+                        </file>
                     </table>
                 </div>
             </div>
@@ -43,12 +42,9 @@ export class ResultsComponent {
     }
 
     selectFile(src: string) {
-        console.log(src);
         if(src.match(/\.mp3$/)) {
-            console.log("read song");
             this.loadSong(src);
         } else {
-            console.log("opendir");
             this.onOpenDir.emit(src);
         }
     }

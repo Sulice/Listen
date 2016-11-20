@@ -2,6 +2,7 @@ import { Component, ViewChild, Input, OnInit, OnDestroy, HostListener, ViewConta
 import { SearchBarComponent } from "./search-bar.component";
 import { ResultsComponent } from "./results.component";
 import { PlayerComponent } from "./player.component";
+import { FileComponent } from "./file.component";
 import { File } from "./File";
 import { SearchService } from "./search.service";
 import { Subscription } from "rxjs";
@@ -51,7 +52,6 @@ export class MusicPlayerComponent implements OnInit {
                     console.log("unknown mode");
                     break;
             }
-            console.log(this.mode, this.query);
         });
     }
 
@@ -60,7 +60,6 @@ export class MusicPlayerComponent implements OnInit {
     }
 
     onNextSong() {
-        console.log('received next event');
         let playing = document.querySelector(".active") as HTMLElement;
         let next = playing.nextElementSibling as HTMLElement;
         if (next != null) {
@@ -87,7 +86,6 @@ export class MusicPlayerComponent implements OnInit {
     }
 
     onOpenDir(src: string) {
-        console.log("open dir" + src);
         this.searchBar.selectMode("b");
         this.searchBar.browse(src);
     }

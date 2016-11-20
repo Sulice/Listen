@@ -7,19 +7,33 @@ $s = urldecode($_GET['s']);
 
 // prevent going back in dir tree
 $s = preg_replace('/\/\.\.\//',"",$s);
-$s = str_replace($dir,"",$s);
+if($s[0] != "/") {
+    $s = "/".$s;
+}
 
 $location = $dir.$s;
 $entries = scandir($location);
 $display = [];
+$display[] = $s;
 foreach($entries as $e) {
 	if(pathinfo($e, PATHINFO_EXTENSION) == "mp3" || is_dir($location."/".$e)) {
-		if($e != "." && $e != "..") {
+		if($e != ".") {
             if(pathinfo($e, PATHINFO_EXTENSION) == "mp3") {
                 $e = preg_replace("/\/+/","/",$location."/".$e);
                 $display[] = str_replace($dir,$p['root_url'],$e);
             } else {
-                $display[] = preg_replace("/\/+/","/",$location."/".$e);
+                if($e == "..") {
+                    if($s != "" && $s != "/") {
+                        $e = preg_replace("/\/[\w\s]+\/?$/","",$s);
+                        if($e == "") {
+                            $e = "/";
+                        }
+                        $display[] = str_replace($dir,"/",$e);
+                    }
+                } else {
+                    $e = preg_replace("/\/+/","/",$location."/".$e);
+                    $display[] = str_replace($dir,"/",$e);
+                }
             }
 		}
 	}

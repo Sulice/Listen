@@ -65,3 +65,6 @@ body {
     -webkit-transform: scale(1.0);
   }
 }
+.active tr {
+    background: rgba(0, 0, 0, 0.85) !important;
+}
