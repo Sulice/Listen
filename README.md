@@ -22,6 +22,7 @@ npm is needed to build the project.
 ### TODO
 - rework design (material would be great)
 - add replay button
-- add browsing function
 - add random function
+- catch errors
 - some errors on next song sometimes
+- playlists ?
