@@ -24,7 +24,7 @@ foreach($entries as $e) {
             } else {
                 if($e == "..") {
                     if($s != "" && $s != "/") {
-                        $e = preg_replace("/\/[\w\s]+\/?$/","",$s);
+                        $e = preg_replace("/\/[^\/]+\/?$/","",$s);
                         if($e == "") {
                             $e = "/";
                         }

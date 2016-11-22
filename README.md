@@ -24,5 +24,7 @@ npm is needed to build the project.
 - add replay button
 - add random function
 - catch errors
+- TypeError: Cannot read property 'nextElementSibling' of null
+- Failed to load resource: net::ERR_CONTENT_LENGTH_MISMATCH
 - some errors on next song sometimes
 - playlists ?

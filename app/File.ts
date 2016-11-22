@@ -24,7 +24,7 @@ export class File {
             this.artist = "";
             this.album = "";
             this.name = str.replace(/.*\/(.*)$/, "$1/").replace(/\.\w+$/, "");
-            if(path != null && path.length > str.length) {
+            if(path != null && path.length >= str.length) {
                 this.icon = "dirIcon glyphicon-level-up";
             } else {
                 this.icon = "dirIcon glyphicon-folder-close";
