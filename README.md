@@ -18,9 +18,14 @@ npm is needed to build the project.
 ```
 ./install.sh
 ```
+### Requirements
+_The requirements are probably lower but I only tested it with those._
+- PHP 7+
+- GNU Coreutils
+- NPM 3+
 
 ### TODO
-- rework design (material would be great)
+- rework design
 - add replay button
 - add random function
 - catch errors

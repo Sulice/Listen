@@ -28,8 +28,13 @@ export class SearchService {
         let body = res.json().data || {};
         let tl: File[] = [];
         let s = body[0];
-        for (let i = 1; i < body.length; i++ ) {
-            tl.push(new File(body[i], s));
+        if(s == "") {
+            s = "/";
+        }
+        for (let i = 0; i < body.length; i++ ) {
+            if(body[i] != "") {
+                tl.push(new File(body[i], s));
+            }
         }
         return tl || { };
     }
