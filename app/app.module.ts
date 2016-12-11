@@ -4,8 +4,6 @@ import { Routes, RouterModule }   from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
 
-import { Ng2BootstrapModule } from 'ng2-bootstrap';
-
 import { AppComponent } from "./app.component";
 import { MusicPlayerComponent } from "./music-player.component";
 import { SearchBarComponent } from "./search-bar.component";
@@ -24,7 +22,6 @@ const routes: Routes = [
 @NgModule({
   imports: [ 
       BrowserModule,
-      Ng2BootstrapModule,
       HttpModule,
       JsonpModule,
       FormsModule,

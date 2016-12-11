@@ -10,7 +10,7 @@ import { File } from "./File";
             <h5>{{this.file.name}}</h5>
         </tr>
     `,
-    styleUrls: ["file.component.css"]
+    styleUrls: ["file.component.scss"]
 })
 export class FileComponent {
     @Input() file: File;

@@ -2,16 +2,14 @@ import { Component, EventEmitter, Output, ViewChild, Input } from "@angular/core
 import { SearchService } from "./search.service";
 import { File } from "./File";
 import { Observable } from "rxjs/Observable";
-import { ModalDirective, ModalModule, AlertModule } from "ng2-bootstrap";
 
 @Component({
     selector: "search-bar",
     templateUrl: "search-bar.component.html",
-    styleUrls: ['search-bar.component.css'],
+    styleUrls: ['search-bar.component.scss'],
 })
 export class SearchBarComponent {
     @Output() onFoundFiles = new EventEmitter<File[]>();
-    @ViewChild("childModal") public childModal: ModalDirective;
     @Input() query: string;
     mode: string = "s";
 
@@ -47,23 +45,6 @@ export class SearchBarComponent {
         }
     }
 
-    showChildModal(): void {
-        this.childModal.show();
-    }
-
-    hideChildModal(): void {
-        this.childModal.hide();
-    }
-
-    closeAlert(i: number): void {
-        this.alerts.splice(i, 1);
-    }
-
-    addAlert(text: string, alertType: string, time: number): void {
-        this.alerts.push({msg: text, type: alertType, timeout: time});
-    }
-    alerts: Array<Object> = [];
-
     constructor(public searchService: SearchService) {}
     
     browse(s: string) {
@@ -81,7 +62,7 @@ export class SearchBarComponent {
                 e.style.top = "0";
                 this.onFoundFiles.emit(r);
             },
-            error => this.addAlert(error, "danger", 60000)
+            error => console.log(error)
         );
     }
 
@@ -104,7 +85,7 @@ export class SearchBarComponent {
                 e.style.top = "0";
                 this.onFoundFiles.emit(r);
             },
-            error => this.addAlert(error, "danger", 60000)
+            error => console.log(error)
         );
     }
 }

@@ -18,7 +18,7 @@ import { File } from "./File";
       </div>
   </div>
     `,
-  styleUrls: ["player.component.css"]
+  styleUrls: ["player.component.scss"]
 })
 export class PlayerComponent {
     @Input() playedSong: string;

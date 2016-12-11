@@ -24,7 +24,7 @@ declare var $:JQueryStatic;
             </div>
         </div>
     `,
-    styleUrls: ["results.component.css"]
+    styleUrls: ["results.component.scss"]
 })
 export class ResultsComponent {
     @Input() files: File[] = [];
