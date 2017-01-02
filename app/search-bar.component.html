@@ -1,16 +1,16 @@
 <div class="search-bar">
-    <div class="input-group">
-        <div class="input-group-addon"><i class="glyphicon glyphicon-question-sign"></i></div>
-        <input
-            id="searchInput"
-            autocomplete="off"
-            placeholder="search for songs"
-            (keyup)="search(searchInput.value)"
-            type="text"
-            class="form-control"
-            [value]="query"
-            #searchInput
-        />
-        <div (click)="alternateMode()" class="input-group-addon modeToggle"><i class="glyphicon glyphicon-folder-close"></i></div>
+    <div class="search-icon">
+        <i class="fa fa-search"></i>
     </div>
+    <input
+        id="searchInput"
+        autocomplete="off"
+        placeholder="search for songs"
+        (keyup)="search(searchInput.value)"
+        type="text"
+        class="form-control"
+        [value]="query"
+        #searchInput
+    />
+    <div (click)="alternateMode()" class="modeToggle">Toggle Mode</div>
 </div>

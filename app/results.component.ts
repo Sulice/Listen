@@ -10,7 +10,7 @@ declare var $:JQueryStatic;
         <div class="results">
             <div class="nano">
                 <div class="nano-content">
-                    <table>
+                    <div class="file_list">
                         <file 
                             *ngFor="let file of files" 
                             [class.active]="currentSong == file.src" 
@@ -19,12 +19,11 @@ declare var $:JQueryStatic;
                             [file]="file"
                         >
                         </file>
-                    </table>
+                    </div>
                 </div>
             </div>
         </div>
-    `,
-    styleUrls: ["results.component.scss"]
+    `
 })
 export class ResultsComponent {
     @Input() files: File[] = [];

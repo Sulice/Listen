@@ -5,26 +5,27 @@ import { Observable } from "rxjs/Observable";
 
 @Component({
     selector: "search-bar",
-    templateUrl: "search-bar.component.html",
-    styleUrls: ['search-bar.component.scss'],
+    templateUrl: "search-bar.component.html"
 })
 export class SearchBarComponent {
     @Output() onFoundFiles = new EventEmitter<File[]>();
     @Input() query: string;
     mode: string = "s";
 
+    constructor(private searchService: SearchService) {}
+
     selectMode(mode : string): void {
         switch (mode) {
             case "s":
                 this.mode = "s";
-                document.querySelector('.search-bar .modeToggle > i').classList.remove("glyphicon-search");
-                document.querySelector('.search-bar .modeToggle > i').classList.add("glyphicon-folder-close");
+                //document.querySelector('.search-bar .modeToggle > i').classList.remove("glyphicon-search");
+                //document.querySelector('.search-bar .modeToggle > i').classList.add("glyphicon-folder-close");
                 document.getElementById('searchInput').removeAttribute("disabled");
                 break;
             case "b":
                 this.mode = "b";
-                document.querySelector('.search-bar .modeToggle > i').classList.add("glyphicon-search");
-                document.querySelector('.search-bar .modeToggle > i').classList.remove("glyphicon-folder-close");
+                //document.querySelector('.search-bar .modeToggle > i').classList.add("glyphicon-search");
+                //document.querySelector('.search-bar .modeToggle > i').classList.remove("glyphicon-folder-close");
                 document.getElementById('searchInput').setAttribute("disabled","true");
                 break;
             default:
@@ -44,8 +45,6 @@ export class SearchBarComponent {
             this.query = "";
         }
     }
-
-    constructor(public searchService: SearchService) {}
     
     browse(s: string) {
         if (s !== undefined && s !== "" && s !== null) {

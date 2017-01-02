@@ -6,8 +6,9 @@ export class File {
     type: string;
     icon: string;
     class: string;
+    duration: string;
 
-    constructor(str: string, path?: string) {
+    constructor(str: string, duration?:string, path?: string) {
 
         if(str.match(/\.mp3$/)) {
             this.type = "song";
@@ -19,7 +20,10 @@ export class File {
             this.artist = str.replace(/.*\/([^\/]*)\/([^\/]*)\/.*$/, "$1");
             this.album = str.replace(/.*\/([^\/]*)\/.*$/, "$1");
             this.name = str.replace(/.*\/(.*)$/, "$1").replace(/\.\w+$/, "");
-            this.icon = "glyphicon-music";
+            this.icon = "fa-play";
+            if(duration) {
+                this.duration = duration;
+            }
         } else {
             this.artist = "";
             this.album = "";
@@ -30,7 +34,7 @@ export class File {
                 this.icon = "dirIcon glyphicon-folder-close";
             }
         }
-        this.class = "glyphicon fileIcon " + this.icon;
+        this.class = "fa fileIcon " + this.icon;
         this.src = str;
     }
 }

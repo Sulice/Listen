@@ -11,8 +11,14 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
     selector: "music-player",
     template: `
+        <div id="logo">
+            <h1>LISTEN</h1>
+            <svg>
+                <path d="M4 47h11v19H4zm17-35h10v54H21zm17 13h10v41H38zM54 4h11v62H54zm17 8h11v54H71zm17 23h11v31H88z"/>
+            </svg>
+        </div>
         <search-bar [query]="query" (onFoundFiles)="onFoundFiles($event)"></search-bar>
-        <div class="main-app" [class.reduced]="player.playedSong!=null">
+        <div class="main-app">
             <results (onPlaySong)="onPlaySong($event)" (onOpenDir)="onOpenDir($event)" [files]="files"></results>
         </div>
         <player (onPrevSong)="onPrevSong()" (onNextSong)="onNextSong()"></player>

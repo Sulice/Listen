@@ -1,70 +1,190 @@
 body {
-	padding: 0;
-	margin: 0;
-	width: 100%;
-	height: 100%;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-color: #7fa0db;
-    background-image: url('https://slack.unsplash.com/img/search.jpg');
-}
-.main-app {
-    position: fixed;
-    margin: 0 auto;
-    max-width: 600px;
-    max-height: 600px;
+    padding: 0;
+    margin: 0;
     width: 100%;
     height: 100%;
+    background-color: #1A1A1A;
+}
+#logo {
+    color: white;
+    fill: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#logo h1 {
+    font-size: 2.4rem;
+    margin: .5rem 0;
+}
+#logo svg {
+    transform: scale(0.5);
+    height: 5rem;
+    width: 100px;
+    margin: 0px -20px -3px -20px;
+}
+.search-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.search-bar .search-icon {
+    font-size: 1.1em;
+    color: #F7A71B;
+    padding: 11px 7px 10px 10px;
+    background: white;
+}
+.search-bar .search-icon svg {
+    fill: white;
+}
+.search-bar input {
+    font-size: 1.2em;
+    padding: 8px;
+    border: none;
+    font-weight: bold;
+    outline: none;
+    border-radius: 0px;
+}
+.main-app {
+    max-width: 500px;
+    width: calc(100% - 1rem);
+    height: calc(100% - 77px - 38px - 3rem - 50px);
+    margin: 25px auto 25px auto;
+}
+.spinner {
+    width: 40px;
+    height: 40px;
+
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
-.reduced {
-    top: calc(50% - 38px);
-    height: calc(100% - 76px);
+.file {
+    color: white;
+    max-width: 100%;
+    padding: 1rem 1rem 1rem 0rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
 }
-.spinner {
-  width: 40px;
-  height: 40px;
-
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.file:hover {
+    background-color: rgba(255,255,255,0.1);
+}
+.file .text-description {
+    width: 80%;
+    overflow: hidden;
+}
+.file .artist {
+    font-size: 1.3rem;
+    width: 8000px;
+    text-transform: uppercase;
+}
+.file .description {
+    width: calc(100% - 35px);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.file .album {
+    font-size: 0.9rem;
+    font-weight: lighter;
+}
+.file .title {
+    font-size: 0.9rem;
+    font-weight: lighter;
+}
+.active .file {
+    color: #F7A71B !important;
+}
+.file_list {
+    width: calc(100% - 15px);
+    overflow: hidden;
+}
+.fileIcon {
+    float: left;
+    margin: 15px;
+    font-size: 1.3em;
+}
+#player {
+    width: 100%;
+    height: 3rem;
+    background: #F7A71B;
+    max-width: 600px;
+    margin: 0 auto;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 10px;
+    box-sizing: border-box;
 }
 .double-bounce1, .double-bounce2 {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background-color: #333;
-  opacity: 0.6;
-  position: absolute;
-  top: 0;
-  left: 0;
-  
-  -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
-  animation: sk-bounce 2.0s infinite ease-in-out;
-}
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #F7A71B;
+    opacity: 0.6;
+    position: absolute;
+    top: 0;
+    left: 0;
 
+    -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+    animation: sk-bounce 2.0s infinite ease-in-out;
+}
 .double-bounce2 {
-  -webkit-animation-delay: -1.0s;
-  animation-delay: -1.0s;
+    -webkit-animation-delay: -1.0s;
+    animation-delay: -1.0s;
 }
-
 @-webkit-keyframes sk-bounce {
-  0%, 100% { -webkit-transform: scale(0.0) }
-  50% { -webkit-transform: scale(1.0) }
+    0%, 100% { -webkit-transform: scale(0.0) }
+    50% { -webkit-transform: scale(1.0) }
 }
-
 @keyframes sk-bounce {
-  0%, 100% { 
-    transform: scale(0.0);
-    -webkit-transform: scale(0.0);
-  } 50% { 
-    transform: scale(1.0);
-    -webkit-transform: scale(1.0);
-  }
+    0%, 100% { 
+        transform: scale(0.0);
+        -webkit-transform: scale(0.0);
+    } 50% { 
+        transform: scale(1.0);
+        -webkit-transform: scale(1.0);
+    }
 }
-.active tr {
-    background: rgba(0, 0, 0, 0.85) !important;
+.modeToggle {
+    display: none;
+}
+.pauseplay, .navigation, .time, .lines {
+    display: inline-block;
+}
+.lines {
+    width: 100%;
+    margin-left: 15px;
+}
+.time {
+    margin: 0px 15px;
+}
+.timeline {
+    height: 0px;
+    display: inline-block;
+}
+.cursor {
+    float: right;
+    background: #F7A71B;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 100%;
+    position: relative;
+    left: 1rem;
+    bottom: calc(0.2rem + 3px);
+    border: 2px solid white;
+    box-sizing: border-box;
+}
+.placeholderline {
+    background: white;
+    width: 100%;
+    height: 4px;
+}
+.loadline, .prev, .next {
+    display: none;
+}
+.navigation {
+    margin-left: 15px;
 }

@@ -31,9 +31,9 @@ export class SearchService {
         if(s == "") {
             s = "/";
         }
-        for (let i = 0; i < body.length; i++ ) {
+        for (let i = 0; i < body.length; i+=2 ) {
             if(body[i] != "") {
-                tl.push(new File(body[i], s));
+                tl.push(new File(body[i], body[i+1], s));
             }
         }
         return tl || { };

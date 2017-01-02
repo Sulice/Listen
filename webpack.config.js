@@ -22,17 +22,7 @@ module.exports = {
         rules: [
             {
                 test: /\.ts$/,
-                enforce: "pre",
-                include: "/app",
-                use: "tslint-loader"
-            },
-            {
-                test: /\.ts$/,
                 use: "@ngtools/webpack",
-            },
-            {
-                test: /\.scss$/,
-                use: ["raw-loader", "sass-loader"]
             },
             {
                 test: /\.html$/,
@@ -50,20 +40,6 @@ module.exports = {
 
         new webpack.LoaderOptionsPlugin({
             options: {
-
-                // https://github.com/wbuchwalter/tslint-loader#usage
-                tslint: {
-                    configuration: {
-                        rules: {
-                            quotemark: [true, 'double']
-                        }
-                    },
-                    typeCheck: false,
-                    configFile: 'tsconfig.aot.json',
-                    emitErrors: true,
-                    failOnHint: true,        
-                },
-                
                 context: path.resolve(__dirname, './'),          // must evaluate to root of project
             }
         }),

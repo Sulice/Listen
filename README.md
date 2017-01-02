@@ -33,3 +33,4 @@ _The requirements are probably lower but I only tested it with those._
 - Failed to load resource: net::ERR_CONTENT_LENGTH_MISMATCH
 - some errors on next song sometimes
 - playlists ?
+- don't search if the search term didn't change

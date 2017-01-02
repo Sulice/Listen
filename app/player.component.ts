@@ -4,21 +4,20 @@ import { File } from "./File";
 @Component({
   selector: "player",
   template: `
-  <div id="player" [class.hidden]="playedSong==null">
-      <div class="navigation">
-          <!--<div (click)="prevSong()" class="prev"><i class="glyphicon glyphicon-step-backward"></i></div>-->
-          <div (click)="pauseplay()" class="pauseplay"><i class="glyphicon" [class.glyphicon-play]="!isPlaying" [class.glyphicon-pause]="isPlaying"></i></div>
-          <!--<div (click)="nextSong()" class="next"><i class="glyphicon glyphicon-step-forward"></i></div>-->
-      </div>
-      <div class="time"></div>
-      <div class="lines">
-          <div class="line timeline"><div class="cursor"></div></div>
-          <div class="line loadline"></div>
-          <div class="line placeholderline"></div>
-      </div>
-  </div>
-    `,
-  styleUrls: ["player.component.scss"]
+<div id="player" [class.hidden]="playedSong==null">
+    <div class="navigation">
+        <div (click)="prevSong()" class="prev"><i class="fa fa-backward"></i></div>
+        <div (click)="pauseplay()" class="pauseplay"><i class="fa" [class.fa-play]="!isPlaying" [class.fa-pause]="isPlaying"></i></div>
+        <div (click)="nextSong()" class="next"><i class="fa fa-forward"></i></div>
+    </div>
+    <div class="lines">
+        <div class="line timeline"><div class="cursor"></div></div>
+        <div class="line loadline"></div>
+        <div class="line placeholderline"></div>
+    </div>
+    <div class="time"></div>
+</div>
+    `
 })
 export class PlayerComponent {
     @Input() playedSong: string;
@@ -77,7 +76,7 @@ export class PlayerComponent {
                 this.nextSong();
             }
             let time = document.querySelector("#player .time") as HTMLElement;
-            time.innerHTML = this.toTimeString(song.currentTime) + " / " + this.toTimeString(song.duration);
+            time.innerHTML = this.toTimeString(song.currentTime); // + " / " + this.toTimeString(song.duration);
         }
     }
     toTimeString(t: number): string {
@@ -88,7 +87,7 @@ export class PlayerComponent {
         let ms: string = "";
         let ss: string = "";
 
-        if(m < 10) {
+        if(m < 10 && m != 0) {
             ms = "0" + m.toString();
         } else {
             ms = m.toString();
