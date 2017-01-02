@@ -11,6 +11,8 @@ export class SearchBarComponent {
     @Output() onFoundFiles = new EventEmitter<File[]>();
     @Input() query: string;
     mode: string = "s";
+    searchTerm: string = "";
+    request: Observable<string>;
 
     constructor(private searchService: SearchService) {}
 
@@ -57,8 +59,6 @@ export class SearchBarComponent {
         history.replaceState({}, "", window.location.href.replace(/#.*/, "") + "#/b/" + s);
         this.searchService.browse(s).subscribe(
             r => {
-                let e:any = document.querySelector('.search-bar')
-                e.style.top = "0";
                 this.onFoundFiles.emit(r);
             },
             error => console.log(error)
@@ -71,20 +71,31 @@ export class SearchBarComponent {
         } else {
             s = "";
         }
+        if(this.searchTerm == s) {
+            // nothing changed, false alert.
+            return;
+        }
         history.replaceState({}, "", window.location.href.replace(/#.*/, "") + "#/s/" + s);
+        this.searchTerm = s;
         if (s.length < 1) {
-            let e:any = document.querySelector('.search-bar')
-            e.style.top = "50%";
             this.onFoundFiles.emit([]);
             return;
         }
-        this.searchService.search(s).subscribe(
-            r => {
-                let e:any = document.querySelector('.search-bar')
-                e.style.top = "0";
-                this.onFoundFiles.emit(r);
-            },
-            error => console.log(error)
-        );
+        let that:any = this;
+        let request: Observable<string> = this.searchService.search(s);
+        window.setTimeout(function() {
+            console.log(that.searchTerm, s);
+            if(that.searchTerm == s) {
+                that.request = request;
+                request.subscribe(
+                    r => {
+                        if(that.searchTerm == s) {
+                            that.onFoundFiles.emit(r);
+                        }
+                    },
+                    error => console.log(error)
+                );
+            }
+        }, 200);
     }
 }

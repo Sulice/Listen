@@ -45,7 +45,6 @@ $response = array("data"=>$results);
 header('Content-Type: text/json; charset=UTF-8');
 echo(json_encode($response));
 
-
 // stolen from http://www.zedwood.com/article/php-calculate-duration-of-mp3
 class MP3File
 {
