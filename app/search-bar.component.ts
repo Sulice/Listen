@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, ViewChild, Input } from "@angular/core";
+import { Component, EventEmitter, Output, ViewChild, Input, OnInit } from "@angular/core";
 import { SearchService } from "./search.service";
 import { File } from "./File";
 import { Observable } from "rxjs/Observable";
@@ -15,6 +15,11 @@ export class SearchBarComponent {
     request: Observable<string>;
 
     constructor(private searchService: SearchService) {}
+
+    ngOnInit() {
+        let input = document.getElementById('searchInput');
+        input.focus();
+    }
 
     selectMode(mode : string): void {
         switch (mode) {
@@ -84,7 +89,6 @@ export class SearchBarComponent {
         let that:any = this;
         let request: Observable<string> = this.searchService.search(s);
         window.setTimeout(function() {
-            console.log(that.searchTerm, s);
             if(that.searchTerm == s) {
                 that.request = request;
                 request.subscribe(

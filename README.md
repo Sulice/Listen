@@ -16,7 +16,8 @@ Listen will search for you music in the directory specified in parameters.json.
 You'll have to specify also the root url to replace the path of the music directory.  
 npm is needed to build the project.
 ```
-./install.sh
+npm i
+npm run build
 ```
 ### Requirements
 _The requirements are probably lower but I only tested it with those._
@@ -26,6 +27,7 @@ _The requirements are probably lower but I only tested it with those._
 
 ### TODO
 - rework design
+- tslint
 - add replay button
 - add random function
 - catch errors
@@ -33,4 +35,3 @@ _The requirements are probably lower but I only tested it with those._
 - Failed to load resource: net::ERR_CONTENT_LENGTH_MISMATCH
 - some errors on next song sometimes
 - playlists ?
-- don't search if the search term didn't change
