@@ -13,6 +13,7 @@ if(preg_match("/^\s*$/",$s)==1) {
 // first we separate terms of search (with spaces)
 $s = explode(" ",$s);
 
+
 // find all mp3 files
 $command = 'find '.$dir.' -type f -name "*.mp3"';
 
@@ -36,8 +37,7 @@ $results = [];
 for($i=0;$i<count($output);$i++) {
 	$results[] = str_replace($dir,$p['root_url'],$output[$i]);
     $mp3file = new fastMP3File($output[$i]);
-    $duration = $mp3file->getDuration();
-    $results[] = fastMP3File::formatTime($duration);
+    $results[] = $mp3file->getDuration();
 }
 
 // output result as json
@@ -66,9 +66,16 @@ class fastMP3File {
     //Read entire file, frame by frame... ie: Variable Bit Rate (VBR)
     public function getDuration() {
         $fd = fopen($this->filename, "rb");
- 
+        // return 0 if not readable.
+        if($fd === false) {
+            return 0;
+        }
         $duration=0;
         $block = fread($fd, 100);
+        // return 0 if filesize under 100 bytes.
+        if(strlen($block) < 100) {
+            return 0;
+        }
         $offset = $this->skipID3v2Tag($block);
         fseek($fd, $offset, SEEK_SET);
         $i = 0;
@@ -100,9 +107,9 @@ class fastMP3File {
         fseek($fd, -1, SEEK_END);
         $p2 = ftell($fd);
         $frames = $i * $p2/$p1;
-        $duration = $avgFrameSize * $frames;
+        $duration = intval($avgFrameSize * $frames);
 
-        return round($duration);
+        return $duration;
     }
  
     private function estimateDuration($bitrate,$offset) {

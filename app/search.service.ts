@@ -32,7 +32,8 @@ export class SearchService {
             s = "/";
         }
         for (let i = 0; i < body.length; i+=2 ) {
-            if(body[i] != "") {
+            // if the file has a length of 0, skip it.
+            if(body[i] != "" && body[i+1] != 0) {
                 tl.push(new File(body[i], body[i+1], s));
             }
         }
