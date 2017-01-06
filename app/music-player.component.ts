@@ -43,7 +43,7 @@ export class MusicPlayerComponent implements OnInit {
             this.query = params["query"] || "";
             this.mode = params["mode"] || "";
             if (this.query !== "" && this.query !== undefined && this.query !== null) {
-                this.query = decodeURIComponent(this.query);
+                this.query = decodeURIComponent(this.query).replace(/\+/g," ");
             }
             switch (this.mode) {
                 case "s":

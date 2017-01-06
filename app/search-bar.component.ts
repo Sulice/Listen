@@ -56,7 +56,7 @@ export class SearchBarComponent {
     browse(s: string) {
         if (s !== undefined && s !== "" && s !== null) {
             this.query = s;
-            s = encodeURIComponent(s.replace(/\s+/gi," "));
+            s = encodeURI(s.replace(/\s+/gi,"+"));
         } else {
             this.query = "";
             s = "";
@@ -72,7 +72,7 @@ export class SearchBarComponent {
 
     search(s: string) {
         if (s !== undefined && s !== "" && s !== null) {
-            s = encodeURIComponent(s.replace(/\s+/gi," "));
+            s = encodeURI(s.replace(/\s+/g,"+"));
         } else {
             s = "";
         }
@@ -100,6 +100,6 @@ export class SearchBarComponent {
                     error => console.log(error)
                 );
             }
-        }, 200);
+        }, 300);
     }
 }

@@ -28,17 +28,19 @@ body {
     justify-content: center;
 }
 .search-bar .search-icon {
-    font-size: 1.1em;
+    font-size: 1.2rem;
     color: #F7A71B;
-    padding: 11px 7px 10px 10px;
+    padding: 0.69rem;
     background: white;
+    border: none;
+    outline: none;
 }
 .search-bar .search-icon svg {
     fill: white;
 }
 .search-bar input {
-    font-size: 1.2em;
-    padding: 8px;
+    font-size: 1.2rem;
+    padding: 0.6rem;
     border: none;
     font-weight: bold;
     outline: none;
@@ -46,8 +48,8 @@ body {
 }
 .main-app {
     max-width: 500px;
-    width: calc(100% - 1rem);
-    height: calc(100% - 77px - 38px - 3rem - 50px);
+    width: calc(100vw - 1rem);
+    height: calc(100vh - 77px - 38px - 3rem - 50px);
     margin: 25px auto 25px auto;
 }
 .spinner {
@@ -58,6 +60,11 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+@media (max-width: 500px) {
+    .file {
+        padding: 1rem 0rem 1rem 0rem !important;
+    }
 }
 .file {
     color: white;
@@ -74,24 +81,26 @@ body {
     width: 80%;
     overflow: hidden;
 }
-.file .artist {
-    font-size: 1.3rem;
-    width: 8000px;
-    text-transform: uppercase;
-}
 .file .description {
-    width: calc(100% - 35px);
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-around;
 }
+.file .artist {
+    font-size: 1rem;
+    width: 8000px;
+    text-transform: uppercase;
+}
 .file .album {
     font-size: 0.9rem;
     font-weight: lighter;
+    width: 8000px;
 }
 .file .title {
     font-size: 0.9rem;
     font-weight: lighter;
+    width: 8000px;
 }
 .active .file {
     color: #F7A71B !important;
@@ -100,10 +109,18 @@ body {
     width: calc(100% - 15px);
     overflow: hidden;
 }
+@media (max-width: 500px) {
+    .fileIcon {
+        display: none;
+    }
+}
 .fileIcon {
     float: left;
-    margin: 15px;
-    font-size: 1.3em;
+    font-size: 1em;
+    visibility: hidden;
+}
+.active .file .fileIcon {
+    visibility: visible !important;
 }
 #player {
     width: 100%;

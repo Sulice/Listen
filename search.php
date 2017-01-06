@@ -13,7 +13,6 @@ if(preg_match("/^\s*$/",$s)==1) {
 // first we separate terms of search (with spaces)
 $s = explode(" ",$s);
 
-
 // find all mp3 files
 $command = 'find '.$dir.' -type f -name "*.mp3"';
 
@@ -26,7 +25,7 @@ for($i=0;$i<count($s);$i++) {
 $command = $command.' | sort -fiu';
 
 // only keep the first results (this is done to minimize memory usage and maximize speed)
-$command = $command.' | head -n100';
+$command = $command.' | head -n50';
 
 // execute command
 exec($command, $output);
@@ -89,8 +88,8 @@ class fastMP3File {
                 if (empty($info[0])) { return $duration; } //some corrupt mp3 files
                 $i++;
                 $avgFrameSize = ($info[2]/$info[1] + $avgFrameSize*($i-1)) / $i;
-                // 4000 seems to be a nice balance between speed and accuracy
-                if($i > 4000) {
+                // 2000 seems to be a nice balance between speed and accuracy
+                if($i > 2000) {
                     break;
                 }
                 fseek($fd, $info[0]-10, SEEK_CUR);
