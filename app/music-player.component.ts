@@ -67,18 +67,23 @@ export class MusicPlayerComponent implements OnInit {
 
     onNextSong() {
         let playing = document.querySelector(".active") as HTMLElement;
-        let next = playing.nextElementSibling as HTMLElement;
-        if (next != null) {
-            let src = next.dataset["src"];
-            this.results.currentSong = src;
-            this.onPlaySong(src);
+        if (playing) {
+            let next = playing.nextElementSibling as HTMLElement;
+            if (next) {
+                //let src = next.dataset["src"];
+                //this.results.currentSong = src;
+                //this.onPlaySong(src);
+                this.results.loadSong(next.dataset["src"]);
+            }
         }
     }
     onPrevSong() {
         let playing = document.querySelector(".active") as HTMLElement;
-        let prev = playing.previousElementSibling as HTMLElement;
-        if (prev != null) {
-            this.results.loadSong(prev.dataset["src"]);
+        if (playing) {
+            let prev = playing.previousElementSibling as HTMLElement;
+            if (prev != null) {
+                this.results.loadSong(prev.dataset["src"]);
+            }
         }
     }
 

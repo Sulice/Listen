@@ -31,7 +31,5 @@ _The requirements are probably lower but I only tested it with those._
 - add replay button
 - add random function
 - catch errors
-- TypeError: Cannot read property 'nextElementSibling' of null
-- Failed to load resource: net::ERR_CONTENT_LENGTH_MISMATCH
-- some errors on next song sometimes
+- nginx: net::ERR_CONTENT_LENGTH_MISMATCH
 - playlists ?
