@@ -70,9 +70,6 @@ export class MusicPlayerComponent implements OnInit {
         if (playing) {
             let next = playing.nextElementSibling as HTMLElement;
             if (next) {
-                //let src = next.dataset["src"];
-                //this.results.currentSong = src;
-                //this.onPlaySong(src);
                 this.results.loadSong(next.dataset["src"]);
             }
         }

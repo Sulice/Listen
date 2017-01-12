@@ -13,6 +13,7 @@ export class SearchBarComponent {
     mode: string = "s";
     searchTerm: string = "";
     request: Observable<string>;
+    requestStartTime: number;
 
     constructor(private searchService: SearchService) {}
 
@@ -91,9 +92,12 @@ export class SearchBarComponent {
         window.setTimeout(function() {
             if(that.searchTerm == s) {
                 that.request = request;
+                that.requestStartTime = Date.now();
                 request.subscribe(
                     r => {
                         if(that.searchTerm == s) {
+                            let duration:number = Date.now() - that.requestStartTime;
+                            console.log("request duration : "+duration+"ms");
                             that.onFoundFiles.emit(r);
                         }
                     },

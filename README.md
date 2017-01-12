@@ -19,6 +19,7 @@ npm is needed to build the project.
 npm i
 npm run build
 ```
+
 ### Requirements
 _The requirements are probably lower but I only tested it with those._
 - PHP 7+
@@ -26,10 +27,16 @@ _The requirements are probably lower but I only tested it with those._
 - NPM 3+
 
 ### TODO
+- add current song index in url
+- add dynamic search placeholder
+- add seeking through song feature
+- readd browsing
 - rework design
 - tslint
+- review compilation chain
 - add replay button
 - add random function
-- catch errors
-- nginx: net::ERR_CONTENT_LENGTH_MISMATCH
+- net::ERR_CONTENT_LENGTH_MISMATCH [is it a nginx issue ?]
+- Uncaught (in promise) DOMException: The play() request was interrupted by a call to pause(). [when rapidly doing next/previous]
 - playlists ?
+- add keyboard shortcut to center view on current song
