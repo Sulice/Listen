@@ -6,14 +6,11 @@ import { File } from "./File";
   template: `
 <div id="player" [class.hidden]="playedSong==null">
     <div class="navigation">
-        <div (click)="prevSong()" class="prev"><i class="fa fa-backward"></i></div>
         <div (click)="pauseplay()" class="pauseplay"><i class="fa" [class.fa-play]="!isPlaying" [class.fa-pause]="isPlaying"></i></div>
-        <div (click)="nextSong()" class="next"><i class="fa fa-forward"></i></div>
     </div>
     <div class="lines">
         <div class="line timeline"><div class="cursor"></div></div>
-        <div class="line loadline"></div>
-        <div class="line placeholderline"></div>
+        <div (click)="seekTo($event)" class="line placeholderline"></div>
     </div>
     <div class="time"></div>
 </div>
@@ -34,6 +31,13 @@ export class PlayerComponent {
     }
     prevSong() {
         this.onPrevSong.emit(null);
+    }
+
+    seekTo(evt: any) {
+        let lines: HTMLElement = document.querySelector("#player .lines") as HTMLElement;
+        let p: number = (evt.pageX - lines.offsetLeft) / lines.offsetWidth;
+        let song  = this.audioPlayer;
+        song.currentTime = song.duration*p;
     }
 
     pauseplay() {
@@ -70,8 +74,6 @@ export class PlayerComponent {
             let loadPercent = 100 * (song.buffered.end(0) / song.duration);
             let timeline = document.querySelector("#player .timeline") as HTMLElement;
             timeline.style.width = playPercent + "%";
-            let loadline = document.querySelector("#player .loadline") as HTMLElement;
-            loadline.style.width = loadPercent + "%";
             if (playPercent >= 100) {
                 this.nextSong();
             }
