@@ -8,9 +8,9 @@ import { File } from "./File";
     <div class="navigation">
         <div (click)="pauseplay()" class="pauseplay"><i class="fa" [class.fa-play]="!isPlaying" [class.fa-pause]="isPlaying"></i></div>
     </div>
-    <div class="lines">
+    <div (click)="seekTo($event)" class="lines">
         <div class="line timeline"><div class="cursor"></div></div>
-        <div (click)="seekTo($event)" class="line placeholderline"></div>
+        <div class="line placeholderline"></div>
     </div>
     <div class="time"></div>
 </div>

@@ -28,14 +28,13 @@ _The requirements are probably lower but I only tested it with those._
 
 ### TODO
 - add current song index in url
-- add dynamic search placeholder
-- add seeking through song feature
-- readd browsing
+- re-add browsing
 - rework design
 - tslint
 - review compilation chain
 - add replay button
 - add random function
+- add dynamic search placeholder
 - net::ERR_CONTENT_LENGTH_MISMATCH [is it a nginx issue ?]
 - Uncaught (in promise) DOMException: The play() request was interrupted by a call to pause(). [when rapidly doing next/previous]
 - playlists ?
