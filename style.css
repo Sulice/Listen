@@ -166,7 +166,7 @@ body {
 .modeToggle {
     display: none;
 }
-.pauseplay {
+.pauseplay, .repeat {
     height: 3rem;
     width: 3rem;
     cursor: pointer;
@@ -174,14 +174,21 @@ body {
     justify-content: center;
     align-items: center;
 }
-.navigation, .time, .lines {
-    display: inline-block;
+.repeat {
+	width: 2rem;
+}
+.on {
+	color: black;
+}
+.navigation {
+    display: flex;
 }
 .lines {
     width: 100%;
 	height: 100%;
 	position: relative;
 	cursor: pointer;
+	margin-left: 1rem;
 }
 .time {
     height: 3rem;

@@ -32,7 +32,6 @@ _The requirements are probably lower but I only tested it with those._
 - rework design
 - tslint
 - review compilation chain
-- add replay button
 - add random function
 - add dynamic search placeholder
 - net::ERR_CONTENT_LENGTH_MISMATCH [is it a nginx issue ?]

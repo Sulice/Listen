@@ -7,6 +7,7 @@ import { File } from "./File";
 <div id="player" [class.hidden]="playedSong==null">
     <div class="navigation">
         <div (click)="pauseplay()" class="pauseplay"><i class="fa" [class.fa-play]="!isPlaying" [class.fa-pause]="isPlaying"></i></div>
+		<div (click)="toggleRepeat()" [class.on]="isRepeating" class="repeat"><i class="fa fa-undo"></i></div>
     </div>
     <div (click)="seekTo($event)" class="lines">
         <div class="line timeline"><div class="cursor"></div></div>
@@ -25,13 +26,24 @@ export class PlayerComponent {
     pid: number;
     @Output() onNextSong = new EventEmitter<any>();
     @Output() onPrevSong = new EventEmitter<any>();
+    @Output() onRepeatSong = new EventEmitter<any>();
+	isRepeating: boolean = false;
 
-    nextSong() {
+	toggleRepeat() {
+		this.isRepeating = !this.isRepeating;
+	}
+    
+	nextSong() {
         this.onNextSong.emit(null);
     }
+
     prevSong() {
         this.onPrevSong.emit(null);
     }
+
+	repeatSong() {
+		this.onRepeatSong.emit(null);
+	}
 
     seekTo(evt: any) {
         let lines: HTMLElement = document.querySelector("#player .lines") as HTMLElement;
@@ -75,10 +87,10 @@ export class PlayerComponent {
             let timeline = document.querySelector("#player .timeline") as HTMLElement;
             timeline.style.width = playPercent + "%";
             if (playPercent >= 100) {
-                this.nextSong();
+				this.isRepeating ? this.repeatSong() : this.nextSong();
             }
             let time = document.querySelector("#player .time") as HTMLElement;
-            time.innerHTML = this.toTimeString(song.currentTime); // + " / " + this.toTimeString(song.duration);
+            time.innerHTML = this.toTimeString(song.currentTime);
         }
     }
     toTimeString(t: number): string {
