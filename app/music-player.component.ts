@@ -21,7 +21,7 @@ import { ActivatedRoute } from '@angular/router';
         <div class="main-app">
             <results (onPlaySong)="onPlaySong($event)" (onOpenDir)="onOpenDir($event)" [files]="files"></results>
         </div>
-        <player (onRepeatSong)="onRepeatSong()" (onPrevSong)="onPrevSong()" (onNextSong)="onNextSong()"></player>
+        <player (onPrevSong)="onPrevSong()" (onNextSong)="onNextSong()"></player>
     `
 })
 export class MusicPlayerComponent implements OnInit {
@@ -81,14 +81,6 @@ export class MusicPlayerComponent implements OnInit {
             if (prev != null) {
                 this.results.loadSong(prev.dataset["src"]);
             }
-        }
-    }
-    
-    onRepeatSong() {
-        let playing = document.querySelector(".active") as HTMLElement;
-        if (playing) {
-            console.log(playing.dataset["src"]);
-            this.results.loadSong(playing.dataset["src"]);
         }
     }
 

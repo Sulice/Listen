@@ -41,10 +41,6 @@ export class PlayerComponent {
         this.onPrevSong.emit(null);
     }
 
-	repeatSong() {
-		this.onRepeatSong.emit(null);
-	}
-
     seekTo(evt: any) {
         let lines: HTMLElement = document.querySelector("#player .lines") as HTMLElement;
         let p: number = (evt.pageX - lines.offsetLeft) / lines.offsetWidth;
@@ -87,7 +83,11 @@ export class PlayerComponent {
             let timeline = document.querySelector("#player .timeline") as HTMLElement;
             timeline.style.width = playPercent + "%";
             if (playPercent >= 100) {
-				this.isRepeating ? this.repeatSong() : this.nextSong();
+				if(this.isRepeating) {
+                    this.startSong();
+                } else {
+                    this.nextSong();
+                }
             }
             let time = document.querySelector("#player .time") as HTMLElement;
             time.innerHTML = this.toTimeString(song.currentTime);
