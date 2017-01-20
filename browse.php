@@ -1,5 +1,7 @@
 <?php
 
+require_once('mp3.php');
+
 $p = json_decode(file_get_contents("parameters.json"), true);
 
 $dir = $p['music_dir'];

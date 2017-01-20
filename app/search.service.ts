@@ -27,14 +27,14 @@ export class SearchService {
     private extractData(res: Response) {
         let body = res.json().data || {};
         let tl: File[] = [];
-        let s = body[0];
+        let s = body[0][0];
         if(s == "") {
             s = "/";
         }
-        for (let i = 0; i < body.length; i+=2 ) {
+        for (let i = 0; i < body.length; i++ ) {
             // if the file has a length of 0, skip it.
-            if(body[i] != "" && body[i+1] != 0) {
-                tl.push(new File(body[i], body[i+1], s));
+            if(body[i][0] != "" && body[i][1] != 0) {
+                tl.push(new File(body[i][0], body[i][1], s));
             }
         }
         return tl || { };
