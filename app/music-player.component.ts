@@ -44,7 +44,11 @@ export class MusicPlayerComponent implements OnInit {
         }
         this.query = a[1];
         this.urlService.writeURL(a[0], a[1]);
-        this.searchBar.browse(a[0]);
+        if (a[1] === "") {
+            this.searchBar.browse(a[0]);
+        } else {
+            this.searchBar.search(a[1]);
+        }
     }
 
     ngOnDestroy() {
