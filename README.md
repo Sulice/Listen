@@ -27,8 +27,8 @@ _The requirements are probably lower but I only tested it with those._
 - NPM 3+
 
 ### TODO
-- add current song index in url
 - re-add browsing
+- add current song index in url
 - rework design
 - tslint
 - review compilation chain
@@ -38,3 +38,4 @@ _The requirements are probably lower but I only tested it with those._
 - Uncaught (in promise) DOMException: The play() request was interrupted by a call to pause(). [when rapidly doing next/previous]
 - playlists ?
 - add keyboard shortcut to center view on current song
+- replay button at the end of list

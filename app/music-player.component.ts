@@ -30,7 +30,6 @@ export class MusicPlayerComponent implements OnInit {
     @ViewChild(ResultsComponent) results: ResultsComponent;
     @ViewChild(SearchBarComponent) searchBar: SearchBarComponent;
     query: string;
-    mode: string;
     private sub: Subscription;
     private viewContainerRef: ViewContainerRef;
 
@@ -40,11 +39,12 @@ export class MusicPlayerComponent implements OnInit {
 
     ngOnInit() {
         let a: string[] = this.urlService.deconstructURL();
-        if (a.length === 2) {
-            this.query = a[1];
-        } else {
-            this.query = "";
+        if (typeof(a[1]) === "undefined") {
+            a[1] = "";
         }
+        this.query = a[1];
+        this.urlService.writeURL(a[0], a[1]);
+        this.searchBar.browse(a[0]);
     }
 
     ngOnDestroy() {
@@ -80,7 +80,6 @@ export class MusicPlayerComponent implements OnInit {
     }
 
     onOpenDir(src: string) {
-        this.searchBar.mode = "b";
         this.searchBar.browse(src);
     }
 

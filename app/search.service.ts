@@ -17,11 +17,11 @@ export class SearchService {
     constructor(private http: Http) {}
 
     browse(q: string) {
-        return this.http.get("browse.php?q=" + q).map(this.extractBrowseData).catch(this.handleError);
+        return this.http.get("browse.php?q=" + encodeURI(q)).map(this.extractBrowseData).catch(this.handleError);
     }
 
     search(q: string) {
-        return this.http.get("search.php?q=" + q).map(this.extractSearchData).catch(this.handleError);
+        return this.http.get("search.php?q=" + encodeURI(q)).map(this.extractSearchData).catch(this.handleError);
     }
 
     private extractSearchData(res: Response) {

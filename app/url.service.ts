@@ -8,7 +8,12 @@ export class UrlService {
             return [];
         }
 
-        return url.split("#");
+        let a: string[] = url.split("#");
+        // TODO map function
+        for(let i = 0; i < a.length; i++) {
+            a[i] = decodeURI(a[i]);
+        }
+        return a;
     }
 
     writeURL(path: string = "/", search: string = ""): void {
@@ -16,7 +21,7 @@ export class UrlService {
         //console.log(base);
         //console.log(path);
         //console.log(search);
-        history.replaceState({}, "", base + "#" + path + "#" + search);
+        history.replaceState({}, "", base + "#" + encodeURI(path) + "#" + encodeURI(search));
     }
     
     // just change the search term

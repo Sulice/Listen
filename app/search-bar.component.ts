@@ -11,7 +11,6 @@ import { UrlService } from "./url.service";
 export class SearchBarComponent {
     @Output() onFoundFiles = new EventEmitter<File[]>();
     @Input() query: string;
-    mode: string = "b";
     searchTerm: string = "";
     request: Observable<string>;
     requestStartTime: number;
@@ -24,15 +23,15 @@ export class SearchBarComponent {
     }
     
     browse(q: string) {
-        if (q !== undefined && q !== "" && q !== null) {
-            //q = encodeURI(q.replace(/\s+/gi,"+"));
-            q = encodeURI(q);
-        } else {
+        if (q === undefined || q === null) {
             q = "";
         }
         this.urlService.writeURL(q);
+        this.requestStartTime = Date.now();
         this.searchService.browse(q).subscribe(
             r => {
+                let duration:number = Date.now() - this.requestStartTime;
+                console.log("request duration : "+duration+"ms");
                 this.onFoundFiles.emit(r);
             },
             error => console.log(error)
@@ -40,16 +39,17 @@ export class SearchBarComponent {
     }
 
     search(q: string) {
-        if (q !== undefined && q !== "" && q !== null) {
-            q = encodeURI(q.replace(/\s+/g,"+"));
-        } else {
-            q = "";
+        if (q === undefined || q === "" || q === null) {
+            // empty query, re-browse
+            this.searchTerm = "";
+            let a: string[] = this.urlService.deconstructURL();
+            this.browse(a[0]);
+            return;
         }
         if(this.searchTerm == q) {
             // nothing changed, false alert.
             return;
         }
-        console.log("q:"+q);
         this.urlService.writeSearchURL(q);
         this.searchTerm = q;
         if (q.length < 1) {

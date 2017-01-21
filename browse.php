@@ -30,11 +30,12 @@ $results = [];
 if($q == "/") {
     $parent = "";
 } else {
-    $e = preg_replace("/\/[^\/]+\/?$/","",$s);
+    $e = preg_replace("/\/[^\/]+\/?$/","",$q);
     if($e == "") {
         $e = "/";
     }
     $parent = str_replace($dir,"/",$e);
+    $results[] = array($parent);
 }
 
 natcasesort($entries);

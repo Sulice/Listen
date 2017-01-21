@@ -123,6 +123,9 @@ body {
 .active .file .fileIcon {
     visibility: visible !important;
 }
+.file .dirIcon {
+    visibility: visible !important;
+}
 #player {
     width: 100%;
     height: 3rem;
