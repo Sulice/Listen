@@ -1,6 +1,5 @@
 import { NgModule, Component} from "@angular/core";
 import { BrowserModule } from '@angular/platform-browser';
-import { Routes, RouterModule }   from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
 
@@ -12,20 +11,14 @@ import { PlayerComponent } from "./player.component";
 import { FileComponent } from "./file.component";
 
 import { SearchService } from "./search.service";
-
-const routes: Routes = [
-    { path: ":mode/:query", component: MusicPlayerComponent },
-    { path: ":mode", component: MusicPlayerComponent },
-    { path: "", component: MusicPlayerComponent }
-];
+import { UrlService } from "./url.service";
 
 @NgModule({
   imports: [ 
       BrowserModule,
       HttpModule,
       JsonpModule,
-      FormsModule,
-      RouterModule.forRoot(routes, { useHash: true })
+      FormsModule
   ],
   declarations: [ 
       AppComponent,
@@ -36,7 +29,8 @@ const routes: Routes = [
       FileComponent
   ],
   providers: [
-      SearchService
+      SearchService,
+      UrlService
   ],
   bootstrap: [ AppComponent ]
 })

@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output, ViewChild, Input, OnInit } from "@angu
 import { SearchService } from "./search.service";
 import { File } from "./File";
 import { Observable } from "rxjs/Observable";
+import { UrlService } from "./url.service";
 
 @Component({
     selector: "search-bar",
@@ -10,60 +11,27 @@ import { Observable } from "rxjs/Observable";
 export class SearchBarComponent {
     @Output() onFoundFiles = new EventEmitter<File[]>();
     @Input() query: string;
-    mode: string = "s";
+    mode: string = "b";
     searchTerm: string = "";
     request: Observable<string>;
     requestStartTime: number;
 
-    constructor(private searchService: SearchService) {}
+    constructor(private searchService: SearchService, private urlService: UrlService) {}
 
     ngOnInit() {
         let input = document.getElementById('searchInput');
         input.focus();
     }
-
-    selectMode(mode : string): void {
-        switch (mode) {
-            case "s":
-                this.mode = "s";
-                //document.querySelector('.search-bar .modeToggle > i').classList.remove("glyphicon-search");
-                //document.querySelector('.search-bar .modeToggle > i').classList.add("glyphicon-folder-close");
-                document.getElementById('searchInput').removeAttribute("disabled");
-                break;
-            case "b":
-                this.mode = "b";
-                //document.querySelector('.search-bar .modeToggle > i').classList.add("glyphicon-search");
-                //document.querySelector('.search-bar .modeToggle > i').classList.remove("glyphicon-folder-close");
-                document.getElementById('searchInput').setAttribute("disabled","true");
-                break;
-            default:
-                console.log("unknown mode");
-                break;
-        }
-    }
-
-    alternateMode(): void {
-        if(this.mode == "s") {
-            this.selectMode("b");
-            this.browse("");
-            this.query = "/";
-        } else {
-            this.selectMode("s");
-            this.search("");
-            this.query = "";
-        }
-    }
     
-    browse(s: string) {
-        if (s !== undefined && s !== "" && s !== null) {
-            this.query = s;
-            s = encodeURI(s.replace(/\s+/gi,"+"));
+    browse(q: string) {
+        if (q !== undefined && q !== "" && q !== null) {
+            //q = encodeURI(q.replace(/\s+/gi,"+"));
+            q = encodeURI(q);
         } else {
-            this.query = "";
-            s = "";
+            q = "";
         }
-        history.replaceState({}, "", window.location.href.replace(/#.*/, "") + "#/b/" + s);
-        this.searchService.browse(s).subscribe(
+        this.urlService.writeURL(q);
+        this.searchService.browse(q).subscribe(
             r => {
                 this.onFoundFiles.emit(r);
             },
@@ -71,31 +39,32 @@ export class SearchBarComponent {
         );
     }
 
-    search(s: string) {
-        if (s !== undefined && s !== "" && s !== null) {
-            s = encodeURI(s.replace(/\s+/g,"+"));
+    search(q: string) {
+        if (q !== undefined && q !== "" && q !== null) {
+            q = encodeURI(q.replace(/\s+/g,"+"));
         } else {
-            s = "";
+            q = "";
         }
-        if(this.searchTerm == s) {
+        if(this.searchTerm == q) {
             // nothing changed, false alert.
             return;
         }
-        history.replaceState({}, "", window.location.href.replace(/#.*/, "") + "#/s/" + s);
-        this.searchTerm = s;
-        if (s.length < 1) {
+        console.log("q:"+q);
+        this.urlService.writeSearchURL(q);
+        this.searchTerm = q;
+        if (q.length < 1) {
             this.onFoundFiles.emit([]);
             return;
         }
         let that:any = this;
-        let request: Observable<string> = this.searchService.search(s);
+        let request: Observable<string> = this.searchService.search(q);
         window.setTimeout(function() {
-            if(that.searchTerm == s) {
+            if(that.searchTerm == q) {
                 that.request = request;
                 that.requestStartTime = Date.now();
                 request.subscribe(
                     r => {
-                        if(that.searchTerm == s) {
+                        if(that.searchTerm == q) {
                             let duration:number = Date.now() - that.requestStartTime;
                             console.log("request duration : "+duration+"ms");
                             that.onFoundFiles.emit(r);

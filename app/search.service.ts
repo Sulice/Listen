@@ -17,24 +17,36 @@ export class SearchService {
     constructor(private http: Http) {}
 
     browse(q: string) {
-        return this.http.get("browse.php?q=" + q).map(this.extractData).catch(this.handleError);
+        return this.http.get("browse.php?q=" + q).map(this.extractBrowseData).catch(this.handleError);
     }
 
     search(q: string) {
-        return this.http.get("search.php?q=" + q).map(this.extractData).catch(this.handleError);
+        return this.http.get("search.php?q=" + q).map(this.extractSearchData).catch(this.handleError);
     }
 
-    private extractData(res: Response) {
+    private extractSearchData(res: Response) {
         let body = res.json() || {};
         let tl: File[] = [];
-        let q = body["query"];
-        if(q == "") {
-            q = "/";
+        for (let i = 0; i < body.data.length; i++ ) {
+            // if the file has a length of 0, skip it.
+            if(body.data[i][0] != "" && body.data[i][1] != 0) {
+                tl.push(new File(body.data[i][0], body.data[i][1]));
+            }
+        }
+        return tl || { };
+    }
+    
+    private extractBrowseData(res: Response) {
+        let body = res.json() || {};
+        let tl: File[] = [];
+        let p = body["parent"];
+        if(p == "") {
+            p = "/";
         }
         for (let i = 0; i < body.data.length; i++ ) {
             // if the file has a length of 0, skip it.
             if(body.data[i][0] != "" && body.data[i][1] != 0) {
-                tl.push(new File(body.data[i][0], body.data[i][1], q));
+                tl.push(new File(body.data[i][0], body.data[i][1], p));
             }
         }
         return tl || { };

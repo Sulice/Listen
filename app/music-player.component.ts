@@ -6,7 +6,7 @@ import { FileComponent } from "./file.component";
 import { File } from "./File";
 import { SearchService } from "./search.service";
 import { Subscription } from "rxjs";
-import { ActivatedRoute } from '@angular/router';
+import { UrlService } from "./url.service";
 
 @Component({
     selector: "music-player",
@@ -34,31 +34,17 @@ export class MusicPlayerComponent implements OnInit {
     private sub: Subscription;
     private viewContainerRef: ViewContainerRef;
 
-    constructor(private route: ActivatedRoute, viewContainerRef:ViewContainerRef) { 
+    constructor(private urlService: UrlService, viewContainerRef:ViewContainerRef) { 
         this.viewContainerRef = viewContainerRef; 
     }
 
     ngOnInit() {
-        this.sub = this.route.params.subscribe(params => {
-            this.query = params["query"] || "";
-            this.mode = params["mode"] || "";
-            if (this.query !== "" && this.query !== undefined && this.query !== null) {
-                this.query = decodeURIComponent(this.query).replace(/\+/g," ");
-            }
-            switch (this.mode) {
-                case "s":
-                    this.searchBar.selectMode("s");
-                    this.searchBar.search(this.query);
-                    break;
-                case "b":
-                    this.searchBar.selectMode("b");
-                    this.searchBar.browse(this.query);
-                    break;
-                default:
-                    console.log("unknown mode");
-                    break;
-            }
-        });
+        let a: string[] = this.urlService.deconstructURL();
+        if (a.length === 2) {
+            this.query = a[1];
+        } else {
+            this.query = "";
+        }
     }
 
     ngOnDestroy() {
@@ -94,7 +80,7 @@ export class MusicPlayerComponent implements OnInit {
     }
 
     onOpenDir(src: string) {
-        this.searchBar.selectMode("b");
+        this.searchBar.mode = "b";
         this.searchBar.browse(src);
     }
 
