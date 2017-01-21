@@ -6,6 +6,7 @@ $p = json_decode(file_get_contents("parameters.json"), true);
 
 $dir = $p['music_dir'];
 $q = urldecode($_GET['q']);
+$d = urldecode($_GET['d']);
 
 // if nothing in query, return nothing
 if(preg_match("/^\s*$/",$q)==1) {
@@ -16,7 +17,7 @@ if(preg_match("/^\s*$/",$q)==1) {
 $s = explode(" ",$q);
 
 // find all mp3 files
-$command = 'find '.$dir.' -type f -name "*.mp3"';
+$command = 'find "'.$dir.'/'.$d.'" -type f -name "*.mp3"';
 
 // find lines where ALL search terms appear
 for($i=0;$i<count($s);$i++) {

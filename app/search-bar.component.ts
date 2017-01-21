@@ -40,10 +40,12 @@ export class SearchBarComponent {
 
     search(q: string) {
         if (q === undefined || q === "" || q === null) {
-            // empty query, re-browse
-            this.searchTerm = "";
-            let a: string[] = this.urlService.deconstructURL();
-            this.browse(a[0]);
+            if(this. searchTerm !== "") {
+                // empty query, re-browse
+                this.searchTerm = "";
+                let a: string[] = this.urlService.deconstructURL();
+                this.browse(a[0]);
+            }
             return;
         }
         if(this.searchTerm == q) {
@@ -56,8 +58,11 @@ export class SearchBarComponent {
             this.onFoundFiles.emit([]);
             return;
         }
+
+        let a: string[] = this.urlService.deconstructURL();
+
         let that:any = this;
-        let request: Observable<string> = this.searchService.search(q);
+        let request: Observable<string> = this.searchService.search(q, a[0]);
         window.setTimeout(function() {
             if(that.searchTerm == q) {
                 that.request = request;

@@ -27,7 +27,6 @@ _The requirements are probably lower but I only tested it with those._
 - NPM 3+
 
 ### TODO
-- re-add browsing
 - add current song index in url
 - rework design
 - tslint
