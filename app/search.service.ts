@@ -16,25 +16,25 @@ export class SearchService {
 
     constructor(private http: Http) {}
 
-    browse(s: string) {
-        return this.http.get("browse.php?s=" + s).map(this.extractData).catch(this.handleError);
+    browse(q: string) {
+        return this.http.get("browse.php?q=" + q).map(this.extractData).catch(this.handleError);
     }
 
-    search(s: string) {
-        return this.http.get("search.php?s=" + s).map(this.extractData).catch(this.handleError);
+    search(q: string) {
+        return this.http.get("search.php?q=" + q).map(this.extractData).catch(this.handleError);
     }
 
     private extractData(res: Response) {
-        let body = res.json().data || {};
+        let body = res.json() || {};
         let tl: File[] = [];
-        let s = body[0][0];
-        if(s == "") {
-            s = "/";
+        let q = body["query"];
+        if(q == "") {
+            q = "/";
         }
-        for (let i = 0; i < body.length; i++ ) {
+        for (let i = 0; i < body.data.length; i++ ) {
             // if the file has a length of 0, skip it.
-            if(body[i][0] != "" && body[i][1] != 0) {
-                tl.push(new File(body[i][0], body[i][1], s));
+            if(body.data[i][0] != "" && body.data[i][1] != 0) {
+                tl.push(new File(body.data[i][0], body.data[i][1], q));
             }
         }
         return tl || { };

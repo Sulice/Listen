@@ -5,15 +5,15 @@ require_once('mp3.php');
 $p = json_decode(file_get_contents("parameters.json"), true);
 
 $dir = $p['music_dir'];
-$s = urldecode($_GET['s']);
+$q = urldecode($_GET['q']);
 
 // if nothing in query, return nothing
-if(preg_match("/^\s*$/",$s)==1) {
+if(preg_match("/^\s*$/",$q)==1) {
 	exit;
 }
 
 // first we separate terms of search (with spaces)
-$s = explode(" ",$s);
+$s = explode(" ",$q);
 
 // find all mp3 files
 $command = 'find '.$dir.' -type f -name "*.mp3"';
@@ -44,7 +44,7 @@ for($i=0;$i<count($output);$i++) {
 }
 
 // output result as json
-$response = json_encode(array("data"=>$results));
+$response = json_encode(array("data"=>$results, "query"=>$q));
 header('Content-Type: text/json; charset=UTF-8');
 echo($response);
 
