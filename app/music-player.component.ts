@@ -58,9 +58,19 @@ export class MusicPlayerComponent implements OnInit {
     onNextSong() {
         let playing = document.querySelector(".active") as HTMLElement;
         if (playing) {
-            let next = playing.nextElementSibling as HTMLElement;
-            if (next) {
-                this.results.loadSong(next.dataset["src"]);
+            let next: HTMLElement = playing.nextElementSibling as HTMLElement;
+            let i: number = 0; // security
+            while (i < 1000) {
+                console.log(next);
+                if (!next) {
+                    break;
+                }
+                if (next.dataset["src"] && next.dataset["src"].match(/\.mp3$/)) {
+                    this.results.loadSong(next.dataset["src"]);
+                    break;
+                }
+                next = next.nextElementSibling as HTMLElement;
+                i++;
             }
         }
     }
