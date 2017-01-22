@@ -3,12 +3,12 @@ body {
     margin: 0;
     width: 100%;
     height: 100%;
-    background-color: #1A1A1A;
+    background-color: #222;
     overflow: hidden;
 }
 #logo {
-    color: white;
-    fill: white;
+    color: #eee;
+    fill: #eee;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -30,14 +30,14 @@ body {
 }
 .search-bar .search-icon {
     font-size: 1.2rem;
-    color: #F7A71B;
+    color: #d98c08;
     padding: 0.69rem;
-    background: white;
+    background: #eee;
     border: none;
     outline: none;
 }
 .search-bar .search-icon svg {
-    fill: white;
+    fill: #eee;
 }
 .search-bar input {
     font-size: 1.2rem;
@@ -46,6 +46,7 @@ body {
     font-weight: bold;
     outline: none;
     border-radius: 0px;
+    background: #eee;
 }
 .main-app {
     max-width: 500px;
@@ -68,7 +69,7 @@ body {
     }
 }
 .file {
-    color: white;
+    color: #eee;
     max-width: 100%;
     padding: 1rem 1rem 1rem 0rem;
     cursor: pointer;
@@ -88,23 +89,29 @@ body {
     align-items: center;
     justify-content: space-around;
 }
-.file .artist {
+.file .title {
     font-size: 1rem;
     width: 8000px;
     text-transform: uppercase;
 }
+.file .sub-line {
+    width: 8000px;
+}
 .file .album {
     font-size: 0.9rem;
     font-weight: lighter;
-    width: 8000px;
 }
-.file .title {
+.file .separator {
+    font-size: 0.4rem;
+    position: relative;
+    bottom: 0.15rem;
+}
+.file .artist {
     font-size: 0.9rem;
     font-weight: lighter;
-    width: 8000px;
 }
 .active .file {
-    color: #F7A71B !important;
+    color: #d98c08 !important;
 }
 .file_list {
     width: calc(100% - 15px);
@@ -129,18 +136,26 @@ body {
 #player {
     width: 100%;
     height: 3rem;
-    background: #F7A71B;
+    background: #d98c08;
     max-width: 600px;
     margin: 0 auto;
     color: white;
     display: flex;
     align-items: center;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    transition: 1s ease;
+    position: relative;
+    top: 3rem;
+}
+#player.active {
+    top: 0 !important;
 }
 .double-bounce1, .double-bounce2 {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    background-color: #F7A71B;
+    background-color: #d98c08;
     opacity: 0.6;
     position: absolute;
     top: 0;
@@ -208,10 +223,11 @@ body {
 	position: absolute;
 	top: calc(50% - 2px);
 	z-index: 2;
+    width: 0;
 }
 .cursor {
     float: right;
-    background: #F7A71B;
+    background: #d98c08;
     width: 1rem;
     height: 1rem;
     border-radius: 100%;

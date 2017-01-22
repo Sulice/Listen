@@ -4,7 +4,7 @@ import { File } from "./File";
 @Component({
   selector: "player",
   template: `
-<div id="player" [class.hidden]="playedSong==null">
+<div id="player" [class.active]="active">
     <div class="navigation">
         <div (click)="pauseplay()" class="pauseplay"><i class="fa" [class.fa-play]="!isPlaying" [class.fa-pause]="isPlaying"></i></div>
 		<div (click)="toggleRepeat()" [class.on]="isRepeating" class="repeat"><i class="fa fa-undo"></i></div>
@@ -24,6 +24,7 @@ export class PlayerComponent {
     playPercent: number = 0;
     loadPercent: number = 0;
     pid: number;
+    active: boolean = false;
     @Output() onNextSong = new EventEmitter<any>();
     @Output() onPrevSong = new EventEmitter<any>();
     @Output() onRepeatSong = new EventEmitter<any>();
@@ -60,6 +61,8 @@ export class PlayerComponent {
         if (typeof(this.audioPlayer) !== "undefined") {
             this.audioPlayer.pause(),
             clearInterval(this.pid);
+        } else {
+            this.active = true;
         }
         this.isPlaying = true;
         let t: File = new File(this.playedSong);

@@ -29,9 +29,9 @@ export class File {
             this.album = "";
             this.name = str.replace(/.*\/(.*)$/, "$1/").replace(/\.\w+$/, "");
             if(path != null && path.length >= str.length) {
-                this.icon = "dirIcon fa-folder-open";
+                this.icon = "dirIcon fa-level-up";
             } else {
-                this.icon = "dirIcon fa-folder";
+                this.icon = "dirIcon fa-folder-o";
             }
         }
         this.class = "fa fileIcon " + this.icon;
