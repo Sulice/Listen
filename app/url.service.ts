@@ -17,7 +17,7 @@ export class UrlService {
     }
 
     writeURL(path: string = "/", search: string = ""): void {
-        let base: string = window.location.href.split("#")[0];
+        let base: string = this.getBaseUrl();
         //console.log(base);
         //console.log(path);
         //console.log(search);
@@ -29,5 +29,9 @@ export class UrlService {
         let a: string[] = this.deconstructURL();
         //console.log(a);
         this.writeURL(a[0], search);
+    }
+
+    getBaseUrl(): string {
+        return window.location.href.split("#")[0];
     }
 }

@@ -11,7 +11,7 @@ import { UrlService } from "./url.service";
 @Component({
     selector: "music-player",
     template: `
-        <div id="logo">
+        <div id="logo" (click)="backToRoot()">
             <h1>LISTEN</h1>
             <svg>
                 <path d="M4 47h11v19H4zm17-35h10v54H21zm17 13h10v41H38zM54 4h11v62H54zm17 8h11v54H71zm17 23h11v31H88z"/>
@@ -35,6 +35,11 @@ export class MusicPlayerComponent implements OnInit {
 
     constructor(private urlService: UrlService, viewContainerRef:ViewContainerRef) { 
         this.viewContainerRef = viewContainerRef; 
+    }
+
+    backToRoot() {
+        this.searchBar.browse("");
+        this.urlService.writeURL(); 
     }
 
     ngOnInit() {
@@ -112,6 +117,10 @@ export class MusicPlayerComponent implements OnInit {
                 this.onPrevSong();
             }
             return false;
+        } else {
+            if (e.keyCode == 13) {
+                document.getElementById("searchInput").blur();
+            }
         }
     }
 }
