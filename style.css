@@ -12,6 +12,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
 #logo h1 {
     font-size: 2.4rem;
@@ -102,9 +103,9 @@ body {
     font-weight: lighter;
 }
 .file .separator {
-    font-size: 0.4rem;
+    font-size: 3px;
     position: relative;
-    bottom: 0.15rem;
+    bottom: 3px;
 }
 .file .artist {
     font-size: 0.9rem;
@@ -216,10 +217,9 @@ body {
     padding: 0px 1rem;
 }
 .timeline {
-	transition: 1s linear;
 	height: 0px;
 	display: inline-block;
-	transition: 1s linear;
+	/*transition: 1s linear;*/
 	position: absolute;
 	top: calc(50% - 2px);
 	z-index: 2;

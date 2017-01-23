@@ -28,7 +28,6 @@ _The requirements are probably lower but I only tested it with those._
 
 ### TODO
 - add current song index in url
-- rework design
 - tslint
 - review compilation chain
 - add random function

@@ -20,12 +20,14 @@ export class SearchBarComponent {
     ngOnInit() {
         let input = document.getElementById('searchInput');
         input.focus();
+        this.searchTerm = this.query;
     }
     
     browse(q: string) {
         if (q === undefined || q === null) {
             q = "";
         }
+        this.searchTerm = "";
         this.urlService.writeURL(q);
         this.requestStartTime = Date.now();
         this.searchService.browse(q).subscribe(
