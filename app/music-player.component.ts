@@ -66,7 +66,6 @@ export class MusicPlayerComponent implements OnInit {
             let next: HTMLElement = playing.nextElementSibling as HTMLElement;
             let i: number = 0; // security
             while (i < 1000) {
-                console.log(next);
                 if (!next) {
                     break;
                 }

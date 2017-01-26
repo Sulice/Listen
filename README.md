@@ -20,6 +20,14 @@ npm i
 npm run build
 ```
 
+You then need to create a parameters.json file at the root of the repo and fill it like this :
+```
+{
+    "root_url": "http://root_url_of_the_music_directory/",
+    "music_dir": "/path/to/the/music/directory/"
+}
+```
+
 ### Requirements
 _The requirements are probably lower but I only tested it with those._
 - PHP 7+
