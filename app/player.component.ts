@@ -44,7 +44,7 @@ export class PlayerComponent {
 
     seekTo(evt: any) {
         let lines: HTMLElement = document.querySelector("#player .lines") as HTMLElement;
-        let p: number = (evt.pageX - lines.offsetLeft) / lines.offsetWidth;
+        let p: number = (evt.pageX - lines.getBoundingClientRect().left) / lines.offsetWidth;
         let song  = this.audioPlayer;
         song.currentTime = song.duration*p;
     }
