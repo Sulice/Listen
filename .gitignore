@@ -7,3 +7,4 @@ aot/
 app/*.js
 app/*.js.map
 parameters.json
+.awcache

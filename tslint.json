@@ -1,6 +1,26 @@
 {
+    "rulesDirectory": [
+        "node_modules/codelyzer"
+    ],
     "rules": {
         "class-name": true,
+        "component-class-suffix": true,
+        "directive-class-suffix": true,
+        "directive-selector": [true, "attribute", "", "camelCase"],
+        "import-destructuring-spacing": true,
+        "invoke-injectable": true,
+        "no-access-missing-member": false,
+        "no-attribute-parameter-decorator": true,
+        "no-forward-ref": true,
+        "no-input-rename": true,
+        "no-output-rename": true,
+        "pipe-naming": [true, "camelCase", ""],
+        "templates-use-public": true,
+        "use-host-property-decorator": true,
+        "use-input-property-decorator": true,
+        "use-life-cycle-interface": true,
+        "use-output-property-decorator": true,
+        "use-pipe-transform-interface": true,
         "comment-format": [
             true,
             "check-space"

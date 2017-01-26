@@ -20,7 +20,7 @@ npm i
 npm run build
 ```
 
-You then need to create a parameters.json file at the root of the repo and fill it like this :
+You then need to create a parameters.json file in the php/ directory and fill it like this :
 ```
 {
     "root_url": "http://root_url_of_the_music_directory/",
@@ -35,11 +35,10 @@ _The requirements are probably lower but I only tested it with those._
 - NPM 3+
 
 ### TODO
+- install should be easier
+- clean up the repo
 - add current song index in url
-- tslint
-- review compilation chain
 - add random function
-- add dynamic search placeholder
 - net::ERR_CONTENT_LENGTH_MISMATCH [is it a nginx issue ?]
 - Uncaught (in promise) DOMException: The play() request was interrupted by a call to pause(). [when rapidly doing next/previous]
 - playlists ?
