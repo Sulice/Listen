@@ -21,7 +21,12 @@ export class SearchService {
     }
 
     search(q: string = "", d: string = "") {
-        return this.http.get("php/search.php?d=" + encodeURI(d) + "&q=" + encodeURI(q)).map(this.extractSearchData).catch(this.handleError);
+        console.log(q);
+        if (q === "!random") {
+            return this.http.get("php/random.php?d=" + encodeURI(d)).map(this.extractSearchData).catch(this.handleError);
+        } else {
+            return this.http.get("php/search.php?d=" + encodeURI(d) + "&q=" + encodeURI(q)).map(this.extractSearchData).catch(this.handleError);
+        }
     }
 
     private extractSearchData(res: Response) {

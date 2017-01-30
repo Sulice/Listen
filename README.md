@@ -35,12 +35,13 @@ _The requirements are probably lower but I only tested it with those._
 - NPM 3+
 
 ### TODO
+- animation on name to see it fully
+- escape # in url
+- add playlist total time
+- add keyboard shortcut to center view on current song
+- add current song index in url
+- replay button at the end of playlist
+- playlists ?
 - install should be easier
 - clean up the repo
-- add current song index in url
-- add random function
-- net::ERR_CONTENT_LENGTH_MISMATCH [is it a nginx issue ?]
 - Uncaught (in promise) DOMException: The play() request was interrupted by a call to pause(). [when rapidly doing next/previous]
-- playlists ?
-- add keyboard shortcut to center view on current song
-- replay button at the end of list

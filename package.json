@@ -5,6 +5,7 @@
   "main": "index.html",
   "scripts": {
     "build": "npm run clean && npm run ngc && npm run webpack-prod",
+    "dev": "npm run webpack-dev",
     "clean": "rimraf aot dist",
     "ncu": "ncu",
     "ngc": "ngc -p tsconfig.prod.json",
