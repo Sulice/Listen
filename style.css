@@ -3,12 +3,12 @@ body {
     margin: 0;
     width: 100%;
     height: 100%;
-    background-color: #222;
+    background-color: #262626;
     overflow: hidden;
 }
 #logo {
-    color: #eee;
-    fill: #eee;
+    color: #ddd;
+    fill: #ddd;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -33,12 +33,12 @@ body {
     font-size: 1.2rem;
     color: #d98c08;
     padding: 0.69rem;
-    background: #eee;
+    background: #ddd;
     border: none;
     outline: none;
 }
 .search-bar .search-icon svg {
-    fill: #eee;
+    fill: #ddd;
 }
 .search-bar input {
     font-size: 1.2rem;
@@ -47,7 +47,7 @@ body {
     font-weight: bold;
     outline: none;
     border-radius: 0px;
-    background: #eee;
+    background: #ddd;
 }
 .main-app {
     max-width: 500px;
@@ -70,7 +70,7 @@ body {
     }
 }
 .file {
-    color: #eee;
+    color: #ddd;
     max-width: 100%;
     padding: 1rem 1rem 1rem 0rem;
     cursor: pointer;
