@@ -5,7 +5,9 @@ require_once('mp3.php');
 $p = json_decode(file_get_contents("parameters.json"), true);
 
 $dir = $p['music_dir'];
-$d = urldecode($_GET['d']);
+if(isset($_GET['d'])) {
+    $d = urldecode($_GET['d']);
+}
 
 // find all mp3 files
 $command = 'find "'.$dir.'/'.$d.'" -type f -name "*.mp3"';
@@ -31,7 +33,7 @@ for($i=0;$i<count($output);$i++) {
 }
 
 // output result as json
-$response = json_encode(array("data"=>$results, "query"=>$q));
+$response = json_encode(array("data"=>$results));
 header('Content-Type: text/json; charset=UTF-8');
 echo($response);
 

@@ -34,6 +34,7 @@ class fastMP3File {
         $offset = $this->skipID3v2Tag($block);
         fseek($fd, $offset, SEEK_SET);
         $i = 0;
+        $maxFramesRead = 500;
         $avgFrameSize = 0;
         while (!feof($fd)) {
             $block = fread($fd, 10);
@@ -51,7 +52,7 @@ class fastMP3File {
                 } 
                 $i++;
                 $avgFrameSize = ($info[2] / $info[1] + $avgFrameSize*($i-1)) / $i;
-                if($i > 1000) {
+                if($i > $maxFramesRead) {
                     break;
                 }
                 fseek($fd, $info[0]-10, SEEK_CUR);
@@ -63,7 +64,7 @@ class fastMP3File {
                 fseek($fd, 1, SEEK_CUR);
                 $i++;
                 // if we loose to much, stop reading
-                if($i > 1000) {
+                if($i > $maxFramesRead) {
                     break;
                 }
             }
