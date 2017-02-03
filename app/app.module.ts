@@ -1,7 +1,6 @@
-import { NgModule, Component} from "@angular/core";
+import { NgModule } from "@angular/core";
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
-import { HttpModule, JsonpModule } from '@angular/http';
+import { HttpModule } from '@angular/http';
 
 import { AppComponent } from "./app.component";
 import { MusicPlayerComponent } from "./music-player.component";
@@ -18,8 +17,6 @@ import { UrlService } from "./url.service";
   imports: [ 
       BrowserModule,
       HttpModule,
-      JsonpModule,
-      FormsModule,
   ],
   declarations: [ 
       AppComponent,

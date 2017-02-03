@@ -56,10 +56,6 @@ export class MusicPlayerComponent implements OnInit {
         }
     }
 
-    ngOnDestroy() {
-        this.sub.unsubscribe();
-    }
-
     onNextSong() {
         let playing = document.querySelector(".active") as HTMLElement;
         if (playing) {
