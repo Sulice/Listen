@@ -92,8 +92,16 @@ body {
 }
 .file .title {
     font-size: 1rem;
-    width: 8000px;
     text-transform: uppercase;
+    height: 1.1rem;
+    display: inline-block;
+    white-space: nowrap;
+    position: relative;
+    right: 0px;
+    transition: 0s linear;
+}
+.file:hover .title {
+    transition: 10s linear;
 }
 .file .sub-line {
     width: 8000px;

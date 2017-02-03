@@ -4,7 +4,7 @@ import { File } from "./File";
 @Component({
     selector: "file",
     template: `
-        <div class="file">
+        <div class="file" hoverEntry>
             <i [ngClass]="this.file.class"></i>
             <div class="description">
                 <div class="text-description">

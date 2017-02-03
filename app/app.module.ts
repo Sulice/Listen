@@ -9,6 +9,7 @@ import { SearchBarComponent } from "./search-bar.component";
 import { ResultsComponent } from "./results.component";
 import { PlayerComponent } from "./player.component";
 import { FileComponent } from "./file.component";
+import { HoverEntryDirective } from "./hover-entry.directive";
 
 import { SearchService } from "./search.service";
 import { UrlService } from "./url.service";
@@ -18,19 +19,20 @@ import { UrlService } from "./url.service";
       BrowserModule,
       HttpModule,
       JsonpModule,
-      FormsModule
+      FormsModule,
   ],
   declarations: [ 
       AppComponent,
+      FileComponent,
+      HoverEntryDirective,
       MusicPlayerComponent,
-      SearchBarComponent,
-      ResultsComponent,
       PlayerComponent,
-      FileComponent
+      ResultsComponent,
+      SearchBarComponent,
   ],
   providers: [
       SearchService,
-      UrlService
+      UrlService,
   ],
   bootstrap: [ AppComponent ]
 })
