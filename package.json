@@ -53,6 +53,7 @@
     "@types/jquery": "2.0.39",
     "@types/node": "7.0.4",
     "@types/rx": "4.1.1",
+    "angular2-perfect-scrollbar": "2.0.3",
     "angular2-template-loader": "0.6.0",
     "awesome-typescript-loader": "3.0.0-beta.18",
     "babel-core": "6.22.1",

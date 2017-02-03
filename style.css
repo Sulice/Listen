@@ -253,3 +253,8 @@ body {
 	top: calc(50% - 2px);
     z-index: 1;
 }
+
+/* perfect scrollbar css override */
+.ps-scrollbar-y-rail {
+    background: transparent !important;
+}

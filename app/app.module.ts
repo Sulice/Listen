@@ -13,10 +13,18 @@ import { HoverEntryDirective } from "./hover-entry.directive";
 import { SearchService } from "./search.service";
 import { UrlService } from "./url.service";
 
+import { PerfectScrollbarModule } from 'angular2-perfect-scrollbar';
+import { PerfectScrollbarConfigInterface } from 'angular2-perfect-scrollbar';
+
+const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+    suppressScrollX: true
+};
+
 @NgModule({
   imports: [ 
       BrowserModule,
       HttpModule,
+      PerfectScrollbarModule.forRoot(PERFECT_SCROLLBAR_CONFIG),
   ],
   declarations: [ 
       AppComponent,

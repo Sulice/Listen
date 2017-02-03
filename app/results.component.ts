@@ -8,20 +8,18 @@ declare var $:JQueryStatic;
     selector: "results",
     template: `
         <div class="results">
-            <div class="nano">
-                <div class="nano-content">
-                    <div class="file_list">
-                        <file 
-                            *ngFor="let file of files" 
-                            [class.active]="currentSong == file.src" 
-                            (click)="selectFile(file.src)" 
-                            [attr.data-src]="file.src"
-                            [file]="file"
-                        >
-                        </file>
-                    </div>
+            <perfect-scrollbar style="height: 100%;">
+                <div class="file_list">
+                    <file 
+                        *ngFor="let file of files" 
+                        [class.active]="currentSong == file.src" 
+                        (click)="selectFile(file.src)" 
+                        [attr.data-src]="file.src"
+                        [file]="file"
+                    >
+                    </file>
                 </div>
-            </div>
+            </perfect-scrollbar>
         </div>
     `
 })
@@ -34,10 +32,6 @@ export class ResultsComponent {
     constructor(public searchService: SearchService) {}
 
     ngAfterViewInit() {
-        setInterval(function() {
-            let b:any = $(".nano");
-            b.nanoScroller();
-        }, 1000);
     }
 
     selectFile(src: string) {
