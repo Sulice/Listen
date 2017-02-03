@@ -2,33 +2,37 @@ import { Injectable } from "@angular/core";
 
 @Injectable()
 export class UrlService {
-    deconstructURL(): string[] {
-        let url: string = window.location.href.replace(/^[^#]+#?/, "") 
-        if (url == "") {
-            return [];
-        }
+    deconstructURL() {
+        let url: string = window.location.href.replace(/^[^#]+#?/, "");
+        //let url: string = window.location.href.split("#")[1];
+        let segment: any = {};
 
-        let a: string[] = url.split("#");
-        // TODO map function
-        for(let i = 0; i < a.length; i++) {
-            a[i] = decodeURI(a[i]);
+        if (!url) {
+            segment.search = "";
+            segment.path = "";
+        } else {
+            let s: string[] = url.split("?");
+            segment.path = decodeURIComponent(s[0]);
+            segment.search = decodeURIComponent(s[1]);
         }
-        return a;
+        return segment;
     }
 
     writeURL(path: string = "/", search: string = ""): void {
         let base: string = this.getBaseUrl();
-        //console.log(base);
-        //console.log(path);
-        //console.log(search);
-        history.replaceState({}, "", base + "#" + encodeURI(path) + "#" + encodeURI(search));
+        let url: string = base + "#";
+        if (search) {
+            url = url + encodeURIComponent(path) + "?" + encodeURIComponent(search);
+        } else {
+            url = url + encodeURIComponent(path);
+        }
+        history.replaceState({}, "", url);
     }
     
     // just change the search term
     writeSearchURL(search: string = ""): void {
-        let a: string[] = this.deconstructURL();
-        //console.log(a);
-        this.writeURL(a[0], search);
+        let segment: any = this.deconstructURL();
+        this.writeURL(segment.path, search);
     }
 
     getBaseUrl(): string {

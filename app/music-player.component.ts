@@ -43,16 +43,16 @@ export class MusicPlayerComponent implements OnInit {
     }
 
     ngOnInit() {
-        let a: string[] = this.urlService.deconstructURL();
-        if (typeof(a[1]) === "undefined") {
-            a[1] = "";
+        let segment: any = this.urlService.deconstructURL();
+        if (typeof(segment.search) === "undefined") {
+            segment.search = "";
         }
-        this.query = a[1];
-        this.urlService.writeURL(a[0], a[1]);
-        if (a[1] === "") {
-            this.searchBar.browse(a[0]);
+        this.query = segment.search;
+        this.urlService.writeURL(segment.path, segment.search);
+        if (segment.search === "") {
+            this.searchBar.browse(segment.path);
         } else {
-            this.searchBar.search(a[1]);
+            this.searchBar.search(segment.search);
         }
     }
 

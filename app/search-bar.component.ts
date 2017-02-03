@@ -45,8 +45,8 @@ export class SearchBarComponent {
             if(this. searchTerm !== "") {
                 // empty query, re-browse
                 this.searchTerm = "";
-                let a: string[] = this.urlService.deconstructURL();
-                this.browse(a[0]);
+                let segment: any = this.urlService.deconstructURL();
+                this.browse(segment.path);
             }
             return;
         }
@@ -61,10 +61,10 @@ export class SearchBarComponent {
             return;
         }
 
-        let a: string[] = this.urlService.deconstructURL();
+        let segment: any = this.urlService.deconstructURL();
 
         let that:any = this;
-        let request: Observable<string> = this.searchService.search(q, a[0]);
+        let request: Observable<string> = this.searchService.search(q, segment.path);
         window.setTimeout(function() {
             if(that.searchTerm == q) {
                 that.request = request;
