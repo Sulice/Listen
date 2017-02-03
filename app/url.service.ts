@@ -12,8 +12,8 @@ export class UrlService {
             segment.path = "";
         } else {
             let s: string[] = url.split("?");
-            segment.path = decodeURIComponent(s[0]);
-            segment.search = decodeURIComponent(s[1]);
+            segment.path = this.decodePath(s[0]);
+            segment.search = this.decodeSearch(s[1]);
         }
         return segment;
     }
@@ -22,9 +22,9 @@ export class UrlService {
         let base: string = this.getBaseUrl();
         let url: string = base + "#";
         if (search) {
-            url = url + encodeURIComponent(path) + "?" + encodeURIComponent(search);
+            url = url + this.encodePath(path) + "?" + this.encodeSearch(search);
         } else {
-            url = url + encodeURIComponent(path);
+            url = url + this.encodePath(path);
         }
         history.replaceState({}, "", url);
     }
@@ -37,5 +37,61 @@ export class UrlService {
 
     getBaseUrl(): string {
         return window.location.href.split("#")[0];
+    }
+
+    private decodePath(path: string): string {
+        if(!path) {
+            return "";
+        }
+        let segments: string[] = path.split("/");
+        let decodedPath: string = "";
+        for(let i = 0; i < segments.length; i++) {
+            if(segments[i]) {
+                decodedPath = decodedPath + "/" + decodeURIComponent(segments[i]);
+            }
+        }
+        return decodedPath;
+    }
+    
+    private encodePath(path: string): string {
+        if(!path) {
+            return "";
+        }
+        let segments: string[] = path.split("/");
+        let encodedPath: string = "";
+        for(let i = 0; i < segments.length; i++) {
+            if(segments[i]) {
+                encodedPath = encodedPath + "/" + encodeURIComponent(segments[i]);
+            }
+        }
+        return encodedPath;
+    }
+
+    private decodeSearch(search: string): string {
+        if(!search) {
+            return "";
+        }
+        let segments: string[] = search.split("+");
+        let decodedSearch: string = "";
+        for(let i = 0; i < segments.length; i++) {
+            if(segments[i]) {
+                decodedSearch = decodedSearch + " " + decodeURIComponent(segments[i]);
+            }
+        }
+        return decodedSearch.substr(1);
+    }
+    
+    private encodeSearch(search: string): string {
+        if(!search) {
+            return "";
+        }
+        let segments: string[] = search.split(" ");
+        let encodedSearch: string = "";
+        for(let i = 0; i < segments.length; i++) {
+            if(segments[i]) {
+                encodedSearch = encodedSearch + "+" + encodeURIComponent(segments[i]);
+            }
+        }
+        return encodedSearch.substr(1);
     }
 }

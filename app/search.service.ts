@@ -17,15 +17,14 @@ export class SearchService {
     constructor(private http: Http) {}
 
     browse(q: string = "") {
-        return this.http.get("php/browse.php?q=" + encodeURI(q)).map(this.extractBrowseData).catch(this.handleError);
+        return this.http.get("php/browse.php?q=" + encodeURIComponent(q)).map(this.extractBrowseData).catch(this.handleError);
     }
 
     search(q: string = "", d: string = "") {
-        console.log(q);
         if (q === "!random") {
-            return this.http.get("php/random.php?d=" + encodeURI(d)).map(this.extractSearchData).catch(this.handleError);
+            return this.http.get("php/random.php?d=" + encodeURIComponent(d)).map(this.extractSearchData).catch(this.handleError);
         } else {
-            return this.http.get("php/search.php?d=" + encodeURI(d) + "&q=" + encodeURI(q)).map(this.extractSearchData).catch(this.handleError);
+            return this.http.get("php/search.php?d=" + encodeURIComponent(d) + "&q=" + encodeURIComponent(q)).map(this.extractSearchData).catch(this.handleError);
         }
     }
 
