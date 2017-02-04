@@ -50,7 +50,7 @@ export class SearchBarComponent {
             }
             return;
         }
-        if(this.searchTerm == q) {
+        if(this.searchTerm == q.trim()) {
             // nothing changed, false alert.
             return;
         }

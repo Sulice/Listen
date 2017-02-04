@@ -84,8 +84,18 @@ export class MusicPlayerComponent implements OnInit {
         }
     }
 
+    private resetScroll(): void {
+        window.setTimeout(function() {
+            let ps: HTMLElement[] = document.getElementsByTagName("PERFECT-SCROLLBAR");
+            if(ps.length > 0) {
+                ps[0].scrollTop = 0;
+            }
+        }, 10);
+    }
+
     onFoundFiles(t: File[]) {
         this.files = t;
+        this.resetScroll();
     }
     
     onPlaySong(src: string) {
@@ -95,6 +105,7 @@ export class MusicPlayerComponent implements OnInit {
 
     onOpenDir(src: string) {
         this.searchBar.browse(src);
+        this.resetScroll();
     }
 
     @HostListener('window:keyup', ['$event'])
