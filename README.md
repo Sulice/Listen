@@ -35,15 +35,15 @@ _The requirements are probably lower but I only tested it with those._
 - NPM 3+
 
 ### TODO
-- escape # in url (change separator ?)
+- playlists ?
+- add a "directory does not exist" error when browsing
 - add playlist total time (where ?)
-- animation on name to act as a spinner
+- some kind of spinner when searching : maybe reuse the starting animation
 - add keyboard shortcut to center view on current song
 - add current song index in url
 - replay button at the end of playlist
-- playlists ?
 - infinite scrolling for search, browse and random
-- remove php and coreutils by doing everything with node ?
+- remove coreutils by doing everything in php
 - install should be easier
 - clean up the repo
 - Uncaught (in promise) DOMException: The play() request was interrupted by a call to pause(). [when rapidly doing next/previous]

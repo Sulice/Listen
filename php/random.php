@@ -10,7 +10,7 @@ if(isset($_GET['d'])) {
 }
 
 // find all mp3 files
-$command = 'find "'.$dir.'/'.$d.'" -type f -name "*.mp3"';
+$command = 'find '.escapeshellarg($dir.'/'.$d).' -type f -name "*.mp3"';
 
 // sort randomly
 $command = $command.' | sort -Rfiu';

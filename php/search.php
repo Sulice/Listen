@@ -17,11 +17,11 @@ if(preg_match("/^\s*$/",$q)==1) {
 $s = explode(" ",$q);
 
 // find all mp3 files
-$command = 'find "'.$dir.'/'.$d.'" -type f -name "*.mp3"';
+$command = 'find '.escapeshellarg($dir.'/'.$d).' -type f -name "*.mp3"';
 
 // find lines where ALL search terms appear
 for($i=0;$i<count($s);$i++) {
-	$command .= ' | grep -i "'.$s[$i].'"';
+	$command .= ' | grep -i '.escapeshellarg($s[$i]);
 }
 
 // sort
