@@ -1,26 +1,27 @@
 Listen
 ======
+_Simple-as-pie bit of code enabling streaming music from your server._
 
 # Project in alpha stage. A lot is going to change.
 
-### What is Listen ?
-Listen is a simple-as-pie bit of code enabling listening music from your server.
-This was an old project of mine that I'm trying to improve now.
-It's now a playing ground for sharpening my skills in angular2.
+### Goals
+- Easy to install.
+- Mobile first.
+- No db : it reads your directory structure.
 
-You can test it right now [here](http://nibou.eu/listen) !
+You can test it [here](http://nibou.eu/listen) right now !
 
 ### Installation
 
-Listen will search for you music in the directory specified in parameters.json.  
-You'll have to specify also the root url to replace the path of the music directory.  
-npm is needed to build the project.
+To build the project, all you have to do is :
 ```
 npm i
 npm run build
 ```
 
-You then need to create a parameters.json file in the php/ directory and fill it like this :
+Listen will search for your music in the directory specified in parameters.json.  
+You'll have to specify also the root url to replace the path of the music directory.  
+Create a parameters.json file in the php/ directory and fill it like this :
 ```
 {
     "root_url": "http://root_url_of_the_music_directory/",
@@ -29,12 +30,12 @@ You then need to create a parameters.json file in the php/ directory and fill it
 ```
 
 ### Requirements
-_The requirements are probably lower but I only tested it with those._
-- PHP 7+
+- PHP 5.6+
 - GNU Coreutils
 - NPM 3+
 
 ### TODO
+- handle before and next on the first and last song
 - playlists ?
 - add a "directory does not exist" error when browsing
 - add playlist total time (where ?)
@@ -44,6 +45,5 @@ _The requirements are probably lower but I only tested it with those._
 - replay button at the end of playlist
 - infinite scrolling for search, browse and random
 - remove coreutils by doing everything in php
-- install should be easier
 - clean up the repo
 - Uncaught (in promise) DOMException: The play() request was interrupted by a call to pause(). [when rapidly doing next/previous]

@@ -61,9 +61,6 @@ foreach($entries as $e) {
 	}
 }
 
-//natcasesort($results);
-//$results = array_values($results);
-
 // output result as json
 $response = json_encode(array("data"=>$results, "query"=>$q, "parent"=>$parent));
 header('Content-Type: text/json; charset=UTF-8');

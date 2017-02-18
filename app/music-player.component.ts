@@ -1,4 +1,5 @@
 import { Component, ViewChild, Input, OnInit, OnDestroy, HostListener, ViewContainerRef } from "@angular/core";
+import { PlatformLocation } from '@angular/common'
 import { SearchBarComponent } from "./search-bar.component";
 import { ResultsComponent } from "./results.component";
 import { PlayerComponent } from "./player.component";
@@ -33,7 +34,11 @@ export class MusicPlayerComponent implements OnInit {
     private sub: Subscription;
     private viewContainerRef: ViewContainerRef;
 
-    constructor(private urlService: UrlService, viewContainerRef:ViewContainerRef) { 
+    constructor(
+        private location: PlatformLocation,
+        private urlService: UrlService, 
+        viewContainerRef:ViewContainerRef
+    ) { 
         this.viewContainerRef = viewContainerRef; 
     }
 
@@ -42,11 +47,12 @@ export class MusicPlayerComponent implements OnInit {
         this.urlService.writeURL(); 
     }
 
-    ngOnInit() {
+    doStuffBasedOnURL() {
         let segment: any = this.urlService.deconstructURL();
         if (typeof(segment.search) === "undefined") {
             segment.search = "";
         }
+
         this.query = segment.search;
         this.urlService.writeURL(segment.path, segment.search);
         if (segment.search === "") {
@@ -54,6 +60,15 @@ export class MusicPlayerComponent implements OnInit {
         } else {
             this.searchBar.search(segment.search);
         }
+    }
+
+    ngOnInit() {
+
+        this.doStuffBasedOnURL();
+
+        this.location.onPopState(() => {
+            this.doStuffBasedOnURL();
+        });
     }
 
     onNextSong() {

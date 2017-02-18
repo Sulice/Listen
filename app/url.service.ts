@@ -26,7 +26,7 @@ export class UrlService {
         } else {
             url = url + this.encodePath(path);
         }
-        history.replaceState({}, "", url);
+        history.pushState({}, "", url);
     }
     
     // just change the search term
