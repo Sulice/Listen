@@ -7,6 +7,7 @@ export class File {
     icon: string;
     class: string;
     duration: string;
+    durationInSeconds: number;
 
     constructor(str: string, duration?:number, path?: string) {
 
@@ -22,6 +23,7 @@ export class File {
             this.name = str.replace(/.*\/(.*)$/, "$1").replace(/\.\w+$/, "");
             this.icon = "fa-play";
             if(duration) {
+                this.durationInSeconds = duration;
                 this.duration = this.formatTime(duration);
             }
         } else {
@@ -42,7 +44,7 @@ export class File {
         this.src = str;
     }
 
-    private formatTime(duration:number): string {
+    formatTime(duration:number): string {
         let hours:number = Math.floor(duration / 3600);
         let minutes:number = Math.floor((duration - hours*3600) / 60);
         let seconds:number = Math.floor(duration - hours*3600 - minutes*60);

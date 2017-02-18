@@ -6,7 +6,8 @@ import { File } from "./File";
   template: `
 <div id="player" [class.active]="active">
     <div class="informations" *ngIf="file">
-        <h3> {{ file?.name }} </h3>
+        <span class="title">{{ file?.name }}</span>
+        <span class="stats">{{ numberOfTracks }} tracks ({{ playlistDuration }})</span>
     </div>
     <div class="controls">
         <div class="navigation">

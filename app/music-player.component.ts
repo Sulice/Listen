@@ -22,7 +22,7 @@ import { UrlService } from "./url.service";
         <div class="main-app">
             <results (onPlaySong)="onPlaySong($event)" (onOpenDir)="onOpenDir($event)" [files]="files"></results>
         </div>
-        <player (onPrevSong)="onPrevSong()" (onNextSong)="onNextSong()"></player>
+        <player [numberOfTracks]="numberOfTracks" [playlistDuration]="playlistDuration" (onPrevSong)="onPrevSong()" (onNextSong)="onNextSong()"></player>
     `
 })
 export class MusicPlayerComponent implements OnInit {
@@ -33,6 +33,24 @@ export class MusicPlayerComponent implements OnInit {
     query: string;
     private sub: Subscription;
     private viewContainerRef: ViewContainerRef;
+    playlistDuration: string = "";
+    numberOfTracks: number = 0;
+
+
+    calculateStats() {
+        if(this.files.length > 0) {
+            let d: number = 0;
+            let t: number = 0;
+            for(let file of this.files) {
+                if(file.durationInSeconds) {
+                    d = d + file.durationInSeconds;
+                    t++;
+                }
+            }
+            this.playlistDuration = new File("").formatTime(d);
+            this.numberOfTracks = t;
+        }
+    }
 
     constructor(
         private location: PlatformLocation,
@@ -89,6 +107,7 @@ export class MusicPlayerComponent implements OnInit {
             }
         }
     }
+
     onPrevSong() {
         let playing = document.querySelector(".active") as HTMLElement;
         if (playing) {
@@ -110,6 +129,7 @@ export class MusicPlayerComponent implements OnInit {
 
     onFoundFiles(t: File[]) {
         this.files = t;
+        this.calculateStats();
         this.resetScroll();
     }
     
