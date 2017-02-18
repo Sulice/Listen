@@ -101,7 +101,7 @@ export class MusicPlayerComponent implements OnInit {
 
     private resetScroll(): void {
         window.setTimeout(function() {
-            let ps: HTMLElement[] = document.getElementsByTagName("PERFECT-SCROLLBAR");
+            let ps: NodeListOf<Element> = document.getElementsByTagName("PERFECT-SCROLLBAR");
             if(ps.length > 0) {
                 ps[0].scrollTop = 0;
             }

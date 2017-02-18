@@ -2,7 +2,6 @@ import { Component, Input, Output, EventEmitter, AfterViewInit} from "@angular/c
 import { FileComponent } from "./file.component";
 import { File } from "./File";
 import { SearchService } from "./search.service";
-declare var $:JQueryStatic;
 
 @Component({
     selector: "results",

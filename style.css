@@ -5,6 +5,7 @@ body {
     height: 100%;
     background-color: #0D000C;
     overflow: hidden;
+    font-family: 'Roboto', sans-serif;
 }
 #logo {
     color: #F4F3F4;
@@ -17,6 +18,7 @@ body {
 #logo h1 {
     font-size: 2rem;
     margin: .5rem 0;
+    font-weight: 900;
 }
 #logo svg {
     transform: scale(0.35);
@@ -56,7 +58,7 @@ body {
 .main-app {
     max-width: 500px;
     width: calc(100vw - 1rem);
-    height: calc(100vh - 64px - 38px - 3rem - 50px);
+    height: calc(100vh - 64px - 38px - 110px - 50px);
     margin: 25px auto 25px auto;
 }
 .spinner {
@@ -103,6 +105,7 @@ body {
     position: relative;
     right: 0px;
     transition: right 0s linear;
+    font-weight: 500;
 }
 .file:hover .title {
     transition: right 10s linear;
@@ -111,8 +114,8 @@ body {
     width: 8000px;
 }
 .file .album {
-    font-size: 0.9rem;
-    font-weight: lighter;
+    font-size: 0.8rem;
+    font-weight: 300;
 }
 .file .separator {
     font-size: 3px;
@@ -120,8 +123,8 @@ body {
     bottom: 3px;
 }
 .file .artist {
-    font-size: 0.9rem;
-    font-weight: lighter;
+    font-size: 0.8rem;
+    font-weight: 300;
 }
 .active .file {
     color: #D8BB59 !important;
@@ -148,21 +151,28 @@ body {
 }
 #player {
     width: 100%;
-    height: 3rem;
     background: #D8BB59;
     max-width: 600px;
     margin: 0 auto;
-    color: white;
-    display: flex;
-    align-items: center;
     border-top-left-radius: 2px;
     border-top-right-radius: 2px;
     transition: 1s ease;
     position: relative;
-    top: 3rem;
+    top: 110px;
+    color: white;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
 }
 #player.active {
     top: 0 !important;
+}
+.controls {
+    display: flex;
+    align-items: center;
+    height: 3rem;
+    width: calc(100% - 2rem);
+    max-width: calc(450px + 2rem);
 }
 .double-bounce1, .double-bounce2 {
     width: 100%;
@@ -261,4 +271,14 @@ body {
 /* perfect scrollbar css override */
 .ps-scrollbar-y-rail {
     background: transparent !important;
+}
+.informations {
+    width: calc(100% - 2rem);
+    max-width: 450px;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+}
+.duration {
+    font-weight: 900;
 }

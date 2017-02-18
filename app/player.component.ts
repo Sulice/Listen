@@ -5,17 +5,22 @@ import { File } from "./File";
   selector: "player",
   template: `
 <div id="player" [class.active]="active">
-    <div class="navigation">
-        <div (click)="pauseplay()" class="pauseplay"><i class="fa" [class.fa-play]="!isPlaying" [class.fa-pause]="isPlaying"></i></div>
-		<div (click)="toggleRepeat()" [class.on]="isRepeating" class="repeat"><i class="fa fa-undo"></i></div>
+    <div class="informations" *ngIf="file">
+        <h3> {{ file?.name }} </h3>
     </div>
-    <div (click)="seekTo($event)" class="lines">
-        <div class="line timeline"><div class="cursor"></div></div>
-        <div class="line placeholderline"></div>
+    <div class="controls">
+        <div class="navigation">
+            <div (click)="pauseplay()" class="pauseplay"><i class="fa" [class.fa-play]="!isPlaying" [class.fa-pause]="isPlaying"></i></div>
+            <div (click)="toggleRepeat()" [class.on]="isRepeating" class="repeat"><i class="fa fa-undo"></i></div>
+        </div>
+        <div (click)="seekTo($event)" class="lines">
+            <div class="line timeline"><div class="cursor"></div></div>
+            <div class="line placeholderline"></div>
+        </div>
+        <div class="time"></div>
     </div>
-    <div class="time"></div>
 </div>
-    `
+`
 })
 export class PlayerComponent {
     @Input() playedSong: string;
@@ -29,6 +34,9 @@ export class PlayerComponent {
     @Output() onPrevSong = new EventEmitter<any>();
     @Output() onRepeatSong = new EventEmitter<any>();
 	isRepeating: boolean = false;
+    file: File;
+    @Input() numberOfTracks: number;
+    @Input() playlistDuration: string;
 
 	toggleRepeat() {
 		this.isRepeating = !this.isRepeating;
@@ -66,6 +74,7 @@ export class PlayerComponent {
         }
         this.isPlaying = true;
         let t: File = new File(this.playedSong);
+        this.file = t;
         document.getElementsByTagName("title")[0].innerHTML = t.name;
         if (typeof(this.audioPlayer) === "undefined") {
             this.audioPlayer = new Audio(this.playedSong);

@@ -28,8 +28,12 @@ export class File {
             this.artist = "";
             this.album = "";
             this.name = str.replace(/.*\/(.*)$/, "$1").replace(/\.\w+$/, "");
+            if(this.name === "") {
+                this.name = "/";
+            }
             if(path != null && path.length >= str.length) {
-                this.icon = "dirIcon fa-level-up";
+                //this.icon = "dirIcon fa-level-up";
+                this.icon = "dirIcon fa-reply";
             } else {
                 this.icon = "dirIcon fa-folder-o";
             }
