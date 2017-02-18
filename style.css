@@ -3,26 +3,26 @@ body {
     margin: 0;
     width: 100%;
     height: 100%;
-    background-color: #262626;
+    background-color: #0D000C;
     overflow: hidden;
 }
 #logo {
-    color: #ddd;
-    fill: #ddd;
+    color: #F4F3F4;
+    fill: #F4F3F4;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
 }
 #logo h1 {
-    font-size: 2.4rem;
+    font-size: 2rem;
     margin: .5rem 0;
 }
 #logo svg {
-    transform: scale(0.5);
-    height: 5rem;
+    transform: scale(0.35);
+    height: 4rem;
     width: 100px;
-    margin: 0px -20px -3px -20px;
+    margin: 0px -33px;
 }
 .search-bar {
     display: flex;
@@ -31,14 +31,16 @@ body {
 }
 .search-bar .search-icon {
     font-size: 1.2rem;
-    color: #d98c08;
+    color: #D8BB59;
     padding: 0.69rem;
-    background: #ddd;
+    background: #F4F3F4;
     border: none;
     outline: none;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
 }
 .search-bar .search-icon svg {
-    fill: #ddd;
+    fill: #F4F3F4;
 }
 .search-bar input {
     font-size: 1.2rem;
@@ -47,12 +49,14 @@ body {
     font-weight: bold;
     outline: none;
     border-radius: 0px;
-    background: #ddd;
+    background: #F4F3F4;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
 }
 .main-app {
     max-width: 500px;
     width: calc(100vw - 1rem);
-    height: calc(100vh - 77px - 38px - 3rem - 50px);
+    height: calc(100vh - 64px - 38px - 3rem - 50px);
     margin: 25px auto 25px auto;
 }
 .spinner {
@@ -70,7 +74,7 @@ body {
     }
 }
 .file {
-    color: #ddd;
+    color: #F4F3F4;
     max-width: 100%;
     padding: 1rem 1rem 1rem 0rem;
     cursor: pointer;
@@ -78,7 +82,7 @@ body {
     align-items: center;
 }
 .file:hover {
-    background-color: rgba(255,255,255,0.1);
+    color: #D8BB59;
 }
 .file .text-description {
     width: 80%;
@@ -98,10 +102,10 @@ body {
     white-space: nowrap;
     position: relative;
     right: 0px;
-    transition: 0s linear;
+    transition: right 0s linear;
 }
 .file:hover .title {
-    transition: 10s linear;
+    transition: right 10s linear;
 }
 .file .sub-line {
     width: 8000px;
@@ -120,7 +124,7 @@ body {
     font-weight: lighter;
 }
 .active .file {
-    color: #d98c08 !important;
+    color: #D8BB59 !important;
 }
 .file_list {
     width: calc(100% - 15px);
@@ -145,14 +149,14 @@ body {
 #player {
     width: 100%;
     height: 3rem;
-    background: #d98c08;
+    background: #D8BB59;
     max-width: 600px;
     margin: 0 auto;
     color: white;
     display: flex;
     align-items: center;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
     transition: 1s ease;
     position: relative;
     top: 3rem;
@@ -164,7 +168,7 @@ body {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    background-color: #d98c08;
+    background-color: #D8BB59;
     opacity: 0.6;
     position: absolute;
     top: 0;
@@ -235,7 +239,7 @@ body {
 }
 .cursor {
     float: right;
-    background: #d98c08;
+    background: #D8BB59;
     width: 1rem;
     height: 1rem;
     border-radius: 100%;
