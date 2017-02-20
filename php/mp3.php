@@ -33,49 +33,71 @@ class fastMP3File {
         }
         $offset = $this->skipID3v2Tag($block);
         fseek($fd, $offset, SEEK_SET);
+        $p0 = ftell($fd);
         $i = 0;
-        $maxFramesRead = 500;
+        $maxOps = 10000;
+        $framesRead = 0;
+        $maxFramesRead = 1000;
         $avgFrameSize = 0;
+        $frames = [];
+        $skipped = 0;
         while (!feof($fd)) {
             $block = fread($fd, 10);
             if (strlen($block) < 10) { 
                 break; // EOF has been reached
             } 
             //looking for 1111 1111 111 (frame synchronization bits)
-            else if ($block[0]=="\xff" && (ord($block[1])&0xe0) ) {
+            if ($block[0]=="\xff" && (ord($block[1])&0xe0) ) {
 
+                $i++;
                 $info = self::parseFrameHeader(substr($block, 0, 4));
                 
-                //some corrupt mp3 files
+                //some corrupt frames
                 if (empty($info[0])) { 
-                    break;
+                    $skipped++;
+                    continue;
                 } 
-                $i++;
-                $avgFrameSize = ($info[2] / $info[1] + $avgFrameSize*($i-1)) / $i;
-                if($i > $maxFramesRead) {
+
+                $framesRead++;
+                $frames[] = $info[2] / $info[1];
+                if($framesRead > $maxFramesRead) {
+                    break;
+                }
+                if($i > $maxOps) {
                     break;
                 }
                 fseek($fd, $info[0]-10, SEEK_CUR);
 
             } else if (substr($block, 0, 3)=='TAG') {
                 fseek($fd, 128-10, SEEK_CUR); //skip over id3v1 tag size
+                $skipped++;
             } else {
-                // keep moving forward to sync (at most we loose one frame)
+                // keep moving forward to sync
                 fseek($fd, 1, SEEK_CUR);
                 $i++;
-                // if we loose to much, stop reading
-                if($i > $maxFramesRead) {
+                if($i > $maxOps) {
                     break;
                 }
             }
         }
 
-        // lets estimate total duration
+        // lets estimate total duration :
+
+        // sort frames sizes
+        sort($frames);
+        // cut the extreme values
+        $toCut = count($frames)/10;
+        for($k = 0; $k < $toCut; $k++) {
+            array_shift($frames);
+            array_pop($frames);
+        }
+        $avgFrameSize = array_sum($frames)/count($frames);
+
         $p1 = ftell($fd);
         fseek($fd, -1, SEEK_END);
         $p2 = ftell($fd);
-        $frames = $i * $p2/$p1;
-        $duration = intval($avgFrameSize * $frames);
+        $totalFrames = ($framesRead + $skipped) * $p2/($p1 - $p0);
+        $duration = intval($avgFrameSize * $totalFrames);
 
         return $duration;
     }
