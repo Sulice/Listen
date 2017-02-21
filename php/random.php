@@ -1,5 +1,7 @@
 <?php
 
+//$t0 = microtime(true);
+
 require_once('mp3.php');
 
 $p = json_decode(file_get_contents("parameters.json"), true);
@@ -21,6 +23,9 @@ $command = $command.' | head -n100';
 // execute command
 exec($command, $output);
 
+//$t1 = microtime(true);
+//var_dump($t1-$t0);
+
 // replace root_url with music_dir (cf parameters.json)
 // get file duration
 $results = [];
@@ -31,6 +36,9 @@ for($i=0;$i<count($output);$i++) {
         $mp3file->getDuration()
     );
 }
+
+//$t2 = microtime(true);
+//var_dump($t2-$t1);
 
 // output result as json
 $response = json_encode(array("data"=>$results));

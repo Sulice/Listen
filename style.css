@@ -58,7 +58,7 @@ body {
 .main-app {
     max-width: 500px;
     width: calc(100vw - 1rem);
-    height: calc(100vh - 64px - 38px - 96px - 50px);
+    height: calc(100vh - 64px - 38px - 110px - 50px);
     margin: 25px auto 25px auto;
 }
 .spinner {
@@ -278,13 +278,15 @@ body {
     display: flex;
     flex-flow: column;
     justify-content: center;
-    padding-top: 5px;
+    padding: 10px 0px 5px 0px;
+    overflow: hidden;
 }
 .informations .title {
     font-size: 1.1rem;
     font-weight: 900;
     text-transform: uppercase;
     line-height: 1.6rem;
+    width: 8000px;
 }
 .informations .stats {
     font-weight: 300;

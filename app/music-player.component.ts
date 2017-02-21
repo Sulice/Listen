@@ -118,6 +118,10 @@ export class MusicPlayerComponent implements OnInit {
         }
     }
 
+    private centerActive(): void {
+        document.querySelector('perfect-scrollbar').scrollTop = document.querySelector('.active').offsetTop - document.querySelector('.results').offsetHeight/2 + document.querySelector('.active').offsetHeight/2;
+    }
+
     private resetScroll(): void {
         window.setTimeout(function() {
             let ps: NodeListOf<Element> = document.getElementsByTagName("PERFECT-SCROLLBAR");
@@ -143,19 +147,22 @@ export class MusicPlayerComponent implements OnInit {
         this.resetScroll();
     }
 
-    @HostListener('window:keyup', ['$event'])
+    @HostListener('window:keydown', ['$event'])
     shortcut(e:any) {
         if(document.activeElement != document.getElementById("searchInput")) {
             e.preventDefault();
             e.stopPropagation();
-            if (e.keyCode == 75) {
+            if (e.keyCode == 75 || e.keyCode == 32) {
                 this.player.pauseplay();
             }
-            if (e.keyCode == 39 || e.keyCode == 78) {
+            if (e.keyCode == 39) {
                 this.onNextSong();
             }
-            if (e.keyCode == 37 || e.keyCode == 80) {
+            if (e.keyCode == 37) {
                 this.onPrevSong();
+            }
+            if(e.keyCode == 80) {
+                this.centerActive();
             }
             return false;
         } else {
