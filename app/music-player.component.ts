@@ -150,24 +150,36 @@ export class MusicPlayerComponent implements OnInit {
     @HostListener('window:keydown', ['$event'])
     shortcut(e:any) {
         if(document.activeElement != document.getElementById("searchInput")) {
-            e.preventDefault();
-            e.stopPropagation();
             if (e.keyCode == 75 || e.keyCode == 32) {
+                e.preventDefault();
+                e.stopPropagation();
                 this.player.pauseplay();
+                return false;
             }
             if (e.keyCode == 39) {
+                e.preventDefault();
+                e.stopPropagation();
                 this.onNextSong();
+                return false;
             }
             if (e.keyCode == 37) {
+                e.preventDefault();
+                e.stopPropagation();
                 this.onPrevSong();
+                return false;
             }
             if(e.keyCode == 80) {
+                e.preventDefault();
+                e.stopPropagation();
                 this.centerActive();
+                return false;
             }
-            return false;
         } else {
             if (e.keyCode == 13) {
+                e.preventDefault();
+                e.stopPropagation();
                 document.getElementById("searchInput").blur();
+                return false;
             }
         }
     }

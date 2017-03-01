@@ -30,7 +30,7 @@ for($i=0;$i<count($s);$i++) {
 $command = $command.' | sort -fiu';
 
 // only keep the first results (this is done to minimize memory usage and maximize speed)
-$command = $command.' | head -n100';
+$command = $command.' | head -n50';
 
 // execute command
 exec($command, $output);

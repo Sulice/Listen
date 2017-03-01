@@ -29,7 +29,7 @@ export class File {
         } else {
             this.artist = "";
             this.album = "";
-            this.name = str.replace(/.*\/(.*)$/, "$1").replace(/\.\w+$/, "");
+            this.name = str.replace(/.*\/(.*)$/, "$1"); //.replace(/\.\w+$/, "");
             if(this.name === "") {
                 this.name = "/";
             }

@@ -30,16 +30,22 @@ Create a parameters.json file in the php/ directory and fill it like this :
 ```
 
 ### Requirements
-- PHP 5.6+
+- PHP 7+
 - GNU Coreutils
 - NPM 3+
 
 ### TODO
-- handle before and next on the first and last song
-- playlists ?
-- add a "directory does not exist" error when browsing
+- floating parent directory when browsing
 - some kind of spinner when searching : maybe reuse the starting animation
+- handle before and next on the first and last song
+- infinite scrolling for search, browse and random
+- playlists ?
+- Uncaught (in promise) DOMException: The play() request was interrupted by a call to pause(). [when rapidly doing next/previous]
+- add a "directory does not exist" error when starting browsing in a unexistant directory
 - add current song index in url
 - replay button at the end of playlist
-- infinite scrolling for search, browse and random
-- Uncaught (in promise) DOMException: The play() request was interrupted by a call to pause(). [when rapidly doing next/previous]
+- update webpack and simplify it
+- reduce requirements : 
+    - test php5.6 in a docker container
+    - test busybox in a docker container
+    - test an older version of npm in a docker container
