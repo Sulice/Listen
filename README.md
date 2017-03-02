@@ -36,7 +36,6 @@ Create a parameters.json file in the php/ directory and fill it like this :
 
 ### TODO
 - floating parent directory when browsing
-- some kind of spinner when searching : maybe reuse the starting animation
 - handle before and next on the first and last song
 - infinite scrolling for search, browse and random
 - playlists ?

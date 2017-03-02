@@ -14,6 +14,7 @@ export class SearchBarComponent {
     searchTerm: string = "";
     request: Observable<string>;
     requestStartTime: number;
+    searching: boolean = false;
 
     constructor(private searchService: SearchService, private urlService: UrlService) {}
 
@@ -30,11 +31,13 @@ export class SearchBarComponent {
         this.searchTerm = "";
         this.urlService.writeURL(q);
         this.requestStartTime = Date.now();
+        this.searching = true;
         this.searchService.browse(q).subscribe(
             r => {
                 let duration:number = Date.now() - this.requestStartTime;
                 console.log("request duration : "+duration+"ms");
                 this.onFoundFiles.emit(r);
+                this.searching = false;
             },
             error => console.log(error)
         );
@@ -69,12 +72,14 @@ export class SearchBarComponent {
             if(that.searchTerm == q) {
                 that.request = request;
                 that.requestStartTime = Date.now();
+                that.searching = true;
                 request.subscribe(
                     r => {
                         if(that.searchTerm == q) {
                             let duration:number = Date.now() - that.requestStartTime;
                             console.log("request duration : "+duration+"ms");
                             that.onFoundFiles.emit(r);
+                            that.searching = false;
                         }
                     },
                     error => console.log(error)

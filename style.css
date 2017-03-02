@@ -40,6 +40,7 @@ body {
     outline: none;
     border-top-left-radius: 2px;
     border-bottom-left-radius: 2px;
+    width: 1.2rem;
 }
 .search-bar .search-icon svg {
     fill: #F4F3F4;
