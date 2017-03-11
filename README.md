@@ -29,9 +29,9 @@ Create a parameters.json file in the php/ directory and fill it like this :
 }
 ```
 
-### Requirements
-- PHP 7+
-- GNU Coreutils
+### Requirements 
+_(can be lower : only tested with those)_
+- PHP 7+ (5.3+ is sure)
 - NPM 3+
 
 ### TODO
@@ -46,5 +46,4 @@ Create a parameters.json file in the php/ directory and fill it like this :
 - update webpack and simplify it
 - reduce requirements : 
     - test php5.6 in a docker container
-    - test busybox in a docker container
     - test an older version of npm in a docker container

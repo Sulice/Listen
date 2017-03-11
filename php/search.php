@@ -1,8 +1,7 @@
 <?php
 
-//$t0 = microtime(true);
-
 require_once('mp3.php');
+require_once('findMP3.php');
 
 $p = json_decode(file_get_contents("parameters.json"), true);
 
@@ -19,38 +18,36 @@ if(preg_match("/^\s*$/",$q)==1) {
 $s = explode(" ",$q);
 
 // find all mp3 files
-$command = 'find '.escapeshellarg($dir.'/'.$d).' -type f -name "*.mp3"';
+$files = findMP3($dir."/".$d);
+
+function create_filter($filter) {
+    return function($str) use($filter) {
+        return preg_match('/'.$filter.'/i', $str);
+    };
+}
 
 // find lines where ALL search terms appear
-for($i=0;$i<count($s);$i++) {
-	$command .= ' | grep -i '.escapeshellarg($s[$i]);
+for($i = 0; $i < count($s); $i++) {
+    $filter = create_filter($s[$i]);
+    $files = array_filter($files, $filter);
 }
 
 // sort
-$command = $command.' | sort -fiu';
+natsort($files);
 
 // only keep the first results (this is done to minimize memory usage and maximize speed)
-$command = $command.' | head -n50';
-
-// execute command
-exec($command, $output);
-
-//$t1 = microtime(true);
-//var_dump($t1-$t0);
+$files = array_slice($files, 0, 50);
 
 // replace root_url with music_dir (cf parameters.json)
 // get file duration
 $results = [];
-for($i=0;$i<count($output);$i++) {
-    $mp3file = new fastMP3File($output[$i]);
+for($i=0;$i<count($files);$i++) {
+    $mp3file = new fastMP3File($files[$i]);
     $results[] = array(
-        str_replace($dir,$p['root_url'],$output[$i]),
+        str_replace($dir,$p['root_url'],$files[$i]),
         $mp3file->getDuration()
     );
 }
-
-//$t2 = microtime(true);
-//var_dump($t2-$t1);
 
 // output result as json
 $response = json_encode(array("data"=>$results, "query"=>$q));

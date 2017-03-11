@@ -91,7 +91,11 @@ class fastMP3File {
             array_shift($frames);
             array_pop($frames);
         }
-        $avgFrameSize = array_sum($frames)/count($frames);
+        if(count($frames) != 0) {
+            $avgFrameSize = array_sum($frames)/count($frames);
+        } else {
+            $avgFrameSize = 0;
+        }
 
         $p1 = ftell($fd);
         fseek($fd, -1, SEEK_END);
@@ -156,7 +160,11 @@ class fastMP3File {
         $info = [];
         $info[] = self::framelength($layer, $bitrate, $sample_rate, $padding_bit);
         $info[] = $sample_rate;
-        $info[] = $samples[$simple_version][$layer];
+        if(isset($samples[$simple_version]) && isset($samples[$simple_version][$layer])) {
+            $info[] = $samples[$simple_version][$layer];
+        } else {
+            $info[] = 0;
+        }
         $info[] = $layer;
         $info[] = $simple_version;
         $info[] = $version;
@@ -165,6 +173,9 @@ class fastMP3File {
     }
  
     private static function framelength($layer, $bitrate,$sample_rate,$padding_bit) {
+        if ($sample_rate === 0) {
+            return 0;
+        }
         if ($layer==1)
             return intval(((12 * $bitrate*1000 /$sample_rate) + $padding_bit) * 4);
         else //layer 2, 3

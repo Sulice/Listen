@@ -109,7 +109,7 @@ body {
     font-weight: 500;
 }
 .file:hover .title {
-    transition: right 10s linear;
+    transition: right 8s linear;
 }
 .file .sub-line {
     width: 8000px;
