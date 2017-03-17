@@ -11,7 +11,7 @@ $d = urldecode($_GET['d']);
 
 // if nothing in query, return nothing
 if(preg_match("/^\s*$/",$q)==1) {
-	exit;
+    exit;
 }
 
 // first we separate terms of search (with spaces)
@@ -20,15 +20,27 @@ $s = explode(" ",$q);
 // find all mp3 files
 $files = findMP3($dir."/".$d);
 
-function create_filter($filter) {
-    return function($str) use($filter) {
-        return preg_match('/'.$filter.'/i', $str);
+// create filter function
+function create_filter($filter, $inverse) {
+    return function($str) use($filter, $inverse) {
+        if($inverse) {
+            return !(preg_match('/'.$filter.'/i', $str));
+        } else {
+            return preg_match('/'.$filter.'/i', $str);
+        }
     };
 }
 
-// find lines where ALL search terms appear
+// find lines where ALL search terms appear (or don't appear following first char of filter)
 for($i = 0; $i < count($s); $i++) {
-    $filter = create_filter($s[$i]);
+    if(mb_substr($s[$i], 0, 1) === "-") {
+        $filter = mb_substr($s[$i], 1);
+        $inverse = true;
+    } else {
+        $filter = $s[$i];
+        $inverse = false;
+    }
+    $filter = create_filter($filter, $inverse);
     $files = array_filter($files, $filter);
 }
 
