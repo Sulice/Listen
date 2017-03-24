@@ -12,7 +12,6 @@
     "reinstall": "rimraf node_modules; npm cache clean; npm i",
     "tslint": "./node_modules/.bin/tslint -c tslint.json --project tsconfig.dev.json --type-check",
     "webpack-dev": "webpack --config config/webpack.dev.js --progress --bail --hide-modules",
-    "webpack-watch": "webpack --config config/webpack.dev.js --progress --bail --hide-modules --watch",
     "webpack-prod": "webpack --config config/webpack.prod.js --progress --profile --bail -p"
   },
   "repository": {
@@ -47,7 +46,7 @@
     "zone.js": "0.8.5"
   },
   "devDependencies": {
-    "@types/jquery": "2.0.40",
+    "@types/jquery": "2.0.41",
     "@types/node": "7.0.10",
     "@types/rx": "4.1.1",
     "angular2-perfect-scrollbar": "2.0.6",
