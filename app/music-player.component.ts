@@ -119,18 +119,22 @@ export class MusicPlayerComponent implements OnInit {
     }
 
     private centerActive(): void {
-        document.querySelector('perfect-scrollbar').scrollTop = document.querySelector('.active').offsetTop - document.querySelector('.results').offsetHeight/2 + document.querySelector('.active').offsetHeight/2;
+        let active: HTMLElement = document.querySelector('.active') as HTMLElement;
+        let results: HTMLElement = document.querySelector('.results') as HTMLElement;
+        document.querySelector('perfect-scrollbar').scrollTop = active.offsetTop - results.offsetHeight/2 + active.offsetHeight/2;
     }
 
     private scrollUp(): void {
         if(document.getElementsByTagName('file').length > 0) {
-            document.querySelector('perfect-scrollbar').scrollTop += document.getElementsByTagName('file')[0].offsetHeight;
+            let file: HTMLElement = document.getElementsByTagName('file')[0] as HTMLElement;
+            document.querySelector('perfect-scrollbar').scrollTop += file.offsetHeight;
         }
     }
     
     private scrollDown(): void {
         if(document.getElementsByTagName('file').length > 0) {
-            document.querySelector('perfect-scrollbar').scrollTop -= document.getElementsByTagName('file')[0].offsetHeight;
+            let file: HTMLElement = document.getElementsByTagName('file')[0] as HTMLElement;
+            document.querySelector('perfect-scrollbar').scrollTop -= file.offsetHeight;
         }
     }
 
