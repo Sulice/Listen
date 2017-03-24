@@ -122,6 +122,18 @@ export class MusicPlayerComponent implements OnInit {
         document.querySelector('perfect-scrollbar').scrollTop = document.querySelector('.active').offsetTop - document.querySelector('.results').offsetHeight/2 + document.querySelector('.active').offsetHeight/2;
     }
 
+    private scrollUp(): void {
+        if(document.getElementsByTagName('file').length > 0) {
+            document.querySelector('perfect-scrollbar').scrollTop += document.getElementsByTagName('file')[0].offsetHeight;
+        }
+    }
+    
+    private scrollDown(): void {
+        if(document.getElementsByTagName('file').length > 0) {
+            document.querySelector('perfect-scrollbar').scrollTop -= document.getElementsByTagName('file')[0].offsetHeight;
+        }
+    }
+
     private resetScroll(): void {
         window.setTimeout(function() {
             let ps: NodeListOf<Element> = document.getElementsByTagName("PERFECT-SCROLLBAR");
@@ -149,6 +161,18 @@ export class MusicPlayerComponent implements OnInit {
 
     @HostListener('window:keydown', ['$event'])
     shortcut(e:any) {
+        if (e.keyCode == 40) {
+            e.preventDefault();
+            e.stopPropagation();
+            this.scrollUp();
+            return false;
+        }
+        if (e.keyCode == 38) {
+            e.preventDefault();
+            e.stopPropagation();
+            this.scrollDown();
+            return false;
+        }
         if(document.activeElement != document.getElementById("searchInput")) {
             if (e.keyCode == 75 || e.keyCode == 32) {
                 e.preventDefault();
@@ -172,6 +196,12 @@ export class MusicPlayerComponent implements OnInit {
                 e.preventDefault();
                 e.stopPropagation();
                 this.centerActive();
+                return false;
+            }
+            if (e.keyCode == 83) {
+                e.preventDefault();
+                e.stopPropagation();
+                document.getElementById("searchInput").focus();
                 return false;
             }
         } else {

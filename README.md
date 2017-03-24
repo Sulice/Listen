@@ -6,8 +6,8 @@ _Simple-as-pie bit of code enabling streaming music from your server._
 
 ### Goals
 - Easy to install.
-- Mobile first.
 - No db : it reads your directory structure.
+- Minimal & fully responsive UI
 
 You can test it [here](http://nibou.eu/listen) right now !
 
@@ -38,12 +38,15 @@ _(can be lower : only tested with those)_
 - floating parent directory when browsing
 - handle before and next on the first and last song
 - infinite scrolling for search, browse and random
+- merge search and browse modes completely (ultimately remove php/browse.php)
 - playlists ?
 - Uncaught (in promise) DOMException: The play() request was interrupted by a call to pause(). [when rapidly doing next/previous]
 - add a "directory does not exist" error when starting browsing in a unexistant directory
+- add indexedDB to cache searches, and for playlists
 - add current song index in url
 - replay button at the end of playlist
 - update webpack and simplify it
+- remove webpack dependency if possible ? Simplify build process ?
 - reduce requirements : 
     - test php5.6 in a docker container
     - test an older version of npm in a docker container

@@ -10,7 +10,7 @@ if(isset($_GET['d'])) {
 	$d = urldecode($_GET['d']);
 }
 
-$output = findMP3($dir);
+$output = findMP3($dir."/".$d);
 shuffle($output);
 $output = array_slice($output, 0, 50);
 
