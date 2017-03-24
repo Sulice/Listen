@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, AfterViewInit} from "@angular/core";
+import { Component, Input, Output, EventEmitter } from "@angular/core";
 import { FileComponent } from "./file.component";
 import { File } from "./File";
 import { SearchService } from "./search.service";
@@ -9,10 +9,10 @@ import { SearchService } from "./search.service";
         <div class="results">
             <perfect-scrollbar style="height: 100%;">
                 <div class="file_list">
-                    <file 
-                        *ngFor="let file of files" 
-                        [class.active]="currentSong == file.src" 
-                        (click)="selectFile(file.src)" 
+                    <file
+                        *ngFor="let file of files"
+                        [class.active]="currentSong == file.src"
+                        (click)="selectFile(file.src)"
                         [attr.data-src]="file.src"
                         [file]="file"
                     >
@@ -30,11 +30,8 @@ export class ResultsComponent {
 
     constructor(public searchService: SearchService) {}
 
-    ngAfterViewInit() {
-    }
-
     selectFile(src: string) {
-        if(src.match(/\.mp3$/)) {
+        if (src.match(/\.mp3$/)) {
             this.loadSong(src);
         } else {
             this.onOpenDir.emit(src);

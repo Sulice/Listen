@@ -19,11 +19,11 @@ export class SearchBarComponent {
     constructor(private searchService: SearchService, private urlService: UrlService) {}
 
     ngOnInit() {
-        let input = document.getElementById('searchInput');
+        let input = document.getElementById("searchInput");
         input.focus();
         this.searchTerm = this.query;
     }
-    
+
     browse(q: string) {
         if (q === undefined || q === null) {
             q = "";
@@ -35,7 +35,7 @@ export class SearchBarComponent {
         this.searchService.browse(q).subscribe(
             r => {
                 let duration:number = Date.now() - this.requestStartTime;
-                console.log("request duration : "+duration+"ms");
+                console.log("request duration : " + duration + "ms");
                 this.onFoundFiles.emit(r);
                 this.searching = false;
             },
@@ -45,7 +45,7 @@ export class SearchBarComponent {
 
     search(q: string) {
         if (q === undefined || q === "" || q === null) {
-            if(this. searchTerm !== "") {
+            if (this. searchTerm !== "") {
                 // empty query, re-browse
                 this.searchTerm = "";
                 let segment: any = this.urlService.deconstructURL();
@@ -53,7 +53,7 @@ export class SearchBarComponent {
             }
             return;
         }
-        if(this.searchTerm == q.trim()) {
+        if (this.searchTerm == q.trim()) {
             // nothing changed, false alert.
             return;
         }
@@ -69,15 +69,15 @@ export class SearchBarComponent {
         let that:any = this;
         let request: Observable<string> = this.searchService.search(q, segment.path);
         window.setTimeout(function() {
-            if(that.searchTerm == q) {
+            if (that.searchTerm == q) {
                 that.request = request;
                 that.requestStartTime = Date.now();
                 that.searching = true;
                 request.subscribe(
                     r => {
-                        if(that.searchTerm == q) {
+                        if (that.searchTerm == q) {
                             let duration:number = Date.now() - that.requestStartTime;
-                            console.log("request duration : "+duration+"ms");
+                            console.log("request duration : " + duration + "ms");
                             that.onFoundFiles.emit(r);
                             that.searching = false;
                         }

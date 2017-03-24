@@ -8,7 +8,7 @@ import { MusicPlayerComponent } from "./music-player.component";
 export class AppComponent {
     private viewContainerRef: ViewContainerRef;
 
-    constructor(viewContainerRef:ViewContainerRef) { 
-        this.viewContainerRef = viewContainerRef; 
+    constructor(viewContainerRef: ViewContainerRef) {
+        this.viewContainerRef = viewContainerRef;
     }
 }

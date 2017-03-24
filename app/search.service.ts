@@ -29,23 +29,23 @@ export class SearchService {
         let tl: File[] = [];
         for (let i = 0; i < body.data.length; i++ ) {
             // if the file has a length of 0, skip it.
-            if(body.data[i][0] != "" && body.data[i][1] != 0) {
+            if (body.data[i][0] != "" && body.data[i][1] != 0) {
                 tl.push(new File(body.data[i][0], body.data[i][1]));
             }
         }
         return tl || { };
     }
-    
+
     private extractBrowseData(res: Response) {
         let body = res.json() || {};
         let tl: File[] = [];
         let p = body["parent"];
-        if(p == "") {
+        if (p == "") {
             p = "/";
         }
         for (let i = 0; i < body.data.length; i++ ) {
             // if the file has a length of 0, skip it.
-            if(body.data[i][0] != "" && body.data[i][1] != 0) {
+            if (body.data[i][0] != "" && body.data[i][1] != 0) {
                 tl.push(new File(body.data[i][0], body.data[i][1], p));
             }
         }

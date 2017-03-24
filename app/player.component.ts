@@ -2,8 +2,8 @@ import { Component, Input, Output, EventEmitter } from "@angular/core";
 import { File } from "./File";
 
 @Component({
-  selector: "player",
-  template: `
+    selector: "player",
+    template: `
 <div id="player" [class.active]="active">
     <div class="informations" *ngIf="file">
         <span class="title">{{ file?.name }}</span>
@@ -34,16 +34,16 @@ export class PlayerComponent {
     @Output() onNextSong = new EventEmitter<any>();
     @Output() onPrevSong = new EventEmitter<any>();
     @Output() onRepeatSong = new EventEmitter<any>();
-	isRepeating: boolean = false;
+    isRepeating: boolean = false;
     file: File;
     @Input() numberOfTracks: number;
     @Input() playlistDuration: string;
 
-	toggleRepeat() {
-		this.isRepeating = !this.isRepeating;
-	}
-    
-	nextSong() {
+    toggleRepeat() {
+        this.isRepeating = !this.isRepeating;
+    }
+
+    nextSong() {
         this.onNextSong.emit(null);
     }
 
@@ -55,7 +55,7 @@ export class PlayerComponent {
         let lines: HTMLElement = document.querySelector("#player .lines") as HTMLElement;
         let p: number = (evt.pageX - lines.getBoundingClientRect().left) / lines.offsetWidth;
         let song  = this.audioPlayer;
-        song.currentTime = song.duration*p;
+        song.currentTime = song.duration * p;
     }
 
     pauseplay() {
@@ -69,7 +69,7 @@ export class PlayerComponent {
     startSong() {
         if (typeof(this.audioPlayer) !== "undefined") {
             this.audioPlayer.pause(),
-            clearInterval(this.pid);
+                clearInterval(this.pid);
         } else {
             this.active = true;
         }
@@ -86,9 +86,9 @@ export class PlayerComponent {
 
         this.pid = window.setInterval(() =>
             this.timeUpdate(this),
-        1000);
+            1000);
     }
-    timeUpdate(that:any) {
+    timeUpdate(that: any) {
         let song = that.audioPlayer;
         if (song.buffered.length !== 0) {
             let playPercent = 100 * (song.currentTime / song.duration);
@@ -96,7 +96,7 @@ export class PlayerComponent {
             let timeline = document.querySelector("#player .timeline") as HTMLElement;
             timeline.style.width = playPercent + "%";
             if (playPercent >= 100) {
-				if(this.isRepeating) {
+                if (this.isRepeating) {
                     this.startSong();
                 } else {
                     this.nextSong();
@@ -109,17 +109,17 @@ export class PlayerComponent {
     toTimeString(t: number): string {
 
         t = Math.floor(t);
-        let m = Math.floor(t/60);
+        let m = Math.floor(t / 60);
         let s = t % 60;
         let ms: string = "";
         let ss: string = "";
 
-        if(m < 10 && m != 0) {
+        if (m < 10 && m !== 0) {
             ms = "0" + m.toString();
         } else {
             ms = m.toString();
         }
-        if(s < 10) {
+        if (s < 10) {
             ss = "0" + s.toString();
         } else {
             ss = s.toString();

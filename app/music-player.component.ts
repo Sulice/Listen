@@ -1,5 +1,5 @@
 import { Component, ViewChild, Input, OnInit, OnDestroy, HostListener, ViewContainerRef } from "@angular/core";
-import { PlatformLocation } from '@angular/common'
+import { PlatformLocation } from "@angular/common";
 import { SearchBarComponent } from "./search-bar.component";
 import { ResultsComponent } from "./results.component";
 import { PlayerComponent } from "./player.component";
@@ -38,11 +38,11 @@ export class MusicPlayerComponent implements OnInit {
 
 
     calculateStats() {
-        if(this.files.length > 0) {
+        if (this.files.length > 0) {
             let d: number = 0;
             let t: number = 0;
-            for(let file of this.files) {
-                if(file.durationInSeconds) {
+            for (let file of this.files) {
+                if (file.durationInSeconds) {
                     d = d + file.durationInSeconds;
                     t++;
                 }
@@ -54,15 +54,15 @@ export class MusicPlayerComponent implements OnInit {
 
     constructor(
         private location: PlatformLocation,
-        private urlService: UrlService, 
-        viewContainerRef:ViewContainerRef
-    ) { 
-        this.viewContainerRef = viewContainerRef; 
+        private urlService: UrlService,
+        viewContainerRef: ViewContainerRef
+    ) {
+        this.viewContainerRef = viewContainerRef;
     }
 
     backToRoot() {
         this.searchBar.browse("");
-        this.urlService.writeURL(); 
+        this.urlService.writeURL();
     }
 
     doStuffBasedOnURL() {
@@ -119,29 +119,29 @@ export class MusicPlayerComponent implements OnInit {
     }
 
     private centerActive(): void {
-        let active: HTMLElement = document.querySelector('.active') as HTMLElement;
-        let results: HTMLElement = document.querySelector('.results') as HTMLElement;
-        document.querySelector('perfect-scrollbar').scrollTop = active.offsetTop - results.offsetHeight/2 + active.offsetHeight/2;
+        let active: HTMLElement = document.querySelector(".active") as HTMLElement;
+        let results: HTMLElement = document.querySelector(".results") as HTMLElement;
+        document.querySelector("perfect-scrollbar").scrollTop = active.offsetTop - results.offsetHeight / 2 + active.offsetHeight / 2;
     }
 
     private scrollUp(): void {
-        if(document.getElementsByTagName('file').length > 0) {
-            let file: HTMLElement = document.getElementsByTagName('file')[0] as HTMLElement;
-            document.querySelector('perfect-scrollbar').scrollTop += file.offsetHeight;
+        if (document.getElementsByTagName("file").length > 0) {
+            let file: HTMLElement = document.getElementsByTagName("file")[0] as HTMLElement;
+            document.querySelector("perfect-scrollbar").scrollTop += file.offsetHeight;
         }
     }
-    
+
     private scrollDown(): void {
-        if(document.getElementsByTagName('file').length > 0) {
-            let file: HTMLElement = document.getElementsByTagName('file')[0] as HTMLElement;
-            document.querySelector('perfect-scrollbar').scrollTop -= file.offsetHeight;
+        if (document.getElementsByTagName("file").length > 0) {
+            let file: HTMLElement = document.getElementsByTagName("file")[0] as HTMLElement;
+            document.querySelector("perfect-scrollbar").scrollTop -= file.offsetHeight;
         }
     }
 
     private resetScroll(): void {
         window.setTimeout(function() {
             let ps: NodeListOf<Element> = document.getElementsByTagName("PERFECT-SCROLLBAR");
-            if(ps.length > 0) {
+            if (ps.length > 0) {
                 ps[0].scrollTop = 0;
             }
         }, 10);
@@ -152,7 +152,7 @@ export class MusicPlayerComponent implements OnInit {
         this.calculateStats();
         this.resetScroll();
     }
-    
+
     onPlaySong(src: string) {
         this.player.playedSong = src;
         this.player.startSong();
@@ -163,53 +163,53 @@ export class MusicPlayerComponent implements OnInit {
         this.resetScroll();
     }
 
-    @HostListener('window:keydown', ['$event'])
-    shortcut(e:any) {
-        if (e.keyCode == 40) {
+    @HostListener("window:keydown", ["$event"])
+    shortcut(e: any) {
+        if (e.keyCode === 40) {
             e.preventDefault();
             e.stopPropagation();
             this.scrollUp();
             return false;
         }
-        if (e.keyCode == 38) {
+        if (e.keyCode === 38) {
             e.preventDefault();
             e.stopPropagation();
             this.scrollDown();
             return false;
         }
-        if(document.activeElement != document.getElementById("searchInput")) {
-            if (e.keyCode == 75 || e.keyCode == 32) {
+        if (document.activeElement !== document.getElementById("searchInput")) {
+            if (e.keyCode === 75 || e.keyCode === 32) {
                 e.preventDefault();
                 e.stopPropagation();
                 this.player.pauseplay();
                 return false;
             }
-            if (e.keyCode == 39) {
+            if (e.keyCode === 39) {
                 e.preventDefault();
                 e.stopPropagation();
                 this.onNextSong();
                 return false;
             }
-            if (e.keyCode == 37) {
+            if (e.keyCode === 37) {
                 e.preventDefault();
                 e.stopPropagation();
                 this.onPrevSong();
                 return false;
             }
-            if(e.keyCode == 80) {
+            if (e.keyCode === 80) {
                 e.preventDefault();
                 e.stopPropagation();
                 this.centerActive();
                 return false;
             }
-            if (e.keyCode == 83) {
+            if (e.keyCode === 83) {
                 e.preventDefault();
                 e.stopPropagation();
                 document.getElementById("searchInput").focus();
                 return false;
             }
         } else {
-            if (e.keyCode == 13) {
+            if (e.keyCode === 13) {
                 e.preventDefault();
                 e.stopPropagation();
                 document.getElementById("searchInput").blur();
