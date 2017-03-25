@@ -1,11 +1,18 @@
 import { Injectable } from "@angular/core";
 
+export interface UrlSegment {
+    search: string;
+    path: string;
+}
+
 @Injectable()
 export class UrlService {
     deconstructURL() {
         let url: string = window.location.href.replace(/^[^#]+#?/, "");
-        //let url: string = window.location.href.split("#")[1];
-        let segment: any = {};
+        let segment: UrlSegment  = {
+            search: "",
+            path: "",
+        };
 
         if (!url) {
             segment.search = "";
@@ -31,7 +38,7 @@ export class UrlService {
 
     // just change the search term
     writeSearchURL(search: string = ""): void {
-        let segment: any = this.deconstructURL();
+        let segment: UrlSegment = this.deconstructURL();
         this.writeURL(segment.path, search);
     }
 

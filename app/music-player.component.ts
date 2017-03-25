@@ -7,7 +7,7 @@ import { FileComponent } from "./file.component";
 import { File } from "./File";
 import { SearchService } from "./search.service";
 import { Subscription } from "rxjs";
-import { UrlService } from "./url.service";
+import { UrlService, UrlSegment } from "./url.service";
 
 @Component({
     selector: "music-player",
@@ -35,7 +35,6 @@ export class MusicPlayerComponent implements OnInit {
     private viewContainerRef: ViewContainerRef;
     playlistDuration: string = "";
     numberOfTracks: number = 0;
-
 
     calculateStats() {
         if (this.files.length > 0) {
@@ -66,7 +65,7 @@ export class MusicPlayerComponent implements OnInit {
     }
 
     doStuffBasedOnURL() {
-        let segment: any = this.urlService.deconstructURL();
+        let segment: UrlSegment = this.urlService.deconstructURL();
         if (typeof(segment.search) === "undefined") {
             segment.search = "";
         }
@@ -164,7 +163,7 @@ export class MusicPlayerComponent implements OnInit {
     }
 
     @HostListener("window:keydown", ["$event"])
-    shortcut(e: any) {
+    shortcut(e: KeyboardEvent) {
         if (e.keyCode === 40) {
             e.preventDefault();
             e.stopPropagation();

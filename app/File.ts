@@ -17,7 +17,7 @@ export class File {
             this.type = "directory";
         }
 
-        if (this.type == "song") {
+        if (this.type === "song") {
             this.artist = str.replace(/.*\/([^\/]*)\/([^\/]*)\/.*$/, "$1");
             this.album = str.replace(/.*\/([^\/]*)\/.*$/, "$1");
             this.name = str.replace(/.*\/(.*)$/, "$1").replace(/\.\w+$/, "");
@@ -29,12 +29,11 @@ export class File {
         } else {
             this.artist = "";
             this.album = "";
-            this.name = str.replace(/.*\/(.*)$/, "$1"); //.replace(/\.\w+$/, "");
+            this.name = str.replace(/.*\/(.*)$/, "$1");
             if (this.name === "") {
                 this.name = "/";
             }
             if (path != null && path.length >= str.length) {
-                //this.icon = "dirIcon fa-level-up";
                 this.icon = "dirIcon fa-reply";
             } else {
                 this.icon = "dirIcon fa-folder-o";

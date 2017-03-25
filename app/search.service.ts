@@ -24,28 +24,28 @@ export class SearchService {
         }
     }
 
-    private extractSearchData(res: Response) {
+    private extractSearchData(res: Response): File[] {
         let body = res.json() || {};
         let tl: File[] = [];
-        for (let i = 0; i < body.data.length; i++ ) {
+        for (let i = 0; i < body.data.length; i++) {
             // if the file has a length of 0, skip it.
-            if (body.data[i][0] != "" && body.data[i][1] != 0) {
+            if (body.data[i][0] !== "" && body.data[i][1] !== 0) {
                 tl.push(new File(body.data[i][0], body.data[i][1]));
             }
         }
-        return tl || { };
+        return tl || [];
     }
 
-    private extractBrowseData(res: Response) {
+    private extractBrowseData(res: Response): File[] {
         let body = res.json() || {};
         let tl: File[] = [];
         let p = body["parent"];
-        if (p == "") {
+        if (p === "") {
             p = "/";
         }
         for (let i = 0; i < body.data.length; i++ ) {
             // if the file has a length of 0, skip it.
-            if (body.data[i][0] != "" && body.data[i][1] != 0) {
+            if (body.data[i][0] !== "" && body.data[i][1] !== 0) {
                 tl.push(new File(body.data[i][0], body.data[i][1], p));
             }
         }

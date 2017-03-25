@@ -31,9 +31,9 @@ export class PlayerComponent {
     loadPercent: number = 0;
     pid: number;
     active: boolean = false;
-    @Output() onNextSong = new EventEmitter<any>();
-    @Output() onPrevSong = new EventEmitter<any>();
-    @Output() onRepeatSong = new EventEmitter<any>();
+    @Output() onNextSong = new EventEmitter<null>();
+    @Output() onPrevSong = new EventEmitter<null>();
+    @Output() onRepeatSong = new EventEmitter<null>();
     isRepeating: boolean = false;
     file: File;
     @Input() numberOfTracks: number;
@@ -51,7 +51,7 @@ export class PlayerComponent {
         this.onPrevSong.emit(null);
     }
 
-    seekTo(evt: any) {
+    seekTo(evt: MouseEvent) {
         let lines: HTMLElement = document.querySelector("#player .lines") as HTMLElement;
         let p: number = (evt.pageX - lines.getBoundingClientRect().left) / lines.offsetWidth;
         let song  = this.audioPlayer;
@@ -85,11 +85,11 @@ export class PlayerComponent {
         this.audioPlayer.play();
 
         this.pid = window.setInterval(() =>
-            this.timeUpdate(this),
+            this.timeUpdate(),
             1000);
     }
-    timeUpdate(that: any) {
-        let song = that.audioPlayer;
+    timeUpdate() {
+        let song = this.audioPlayer;
         if (song.buffered.length !== 0) {
             let playPercent = 100 * (song.currentTime / song.duration);
             let loadPercent = 100 * (song.buffered.end(0) / song.duration);
