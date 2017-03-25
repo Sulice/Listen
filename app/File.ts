@@ -36,7 +36,7 @@ export class File {
             if (path != null && path.length >= str.length) {
                 this.icon = "dirIcon fa-reply";
             } else {
-                this.icon = "dirIcon fa-folder-o";
+                this.icon = "dirIcon fa-folder";
             }
         }
         this.class = "fa fileIcon " + this.icon;

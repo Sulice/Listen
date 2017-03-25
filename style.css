@@ -87,15 +87,12 @@ body {
 .file:hover {
     color: #D8BB59;
 }
-.file .text-description {
-    width: 80%;
-    overflow: hidden;
-}
 .file .description {
     width: 100%;
     display: flex;
-    align-items: center;
-    justify-content: space-around;
+    flex-flow: column;
+    overflow: hidden;
+    margin-right: 50px;
 }
 .file .title {
     font-size: 1rem;
@@ -105,11 +102,14 @@ body {
     white-space: nowrap;
     position: relative;
     right: 0px;
-    transition: right 0s linear;
     font-weight: 500;
 }
-.file:hover .title {
-    transition: right 8s linear;
+.file .title > span {
+    position: relative;
+    right: 0px;
+}
+.file:hover .title > span {
+    transition: right 4s linear;
 }
 .file .sub-line {
     width: 8000px;
@@ -134,20 +134,12 @@ body {
     width: calc(100% - 15px);
     overflow: hidden;
 }
-@media (max-width: 500px) {
-    .fileIcon {
-        display: none;
-    }
-}
 .fileIcon {
-    float: left;
-    font-size: 1em;
-    visibility: hidden;
+    font-size: 0.8rem;
+    display: inline-block;
+    margin-right: 1rem
 }
 .active .file .fileIcon {
-    visibility: visible !important;
-}
-.file .dirIcon {
     visibility: visible !important;
 }
 #player {
@@ -268,7 +260,6 @@ body {
 	top: calc(50% - 2px);
     z-index: 1;
 }
-
 /* perfect scrollbar css override */
 .ps-scrollbar-y-rail {
     background: transparent !important;

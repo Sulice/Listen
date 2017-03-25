@@ -15,19 +15,20 @@ export class HoverEntryDirective {
     private scrollLeft() {
         let e: HTMLElement = this.el.nativeElement;
         let title: HTMLElement = e.querySelector(".title") as HTMLElement;
-        let textDescription: HTMLElement = e.querySelector(".text-description") as HTMLElement;
-        if (title && textDescription) {
-           let moveLength = Math.max(title.offsetWidth - textDescription.offsetWidth, 0);
-           if (moveLength > 0) moveLength += 50;
-           title.style.right = moveLength + "px";
+        let titleText: HTMLElement = e.querySelector(".title").childNodes[0] as HTMLElement;
+        if (title && titleText) {
+            let moveLength = Math.max(titleText.offsetWidth - title.offsetWidth, 0);
+            console.log(moveLength);
+            if (moveLength > 0) moveLength += 50;
+            titleText.style.right = moveLength + "px";
         }
     }
 
     private resetScroll() {
         let e: HTMLElement = this.el.nativeElement;
-        let title: HTMLElement = e.querySelector(".title") as HTMLElement;
-        if (title) {
-           title.style.right = "0px";
+        let titleText: HTMLElement = e.querySelector(".title").childNodes[0] as HTMLElement;
+        if (titleText) {
+            titleText.style.right = "0px";
         }
     }
 }
