@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter } from "@angular/core";
+
 import { FileComponent } from "./file.component";
 import { File } from "./File";
 import { SearchService } from "./search.service";

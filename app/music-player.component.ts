@@ -1,12 +1,13 @@
 import { Component, ViewChild, Input, OnInit, OnDestroy, HostListener, ViewContainerRef } from "@angular/core";
 import { PlatformLocation } from "@angular/common";
+import { Subscription } from "rxjs";
+
 import { SearchBarComponent } from "./search-bar.component";
 import { ResultsComponent } from "./results.component";
 import { PlayerComponent } from "./player.component";
 import { FileComponent } from "./file.component";
 import { File } from "./File";
 import { SearchService } from "./search.service";
-import { Subscription } from "rxjs";
 import { UrlService, UrlSegment } from "./url.service";
 
 @Component({

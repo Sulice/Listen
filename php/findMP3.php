@@ -14,7 +14,7 @@ function findMP3($dir) {
 
         $name = $iterator->current();
 
-        if(preg_match('/\.mp3$/i', $name)) {
+        if(is_dir($name) || preg_match('/\.mp3$/i', $name)) {
             $output[] = $name;
         }
         $iterator->next();

@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Output, ViewChild, Input, OnInit } from "@angular/core";
+import { Observable } from "rxjs/Observable";
+
+import { UrlService, UrlSegment } from "./url.service";
 import { SearchService } from "./search.service";
 import { File } from "./File";
-import { Observable } from "rxjs/Observable";
-import { UrlService, UrlSegment } from "./url.service";
 
 @Component({
     selector: "search-bar",
