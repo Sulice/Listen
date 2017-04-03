@@ -164,7 +164,7 @@ export class MusicPlayerComponent implements OnInit {
     }
 
     @HostListener("window:keydown", ["$event"])
-    shortcut(e: KeyboardEvent) {
+    shortcutDown(e: KeyboardEvent) {
         if (e.keyCode === 40) {
             e.preventDefault();
             e.stopPropagation();

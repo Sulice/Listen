@@ -9,16 +9,14 @@ import { SearchService } from "./search.service";
     template: `
         <div class="results">
             <perfect-scrollbar style="height: 100%;">
-                <div class="file_list">
-                    <file
-                        *ngFor="let file of files"
-                        [class.active]="currentSong == file.src"
-                        (click)="selectFile(file.src)"
-                        [attr.data-src]="file.src"
-                        [file]="file"
-                    >
-                    </file>
-                </div>
+                <file
+                    *ngFor="let file of files"
+                    [class.active]="currentSong == file.src"
+                    (click)="selectFile(file.src)"
+                    [attr.data-src]="file.src"
+                    [file]="file"
+                >
+                </file>
             </perfect-scrollbar>
         </div>
     `

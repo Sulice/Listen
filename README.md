@@ -9,7 +9,8 @@ _Simple-as-pie bit of code enabling streaming music from your server._
 - No db : it reads your directory structure.
 - Minimal & fully responsive UI
 
-You can test it [here](http://nibou.eu/listen) right now !
+You can test it [here](http://nibou.eu/listen) right now !  
+The project only supports mp3 files.
 
 ### Installation
 
@@ -35,10 +36,9 @@ _(can be lower : only tested with those)_
 - NPM 3+
 
 ### TODO
-- floating parent directory when browsing
-- handle before and next on the first and last song
 - infinite scrolling for search, browse and random
-- merge search and browse modes completely (ultimately remove php/browse.php)
+- return to top button and keyboard shortcut
+- handle before and next on the first and last song
 - playlists ?
 - Uncaught (in promise) DOMException: The play() request was interrupted by a call to pause(). [when rapidly doing next/previous]
 - add a "directory does not exist" error when starting browsing in a unexistant directory

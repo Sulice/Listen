@@ -55,6 +55,7 @@ body {
     background: #F4F3F4;
     border-top-right-radius: 2px;
     border-bottom-right-radius: 2px;
+    max-width: calc(100% - 3rem);
 }
 .main-app {
     max-width: 500px;
@@ -130,12 +131,8 @@ body {
 .active .file {
     color: #D8BB59 !important;
 }
-.file_list {
-    width: calc(100% - 15px);
-    overflow: hidden;
-}
 .fileIcon {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     display: inline-block;
     margin-right: 1rem
 }
@@ -164,7 +161,7 @@ body {
     display: flex;
     align-items: center;
     height: 3rem;
-    width: calc(100% - 2rem);
+    width: 100%;
     max-width: calc(450px + 2rem);
 }
 .double-bounce1, .double-bounce2 {

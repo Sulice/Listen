@@ -51,14 +51,21 @@ natsort($files);
 $files = array_slice($files, 0, 50);
 
 // replace root_url with music_dir (cf parameters.json)
-// get file duration
+// get file duration when mp3 file
 $results = [];
 for($i=0;$i<count($files);$i++) {
-    $mp3file = new fastMP3File($files[$i]);
-    $results[] = array(
-        str_replace($dir,$p['root_url'],$files[$i]),
-        $mp3file->getDuration()
-    );
+    if(is_dir($files[$i])) {
+        $e = preg_replace("/\/+/","/",$files[$i]);
+        $results[] = array(
+            str_replace($dir,"/",$e)
+        );
+    } else {
+        $mp3file = new fastMP3File($files[$i]);
+        $results[] = array(
+            str_replace($dir,$p['root_url'],$files[$i]),
+            $mp3file->getDuration()
+        );
+    }
 }
 
 // output result as json

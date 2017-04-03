@@ -18,7 +18,6 @@ export class HoverEntryDirective {
         let titleText: HTMLElement = e.querySelector(".title").childNodes[0] as HTMLElement;
         if (title && titleText) {
             let moveLength = Math.max(titleText.offsetWidth - title.offsetWidth, 0);
-            console.log(moveLength);
             if (moveLength > 0) moveLength += 50;
             titleText.style.right = moveLength + "px";
         }
