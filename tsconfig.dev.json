@@ -18,8 +18,6 @@
         "app/main.prod.ts"
     ],
     "awesomeTypescriptLoaderOptions": {
-        "useBabel": true,
-        "useCache": true,
         "transpileOnly": true,
         "useTranspileModule": true,
         "silent": true

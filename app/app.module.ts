@@ -16,8 +16,7 @@ import { SearchService } from "./search.service";
 import { UrlService } from "./url.service";
 
 const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
-    suppressScrollX: true,
-    handlers: ['click-rail', 'drag-scrollbar', 'wheel', 'touch'],
+    suppressScrollX: true
 };
 
 @NgModule({
