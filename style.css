@@ -7,6 +7,13 @@ body {
     overflow: hidden;
     font-family: 'Roboto', sans-serif;
 }
+music-player {
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    height: 100vh;
+    position: relative;
+}
 #logo {
     color: #F4F3F4;
     fill: #F4F3F4;
@@ -14,6 +21,11 @@ body {
     align-items: center;
     justify-content: center;
     cursor: pointer;
+}
+@media (max-height: 550px) {
+    #logo {
+        display: none;
+    }
 }
 #logo h1 {
     font-size: 2rem;
@@ -26,12 +38,13 @@ body {
     width: 100px;
     margin: 0px -33px;
 }
-.search-bar {
+search-bar {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 5px;
 }
-.search-bar .search-icon {
+search-bar .search-icon {
     font-size: 1.2rem;
     color: #D8BB59;
     padding: 0.69rem;
@@ -42,10 +55,10 @@ body {
     border-bottom-left-radius: 2px;
     width: 1.2rem;
 }
-.search-bar .search-icon svg {
+search-bar .search-icon svg {
     fill: #F4F3F4;
 }
-.search-bar input {
+search-bar input {
     font-size: 1.2rem;
     padding: 0.6rem;
     border: none;
@@ -57,16 +70,16 @@ body {
     border-bottom-right-radius: 2px;
     max-width: calc(100% - 3rem);
 }
-.main-app {
+results {
     max-width: 500px;
     width: calc(100vw - 1rem);
-    height: calc(100vh - 64px - 38px - 110px - 50px);
+    height: 100%;
     margin: 25px auto 25px auto;
+    overflow: hidden;
 }
 .spinner {
     width: 40px;
     height: 40px;
-
     position: absolute;
     top: 50%;
     left: 50%;
@@ -93,7 +106,7 @@ body {
     display: flex;
     flex-flow: column;
     overflow: hidden;
-    margin-right: 50px;
+    margin-right: 20px;
 }
 .file .title {
     font-size: 1rem;
@@ -139,23 +152,15 @@ body {
 .active .file .fileIcon {
     visibility: visible !important;
 }
-#player {
+player {
     width: 100%;
-    background: #D8BB59;
+    background-color: #D8BB59;
     max-width: 600px;
     margin: 0 auto;
-    border-top-left-radius: 2px;
-    border-top-right-radius: 2px;
-    transition: 1s ease;
-    position: relative;
-    top: 120px;
     color: white;
     display: flex;
     flex-flow: column;
     align-items: center;
-}
-#player.active {
-    top: 0 !important;
 }
 .controls {
     display: flex;
@@ -163,6 +168,7 @@ body {
     height: 3rem;
     width: 100%;
     max-width: calc(450px + 2rem);
+    justify-content: space-between;
 }
 .double-bounce1, .double-bounce2 {
     width: 100%;
@@ -197,7 +203,7 @@ body {
 .modeToggle {
     display: none;
 }
-.pauseplay, .repeat {
+.pauseplay, .repeat, .prevsong, .nextsong {
     height: 3rem;
     width: 3rem;
     cursor: pointer;
@@ -213,25 +219,31 @@ body {
 }
 .navigation {
     display: flex;
+    width: 100%;
+    justify-content: space-evenly;
 }
-.lines {
+@media (max-width: 450px) {
+    #lines {
+        display: none;
+    }
+}
+#lines {
     width: 100%;
 	height: 100%;
 	position: relative;
 	cursor: pointer;
 	margin-left: 1rem;
 }
-.time {
+#time {
     height: 3rem;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0px 1rem;
 }
-.timeline {
+#timeline {
 	height: 0px;
 	display: inline-block;
-	/*transition: 1s linear;*/
 	position: absolute;
 	top: calc(50% - 2px);
 	z-index: 2;

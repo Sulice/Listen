@@ -7,18 +7,16 @@ import { SearchService } from "./search.service";
 @Component({
     selector: "results",
     template: `
-        <div class="results">
-            <perfect-scrollbar style="height: 100%;">
-                <file
-                    *ngFor="let file of files"
-                    [class.active]="currentSong == file.src"
-                    (click)="selectFile(file.src)"
-                    [attr.data-src]="file.src"
-                    [file]="file"
-                >
-                </file>
-            </perfect-scrollbar>
-        </div>
+        <perfect-scrollbar style="height: 100%;">
+            <file
+                *ngFor="let file of files"
+                [class.active]="currentSong == file.src"
+                (click)="selectFile(file.src)"
+                [attr.data-src]="file.src"
+                [file]="file"
+            >
+            </file>
+        </perfect-scrollbar>
     `
 })
 export class ResultsComponent {
