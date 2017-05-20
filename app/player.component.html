@@ -1,0 +1,17 @@
+<div class="informations" *ngIf="file">
+    <span class="title">{{ file?.name }}</span>
+    <span class="stats">{{ numberOfTracks }} tracks ({{ playlistDuration }})</span>
+</div>
+<div class="controls">
+    <div class="navigation">
+        <div (click)="prevSong()" class="prevsong"><i class="fa fa-step-backward"></i></div>
+        <div (click)="pauseplay()" class="pauseplay"><i class="fa" [class.fa-play]="!isPlaying" [class.fa-pause]="isPlaying"></i></div>
+        <div (click)="nextSong()" class="nextsong"><i class="fa fa-step-forward"></i></div>
+        <div (click)="toggleRepeat()" [class.on]="isRepeating" class="repeat"><i class="fa fa-undo"></i></div>
+    </div>
+    <div (click)="seekTo($event)" id="lines">
+        <div id="timeline"><div class="cursor"></div></div>
+        <div class="placeholderline"></div>
+    </div>
+    <div id="time"></div>
+</div>

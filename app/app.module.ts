@@ -12,6 +12,7 @@ import { MusicPlayerComponent } from "./music-player.component";
 import { PlayerComponent } from "./player.component";
 import { ResultsComponent } from "./results.component";
 import { SearchBarComponent } from "./search-bar.component";
+import { PlaylistBarComponent } from "./playlist-bar.component";
 import { SearchService } from "./search.service";
 import { UrlService } from "./url.service";
 
@@ -33,6 +34,7 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       PlayerComponent,
       ResultsComponent,
       SearchBarComponent,
+      PlaylistBarComponent,
   ],
   providers: [
       SearchService,

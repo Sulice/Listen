@@ -1,8 +1,9 @@
 import { Component, ViewChild, Input, OnInit, OnDestroy, HostListener, ViewContainerRef } from "@angular/core";
 import { PlatformLocation } from "@angular/common";
-import { Subscription } from "rxjs";
+import { Subscription, Observable } from "rxjs";
 
 import { SearchBarComponent } from "./search-bar.component";
+import { PlaylistBarComponent } from "./playlist-bar.component";
 import { ResultsComponent } from "./results.component";
 import { PlayerComponent } from "./player.component";
 import { FileComponent } from "./file.component";
@@ -12,30 +13,114 @@ import { UrlService, UrlSegment } from "./url.service";
 
 @Component({
     selector: "music-player",
-    template: `
-        <div id="logo" (click)="backToRoot()">
-            <h1>LISTEN</h1>
-            <svg>
-                <path d="M4 47h11v19H4zm17-35h10v54H21zm17 13h10v41H38zM54 4h11v62H54zm17 8h11v54H71zm17 23h11v31H88z"/>
-            </svg>
-        </div>
-        <div id="menu">
-            <search-bar [query]="query" (onFoundFiles)="onFoundFiles($event)"></search-bar>
-        </div>
-        <results (onPlaySong)="onPlaySong($event)" (onOpenDir)="onOpenDir($event)" [files]="files"></results>
-        <player [numberOfTracks]="numberOfTracks" [playlistDuration]="playlistDuration" (onPrevSong)="onPrevSong()" (onNextSong)="onNextSong()"></player>
-    `
+    templateUrl: "music-player.component.html"
 })
 export class MusicPlayerComponent implements OnInit {
-    files: File[] = [];
+
     @ViewChild(PlayerComponent) player: PlayerComponent;
     @ViewChild(ResultsComponent) results: ResultsComponent;
     @ViewChild(SearchBarComponent) searchBar: SearchBarComponent;
-    query: string;
     private sub: Subscription;
     private viewContainerRef: ViewContainerRef;
-    playlistDuration: string = "";
-    numberOfTracks: number = 0;
+
+    files: File[];
+    query: string;
+    playlistDuration: string;
+    numberOfTracks: number;
+    playlist: string;
+
+    // search & browsing variables
+    request: Observable<File[]>;
+    requestStartTime: number;
+    searching: boolean;
+
+    constructor(
+        private location: PlatformLocation,
+        private urlService: UrlService,
+        viewContainerRef: ViewContainerRef,
+        private searchService: SearchService,
+    ) {
+        this.viewContainerRef = viewContainerRef;
+        this.files = [];
+        this.query = "";
+        this.playlistDuration = "";
+        this.numberOfTracks = 0;
+        this.playlist = "";
+        this.searching = false;
+    }
+
+    switchToSearch() {
+        document.getElementsByTagName("search-bar")[0].classList.add("active");
+        document.getElementsByTagName("playlist-bar")[0].classList.remove("active");
+    }
+
+    switchToPlaylist() {
+        document.getElementsByTagName("search-bar")[0].classList.remove("active");
+        document.getElementsByTagName("playlist-bar")[0].classList.add("active");
+    }
+
+    browse(q: string) {
+        if (q === undefined || q === null) {
+            q = "";
+        }
+        this.query = "";
+        this.urlService.writeURL(q);
+        this.requestStartTime = Date.now();
+        this.searching = true;
+        this.searchService.browse(q).subscribe(
+            r => {
+                let duration: number = Date.now() - this.requestStartTime;
+                console.log("request duration : " + duration + "ms");
+                this.onFoundFiles(r);
+                this.searching = false;
+            },
+            error => console.log(error)
+        );
+    }
+
+    search(q: string) {
+        if (q === undefined || q === "" || q === null) {
+            if (this.query !== "") {
+                // empty query, re-browse
+                this.query = "";
+                let segment: UrlSegment = this.urlService.deconstructURL();
+                this.browse(segment.path);
+            }
+            return;
+        }
+        if (this.query === q.trim()) {
+            // nothing changed, false alert.
+            return;
+        }
+        this.urlService.writeSearchURL(q);
+        this.query = q;
+        if (q.length < 1) {
+            this.onFoundFiles([]);
+            return;
+        }
+
+        let segment: UrlSegment = this.urlService.deconstructURL();
+
+        let request: Observable<File[]> = this.searchService.search(q, segment.path);
+        window.setTimeout(() => {
+            if (this.query === q) {
+                this.request = request;
+                this.requestStartTime = Date.now();
+                this.searching = true;
+                request.subscribe(
+                    r => {
+                        if (this.query === q) {
+                            let duration: number = Date.now() - this.requestStartTime;
+                            console.log("request duration : " + duration + "ms");
+                            this.onFoundFiles(r);
+                            this.searching = false;
+                        }
+                    },
+                    error => console.log(error)
+                );
+            }
+        }, 500);
+    }
 
     calculateStats() {
         if (this.files.length > 0) {
@@ -52,16 +137,8 @@ export class MusicPlayerComponent implements OnInit {
         }
     }
 
-    constructor(
-        private location: PlatformLocation,
-        private urlService: UrlService,
-        viewContainerRef: ViewContainerRef
-    ) {
-        this.viewContainerRef = viewContainerRef;
-    }
-
     backToRoot() {
-        this.searchBar.browse("");
+        this.browse("");
         this.urlService.writeURL();
     }
 
@@ -74,16 +151,14 @@ export class MusicPlayerComponent implements OnInit {
         this.query = segment.search;
         this.urlService.writeURL(segment.path, segment.search);
         if (segment.search === "") {
-            this.searchBar.browse(segment.path);
+            this.browse(segment.path);
         } else {
-            this.searchBar.search(segment.search);
+            this.search(segment.search);
         }
     }
 
     ngOnInit() {
-
         this.doStuffBasedOnURL();
-
         this.location.onPopState(() => {
             this.doStuffBasedOnURL();
         });
@@ -118,39 +193,10 @@ export class MusicPlayerComponent implements OnInit {
         }
     }
 
-    private centerActive(): void {
-        let active: HTMLElement = document.querySelector(".active") as HTMLElement;
-        let results: HTMLElement = document.querySelector(".results") as HTMLElement;
-        document.querySelector("perfect-scrollbar").scrollTop = active.offsetTop - results.offsetHeight / 2 + active.offsetHeight / 2;
-    }
-
-    private scrollUp(): void {
-        if (document.getElementsByTagName("file").length > 0) {
-            let file: HTMLElement = document.getElementsByTagName("file")[0] as HTMLElement;
-            document.querySelector("perfect-scrollbar").scrollTop += file.offsetHeight;
-        }
-    }
-
-    private scrollDown(): void {
-        if (document.getElementsByTagName("file").length > 0) {
-            let file: HTMLElement = document.getElementsByTagName("file")[0] as HTMLElement;
-            document.querySelector("perfect-scrollbar").scrollTop -= file.offsetHeight;
-        }
-    }
-
-    private resetScroll(): void {
-        window.setTimeout(function() {
-            let ps: NodeListOf<Element> = document.getElementsByTagName("PERFECT-SCROLLBAR");
-            if (ps.length > 0) {
-                ps[0].scrollTop = 0;
-            }
-        }, 10);
-    }
-
     onFoundFiles(t: File[]) {
         this.files = t;
         this.calculateStats();
-        this.resetScroll();
+        this.results.resetScroll();
     }
 
     onPlaySong(src: string) {
@@ -159,61 +205,58 @@ export class MusicPlayerComponent implements OnInit {
     }
 
     onOpenDir(src: string) {
-        this.searchBar.browse(src);
-        this.resetScroll();
+        this.browse(src);
+        this.results.resetScroll();
     }
 
+    // keyboard shortcuts
     @HostListener("window:keydown", ["$event"])
     shortcutDown(e: KeyboardEvent) {
-        if (e.keyCode === 40) {
-            e.preventDefault();
-            e.stopPropagation();
-            this.scrollUp();
-            return false;
-        }
-        if (e.keyCode === 38) {
-            e.preventDefault();
-            e.stopPropagation();
-            this.scrollDown();
-            return false;
-        }
-        if (document.activeElement !== document.getElementById("searchInput")) {
-            if (e.keyCode === 75 || e.keyCode === 32) {
+        switch (e.keyCode) {
+            case 40:
                 e.preventDefault();
                 e.stopPropagation();
-                this.player.pauseplay();
+                this.results.scrollUp();
                 return false;
-            }
-            if (e.keyCode === 39) {
+            case 38:
                 e.preventDefault();
                 e.stopPropagation();
-                this.onNextSong();
+                this.results.scrollDown();
                 return false;
-            }
-            if (e.keyCode === 37) {
-                e.preventDefault();
-                e.stopPropagation();
-                this.onPrevSong();
-                return false;
-            }
-            if (e.keyCode === 80) {
-                e.preventDefault();
-                e.stopPropagation();
-                this.centerActive();
-                return false;
-            }
-            if (e.keyCode === 83) {
-                e.preventDefault();
-                e.stopPropagation();
-                document.getElementById("searchInput").focus();
-                return false;
-            }
-        } else {
-            if (e.keyCode === 13) {
+            case 13:
                 e.preventDefault();
                 e.stopPropagation();
                 document.getElementById("searchInput").blur();
                 return false;
+        }
+        if (document.activeElement !== document.getElementById("searchInput")) {
+            switch (e.keyCode) {
+                case 75:
+                case 32:
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.player.pauseplay();
+                    return false;
+                case 39:
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.onNextSong();
+                    return false;
+                case 37:
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.onPrevSong();
+                    return false;
+                case 80:
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.results.centerActive();
+                    return false;
+                case 83:
+                    e.preventDefault();
+                    e.stopPropagation();
+                    document.getElementById("searchInput").focus();
+                    return false;
             }
         }
     }

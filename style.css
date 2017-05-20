@@ -6,6 +6,7 @@ body {
     background-color: #0D000C;
     overflow: hidden;
     font-family: 'Roboto', sans-serif;
+    font-weight: 400;
 }
 music-player {
     display: flex;
@@ -46,30 +47,83 @@ music-player {
     width: calc(100vw - 1rem);
     margin: 0 auto;
 }
-search-bar {
+#menu > * {
+    margin: 0px 0.5rem;
+}
+playlist-bar.active .playlist-icon {
+    background-color: #F4F3F4;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border: none;
+}
+playlist-bar .playlist-icon {
+    background: black;
+    border: 1px solid #D8BB59;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    color: #D8BB59;
+    padding: 0.69rem;
+    outline: none;
+    width: 1.2rem;
+    cursor: pointer;
+}
+playlist-bar .playlist-icon svg {
+    fill: #F4F3F4;
+}
+playlist-bar.active input {
+    display: block
+}
+playlist-bar input {
+    display: none;
+    font-size: 1.2rem;
+    padding: 0.6rem;
+    border: none;
+    font-weight: 900;
+    outline: none;
+    border-radius: 0px;
+    background: #F4F3F4;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+    max-width: calc(100% - 3rem);
+}
+search-bar, playlist-bar {
     display: flex;
     align-items: center;
     justify-content: center;
 }
+search-bar.active .search-icon {
+    background-color: #F4F3F4;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border: none;
+}
 search-bar .search-icon {
+    background: black;
+    border: 1px solid #D8BB59;
+    border-radius: 5px;
     font-size: 1.2rem;
     color: #D8BB59;
     padding: 0.69rem;
-    background: #F4F3F4;
-    border: none;
     outline: none;
-    border-top-left-radius: 2px;
-    border-bottom-left-radius: 2px;
     width: 1.2rem;
+    cursor: pointer;
 }
 search-bar .search-icon svg {
     fill: #F4F3F4;
 }
+search-bar.active input {
+    display: block
+}
 search-bar input {
+    display: none;
     font-size: 1.2rem;
     padding: 0.6rem;
     border: none;
-    font-weight: bold;
+    font-weight: 900;
     outline: none;
     border-radius: 0px;
     background: #F4F3F4;

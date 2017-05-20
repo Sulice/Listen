@@ -1,0 +1,12 @@
+<div id="logo" (click)="backToRoot()">
+    <h1>LISTEN</h1>
+    <svg>
+        <path d="M4 47h11v19H4zm17-35h10v54H21zm17 13h10v41H38zM54 4h11v62H54zm17 8h11v54H71zm17 23h11v31H88z"/>
+    </svg>
+</div>
+<div id="menu">
+    <search-bar (click)="switchToSearch()" [query]="query" [searching]="searching" class="active" (onInput)="search($event)"></search-bar>
+    <playlist-bar (click)="switchToPlaylist()"></playlist-bar>
+</div>
+<results (onPlaySong)="onPlaySong($event)" (onOpenDir)="onOpenDir($event)" [files]="files"></results>
+<player [numberOfTracks]="numberOfTracks" [playlistDuration]="playlistDuration" (onPrevSong)="onPrevSong()" (onNextSong)="onNextSong()"></player>

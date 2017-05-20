@@ -4,25 +4,7 @@ import { File } from "./File";
 
 @Component({
     selector: "player",
-    template: `
-    <div class="informations" *ngIf="file">
-        <span class="title">{{ file?.name }}</span>
-        <span class="stats">{{ numberOfTracks }} tracks ({{ playlistDuration }})</span>
-    </div>
-    <div class="controls">
-        <div class="navigation">
-            <div (click)="prevSong()" class="prevsong"><i class="fa fa-step-backward"></i></div>
-            <div (click)="pauseplay()" class="pauseplay"><i class="fa" [class.fa-play]="!isPlaying" [class.fa-pause]="isPlaying"></i></div>
-            <div (click)="nextSong()" class="nextsong"><i class="fa fa-step-forward"></i></div>
-            <div (click)="toggleRepeat()" [class.on]="isRepeating" class="repeat"><i class="fa fa-undo"></i></div>
-        </div>
-        <div (click)="seekTo($event)" id="lines">
-            <div id="timeline"><div class="cursor"></div></div>
-            <div class="placeholderline"></div>
-        </div>
-        <div id="time"></div>
-    </div>
-`
+    templateUrl: "player.component.html"
 })
 export class PlayerComponent {
     @Input() playedSong: string;
@@ -55,7 +37,7 @@ export class PlayerComponent {
     seekTo(evt: MouseEvent) {
         if (typeof(this.audioPlayer) !== "undefined") {
             let lines: HTMLElement = document.getElementById("lines") as HTMLElement;
-            if(lines) {
+            if (lines) {
                 let p: number = (evt.pageX - lines.getBoundingClientRect().left) / lines.offsetWidth;
                 let song  = this.audioPlayer;
                 song.currentTime = song.duration * p;
@@ -101,7 +83,7 @@ export class PlayerComponent {
             let playPercent = 100 * (song.currentTime / song.duration);
             let loadPercent = 100 * (song.buffered.end(0) / song.duration);
             let timeline = document.getElementById("timeline") as HTMLElement;
-            if(timeline) {
+            if (timeline) {
                 timeline.style.width = playPercent + "%";
             }
             if (playPercent >= 100) {
@@ -112,7 +94,7 @@ export class PlayerComponent {
                 }
             }
             let time = document.getElementById("time") as HTMLElement;
-            if(time) {
+            if (time) {
                 time.innerHTML = this.toTimeString(song.currentTime);
             }
         }

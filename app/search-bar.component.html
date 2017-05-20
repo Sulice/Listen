@@ -1,15 +1,14 @@
 <div class="search-icon">
-    <i class="fa fa-search" *ngIf="!searching && !searchTerm"></i>
-    <i (click)="search()" class="fa fa-times-circle cursor-pointer" *ngIf="!searching && searchTerm"></i>
+    <i class="fa fa-search" *ngIf="!searching && !query"></i>
+    <i (click)="emitInput()" class="fa fa-times-circle cursor-pointer" *ngIf="!searching && query"></i>
     <i class="fa fa-cog fa-spin fa-fw" *ngIf="searching"></i>
 </div>
 <input
     id="searchInput"
     autocomplete="off"
     placeholder="search for songs"
-    (keyup)="search(searchInput.value)"
+    (keyup)="emitInput(searchInput.value)"
     type="search"
-    class="form-control"
-    [value]="searchTerm"
+    [value]="query"
     #searchInput
 />
