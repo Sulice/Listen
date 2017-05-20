@@ -53,20 +53,24 @@ export class PlayerComponent {
     }
 
     seekTo(evt: MouseEvent) {
-        let lines: HTMLElement = document.getElementById("lines") as HTMLElement;
-        if(lines) {
-            let p: number = (evt.pageX - lines.getBoundingClientRect().left) / lines.offsetWidth;
-            let song  = this.audioPlayer;
-            song.currentTime = song.duration * p;
+        if (typeof(this.audioPlayer) !== "undefined") {
+            let lines: HTMLElement = document.getElementById("lines") as HTMLElement;
+            if(lines) {
+                let p: number = (evt.pageX - lines.getBoundingClientRect().left) / lines.offsetWidth;
+                let song  = this.audioPlayer;
+                song.currentTime = song.duration * p;
+            }
         }
     }
 
     pauseplay() {
-        this.isPlaying = !this.isPlaying;
-        if (this.isPlaying) {
-            this.audioPlayer.play();
-        } else {
-            this.audioPlayer.pause();
+        if (typeof(this.audioPlayer) !== "undefined") {
+            this.isPlaying = !this.isPlaying;
+            if (this.isPlaying) {
+                this.audioPlayer.play();
+            } else {
+                this.audioPlayer.pause();
+            }
         }
     }
     startSong() {

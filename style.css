@@ -38,11 +38,18 @@ music-player {
     width: 100px;
     margin: 0px -33px;
 }
+#menu {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    max-width: 500px;
+    width: calc(100vw - 1rem);
+    margin: 0 auto;
+}
 search-bar {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 5px;
 }
 search-bar .search-icon {
     font-size: 1.2rem;
@@ -294,4 +301,7 @@ player {
 }
 .duration {
     font-weight: 900;
+}
+.cursor-pointer {
+    cursor: pointer;
 }

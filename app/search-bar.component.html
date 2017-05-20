@@ -1,5 +1,6 @@
 <div class="search-icon">
-    <i class="fa fa-search" *ngIf="!searching"></i>
+    <i class="fa fa-search" *ngIf="!searching && !searchTerm"></i>
+    <i (click)="search()" class="fa fa-times-circle cursor-pointer" *ngIf="!searching && searchTerm"></i>
     <i class="fa fa-cog fa-spin fa-fw" *ngIf="searching"></i>
 </div>
 <input

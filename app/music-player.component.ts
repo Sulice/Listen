@@ -19,7 +19,9 @@ import { UrlService, UrlSegment } from "./url.service";
                 <path d="M4 47h11v19H4zm17-35h10v54H21zm17 13h10v41H38zM54 4h11v62H54zm17 8h11v54H71zm17 23h11v31H88z"/>
             </svg>
         </div>
-        <search-bar [query]="query" (onFoundFiles)="onFoundFiles($event)"></search-bar>
+        <div id="menu">
+            <search-bar [query]="query" (onFoundFiles)="onFoundFiles($event)"></search-bar>
+        </div>
         <results (onPlaySong)="onPlaySong($event)" (onOpenDir)="onOpenDir($event)" [files]="files"></results>
         <player [numberOfTracks]="numberOfTracks" [playlistDuration]="playlistDuration" (onPrevSong)="onPrevSong()" (onNextSong)="onNextSong()"></player>
     `
