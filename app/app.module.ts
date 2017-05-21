@@ -1,6 +1,8 @@
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { HttpModule } from "@angular/http";
+import { FormsModule } from "@angular/forms";
+
 import { HoverEntryDirective } from "./hover-entry.directive";
 
 import { PerfectScrollbarModule } from "angular2-perfect-scrollbar";
@@ -14,6 +16,7 @@ import { ResultsComponent } from "./results.component";
 import { SearchBarComponent } from "./search-bar.component";
 import { PlaylistBarComponent } from "./playlist-bar.component";
 import { SearchService } from "./search.service";
+import { PlaylistService } from "./playlist.service";
 import { UrlService } from "./url.service";
 
 const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -24,6 +27,7 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   imports: [
       BrowserModule,
       HttpModule,
+      FormsModule,
       PerfectScrollbarModule.forRoot(PERFECT_SCROLLBAR_CONFIG),
   ],
   declarations: [
@@ -38,6 +42,7 @@ const PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   ],
   providers: [
       SearchService,
+      PlaylistService,
       UrlService,
   ],
   bootstrap: [ AppComponent ]

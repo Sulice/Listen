@@ -210,6 +210,7 @@ export class MusicPlayerComponent implements OnInit {
     }
 
     // keyboard shortcuts
+    /*
     @HostListener("window:keydown", ["$event"])
     shortcutDown(e: KeyboardEvent) {
         switch (e.keyCode) {
@@ -260,4 +261,5 @@ export class MusicPlayerComponent implements OnInit {
             }
         }
     }
+ */
 }

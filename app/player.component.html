@@ -1,13 +1,23 @@
-<div class="informations" *ngIf="file">
+<div class="informations" *ngIf="file && !displayMoreControls">
     <span class="title">{{ file?.name }}</span>
     <span class="stats">{{ numberOfTracks }} tracks ({{ playlistDuration }})</span>
 </div>
-<div class="controls">
+<div class="more-controls" *ngIf="displayMoreControls">
+    <div class="selectPlaylist">
+        <select name="selectedPlaylist">
+            <option *ngFor="let playlistName of getPlaylists()" value="playlistName" [attr.selected]="first ? 'selected' : null">{{ playlistName }}</option>
+        </select>
+        <button class="actionButton"><i class="fa fa-check"></i></button>
+        <button (click)="hideMoreControls()" class="actionButton"><i class="fa fa-times"></i></button>
+    </div>
+</div>
+<div class="controls" *ngIf="file">
     <div class="navigation">
         <div (click)="prevSong()" class="prevsong"><i class="fa fa-step-backward"></i></div>
         <div (click)="pauseplay()" class="pauseplay"><i class="fa" [class.fa-play]="!isPlaying" [class.fa-pause]="isPlaying"></i></div>
         <div (click)="nextSong()" class="nextsong"><i class="fa fa-step-forward"></i></div>
         <div (click)="toggleRepeat()" [class.on]="isRepeating" class="repeat"><i class="fa fa-undo"></i></div>
+        <div (click)="showMoreControls()" class="addToPlaylist" *ngIf="isPlaylists()"><i class="fa fa-plus"></i></div>
     </div>
     <div (click)="seekTo($event)" id="lines">
         <div id="timeline"><div class="cursor"></div></div>

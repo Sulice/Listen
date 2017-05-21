@@ -1,26 +1,64 @@
-import { Component, Input, Output, EventEmitter } from "@angular/core";
+import { Component, Input, Output, EventEmitter, OnInit } from "@angular/core";
 
 import { File } from "./File";
+import { PlaylistService } from "./playlist.service";
 
 @Component({
     selector: "player",
     templateUrl: "player.component.html"
 })
-export class PlayerComponent {
+export class PlayerComponent implements OnInit {
     @Input() playedSong: string;
-    isPlaying: boolean = false;
+    isPlaying: boolean;
     audioPlayer: HTMLAudioElement;
-    playPercent: number = 0;
-    loadPercent: number = 0;
+    playPercent: number;
+    loadPercent: number;
     pid: number;
-    active: boolean = false;
-    @Output() onNextSong = new EventEmitter<null>();
-    @Output() onPrevSong = new EventEmitter<null>();
-    @Output() onRepeatSong = new EventEmitter<null>();
-    isRepeating: boolean = false;
+    active: boolean;
+    @Output() onNextSong: EventEmitter<null>;
+    @Output() onPrevSong: EventEmitter<null>;
+    @Output() onRepeatSong: EventEmitter<null>;
+    isRepeating: boolean;
     file: File;
     @Input() numberOfTracks: number;
     @Input() playlistDuration: string;
+    displayMoreControls: boolean;
+    selectedPlaylist: string;
+
+    constructor(
+        private playlistService: PlaylistService,
+    ) {
+        this.isPlaying = false;
+        this.playPercent = 0;
+        this.loadPercent = 0;
+        this.active = false;
+        this.isRepeating = false;
+        this.onNextSong = new EventEmitter<null>();
+        this.onPrevSong = new EventEmitter<null>();
+        this.onRepeatSong = new EventEmitter<null>();
+        this.displayMoreControls = false;
+    }
+
+    ngOnInit() {
+        this.selectedPlaylist = Object.keys(this.playlistService.playlists)[0];
+        console.log(this.selectedPlaylist);
+    }
+
+    showMoreControls() {
+        this.displayMoreControls = true;
+    }
+
+    hideMoreControls() {
+        this.displayMoreControls = false;
+    }
+
+    isPlaylists(): boolean {
+        return Object.keys(this.playlistService.playlists).length > 0;
+    }
+
+    getPlaylists(): string[] {
+        return Object.keys(this.playlistService.playlists);
+    }
 
     toggleRepeat() {
         this.isRepeating = !this.isRepeating;

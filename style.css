@@ -44,56 +44,20 @@ music-player {
     justify-content: center;
     align-content: center;
     max-width: 500px;
-    width: calc(100vw - 1rem);
+    width: 100%;
     margin: 0 auto;
 }
 #menu > * {
     margin: 0px 0.5rem;
 }
-playlist-bar.active .playlist-icon {
-    background-color: #F4F3F4;
-    border-top-left-radius: 2px;
-    border-bottom-left-radius: 2px;
-    border-top-right-radius: 0px;
-    border-bottom-right-radius: 0px;
-    border: none;
-}
-playlist-bar .playlist-icon {
-    background: black;
-    border: 1px solid #D8BB59;
-    border-radius: 5px;
-    font-size: 1.2rem;
-    color: #D8BB59;
-    padding: 0.69rem;
-    outline: none;
-    width: 1.2rem;
-    cursor: pointer;
-}
-playlist-bar .playlist-icon svg {
-    fill: #F4F3F4;
-}
-playlist-bar.active input {
-    display: block
-}
-playlist-bar input {
-    display: none;
-    font-size: 1.2rem;
-    padding: 0.6rem;
-    border: none;
-    font-weight: 900;
-    outline: none;
-    border-radius: 0px;
-    background: #F4F3F4;
-    border-top-right-radius: 2px;
-    border-bottom-right-radius: 2px;
-    max-width: calc(100% - 3rem);
-}
 search-bar, playlist-bar {
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    overflow: hidden;
 }
-search-bar.active .search-icon {
+search-bar.active .search-icon, playlist-bar.active .playlist-icon {
     background-color: #F4F3F4;
     border-top-left-radius: 2px;
     border-bottom-left-radius: 2px;
@@ -101,10 +65,7 @@ search-bar.active .search-icon {
     border-bottom-right-radius: 0px;
     border: none;
 }
-search-bar .search-icon {
-    background: black;
-    border: 1px solid #D8BB59;
-    border-radius: 5px;
+.playlist-icon, .search-icon {
     font-size: 1.2rem;
     color: #D8BB59;
     padding: 0.69rem;
@@ -112,13 +73,13 @@ search-bar .search-icon {
     width: 1.2rem;
     cursor: pointer;
 }
-search-bar .search-icon svg {
+.playlist-icon svg, .search-icon svg {
     fill: #F4F3F4;
 }
-search-bar.active input {
+playlist-bar.active input, search-bar.active input {
     display: block
 }
-search-bar input {
+playlist-bar input, search-bar input {
     display: none;
     font-size: 1.2rem;
     padding: 0.6rem;
@@ -223,13 +184,23 @@ player {
     flex-flow: column;
     align-items: center;
 }
-.controls {
+.controls, .more-controls {
+    width: calc(100% - 2rem);
+    max-width: 450px;
     display: flex;
+    justify-content: space-evenly;
+    padding: 5px 0px;
+    overflow: hidden;
     align-items: center;
-    height: 3rem;
-    width: 100%;
-    max-width: calc(450px + 2rem);
-    justify-content: space-between;
+}
+.informations {
+    flex-flow: column;
+    width: calc(100% - 2rem);
+    max-width: 450px;
+    display: flex;
+    padding: 5px 0px;
+    overflow: hidden;
+    align-items: start;
 }
 .double-bounce1, .double-bounce2 {
     width: 100%;
@@ -264,16 +235,13 @@ player {
 .modeToggle {
     display: none;
 }
-.pauseplay, .repeat, .prevsong, .nextsong {
+.navigation > div {
     height: 3rem;
     width: 3rem;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-.repeat {
-	width: 2rem;
 }
 .on {
 	color: black;
@@ -334,15 +302,6 @@ player {
 .ps-scrollbar-y-rail {
     background: transparent !important;
 }
-.informations {
-    width: calc(100% - 2rem);
-    max-width: 450px;
-    display: flex;
-    flex-flow: column;
-    justify-content: center;
-    padding: 10px 0px 5px 0px;
-    overflow: hidden;
-}
 .informations .title {
     font-size: 1.1rem;
     font-weight: 900;
@@ -358,4 +317,16 @@ player {
 }
 .cursor-pointer {
     cursor: pointer;
+}
+.selectPlaylist {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+}
+.actionButton {
+    color: white;
+    border: 1px solid white;
+    background: none;
+    padding: 4px 15px;
+    border-radius: 4px;
 }

@@ -1,10 +1,12 @@
 <div class="playlist-icon">
-    <i class="fa fa-list"></i>
+    <i class="fa fa-list" *ngIf="!newPlaylistName"></i>
+    <i (click)="addPlaylist()" class="fa fa-plus-square" *ngIf="newPlaylistName"></i>
 </div>
 <input
     id="playlistInput"
+    name="newPlaylistName"
     autocomplete="off"
     placeholder="new playlist name"
     type="text"
-    #playlistInput
+    [(ngModel)]="newPlaylistName"
 />
