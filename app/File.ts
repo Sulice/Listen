@@ -9,38 +9,66 @@ export class File {
     duration: string;
     durationInSeconds: number;
 
-    constructor(str: string, duration?: number, path?: string) {
+    constructor(id: string, duration?: number, path?: string) {
 
-        if (str.match(/\.mp3$/)) {
-            this.type = "song";
-        } else {
-            this.type = "directory";
+        this.artist = "";
+        this.album = "";
+        this.name = "";
+        this.icon = "";
+        this.src = "";
+        this.duration = "";
+        this.durationInSeconds = 0;
+
+        this.type = this.getFileType(id);
+
+        switch (this.type) {
+            case "song":
+                this.extractSongInfos(id);
+                this.icon = "fa-play";
+                if (duration) {
+                    this.durationInSeconds = duration;
+                    this.duration = this.formatTime(duration);
+                }
+                break;
+            case "directory":
+                this.name = id.replace(/.*\/(.*)$/, "$1");
+                if (this.name === "") {
+                    this.name = "/";
+                }
+                if (path != null && path.length >= id.length) {
+                    this.icon = "dirIcon fa-reply";
+                } else {
+                    this.icon = "dirIcon fa-folder";
+                }
+                this.src = id;
+                break;
+            case "playlist":
+                this.name = id;
+                this.src = id;
+                this.icon = "fa-list";
+                break;
+            default:
         }
 
-        if (this.type === "song") {
-            this.artist = str.replace(/.*\/([^\/]*)\/([^\/]*)\/.*$/, "$1");
-            this.album = str.replace(/.*\/([^\/]*)\/.*$/, "$1");
-            this.name = str.replace(/.*\/(.*)$/, "$1").replace(/\.\w+$/, "");
-            this.icon = "fa-play";
-            if (duration) {
-                this.durationInSeconds = duration;
-                this.duration = this.formatTime(duration);
-            }
-        } else {
-            this.artist = "";
-            this.album = "";
-            this.name = str.replace(/.*\/(.*)$/, "$1");
-            if (this.name === "") {
-                this.name = "/";
-            }
-            if (path != null && path.length >= str.length) {
-                this.icon = "dirIcon fa-reply";
-            } else {
-                this.icon = "dirIcon fa-folder";
-            }
-        }
         this.class = "fa fileIcon " + this.icon;
-        this.src = str;
+    }
+
+    extractSongInfos(id: string) {
+        this.artist = id.replace(/.*\/([^\/]*)\/([^\/]*)\/.*$/, "$1");
+        this.album = id.replace(/.*\/([^\/]*)\/.*$/, "$1");
+        this.name = id.replace(/.*\/(.*)$/, "$1").replace(/\.\w+$/, "");
+        this.src = id;
+    }
+
+    getFileType(id: string): string {
+        if (id.match(/^\//) || id.match(/^http/)) {
+            if (id.match(/\.mp3$/)) {
+                return "song";
+            } else {
+                return "directory";
+            }
+        }
+        return "playlist";
     }
 
     formatTime(duration: number): string {
