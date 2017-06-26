@@ -50,5 +50,5 @@ _(can be lower : only tested with those)_
 - reduce requirements : 
     - test php5.6 in a docker container
     - test an older version of npm in a docker container
-- go to next song in case of : "Media resource https://public.niels.fr/Music///METAL/Progressif/Opeth/2003%20-%20Damnation/06%20To%20Rid%20The%20Disease.mp3 could not be decoded."
+- go to next song in case of : "Media resource Music///METAL/Progressif/Opeth/2003%20-%20Damnation/06%20To%20Rid%20The%20Disease.mp3 could not be decoded."
 - allow usage of yarn
