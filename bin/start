@@ -1,0 +1,44 @@
+#!/bin/sh
+
+cdroot() {
+    if ! [ -d ".git" ] && [ "$(pwd)" != "/" ]; then
+        cd ..
+        cdroot
+    fi
+}
+
+start_docker_service() {
+    if [ -n "$(which systemctl 2>/dev/null)" ]; then
+        sudo systemctl start docker
+        return
+    fi
+    if [ -n "$(which service 2>/dev/null)" ]; then
+        sudo service docker start
+        return
+    fi
+}
+
+isDockerRunning() {
+    if [ -n "$(sudo docker info 2>&1 1>/dev/null)" ] && [ -z "$(sudo docker info)" ]; then
+        echo "the docker daemon is not running"
+        exit 1
+    fi
+}
+
+start_docker_service
+isDockerRunning
+
+cdroot
+
+echo '{ "music_dir": "/www/music/" }' > php/parameters.json
+
+pathToProject=$(pwd)
+cd "docker/server" || exit
+
+if [ -n "$(sudo docker ps -a | grep listen)" ]; then
+    sudo docker stop listen && sudo docker rm listen
+fi
+
+if sudo docker build -t listen .; then
+    sudo docker run --init --rm -it -p 80:8080 -p 443:8443 --tmpfs /tmp -e UID="$(id -u)" -e GID="$(id -g)" -v "${pathToProject}":/www -v "$1":/www/music --name listen listen
+fi
