@@ -40,5 +40,5 @@ if [ -n "$(sudo docker ps -a | grep listen)" ]; then
 fi
 
 if sudo docker build -t listen .; then
-    sudo docker run --init --rm -it -p 80:8080 -p 443:8443 --tmpfs /tmp -e UID="$(id -u)" -e GID="$(id -g)" -v "${pathToProject}":/www -v "$1":/www/music --name listen listen
+    sudo docker run --init --rm -it -p 80:8080 -p 443:8443 --tmpfs /tmp -e UID="$(id -u)" -e GID="$(id -g)" -v "${pathToProject}/dist":/www -v "${pathToProject}/php":/www/php -v "$1":/www/music --name listen listen
 fi

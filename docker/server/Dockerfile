@@ -10,12 +10,13 @@ COPY nginx /etc/nginx
 
 RUN set -xe \
     && apk add --no-cache -U s6 su-exec ca-certificates nginx php7-fpm \
-    && apk add --no-cache php7-common php7-json php7-fileinfo \
+    && apk add --no-cache php7-common php7-json php7-fileinfo php7-mbstring \
     && mkdir -p /php/logs /nginx/logs /nginx/tmp \
     && chmod -R +x /usr/local/bin /etc/s6.d /var/lib/nginx
 
 VOLUME /www
 VOLUME /www/music
+VOLUME /www/php
 EXPOSE 8080
 
 CMD ["run.sh"]
