@@ -2,14 +2,13 @@ Listen
 ======
 _Simple-as-pie bit of code enabling streaming music from your server._
 
-# Project in alpha stage. A lot is going to change.
+# Project is being fuly reworked. Not working for now
 
 ### Goals
 - Easy to install.
 - No db : it reads your directory structure.
 - Minimal & fully responsive UI
 
-You can test it [here](http://nibou.eu/listen) right now !  
 The project only supports mp3 files.
 
 ### Installation
@@ -25,14 +24,12 @@ You'll have to specify also the root url to replace the path of the music direct
 Create a parameters.json file in the php/ directory and fill it like this :
 ```
 {
-    "root_url": "http://root_url_of_the_music_directory/",
     "music_dir": "/path/to/the/music/directory/"
 }
 ```
 
-### Requirements 
-_(can be lower : only tested with those)_
-- PHP 7+ (5.3+ is sure)
+### Requirements
+- PHP 7+
 - NPM 3+
 
 ### TODO
@@ -45,10 +42,3 @@ _(can be lower : only tested with those)_
 - add indexedDB to cache searches, and for playlists
 - add current song index in url
 - replay button at the end of playlist
-- update webpack and simplify it
-- remove webpack dependency if possible ? Simplify build process ?
-- reduce requirements : 
-    - test php5.6 in a docker container
-    - test an older version of npm in a docker container
-- go to next song in case of : "Media resource Music///METAL/Progressif/Opeth/2003%20-%20Damnation/06%20To%20Rid%20The%20Disease.mp3 could not be decoded."
-- allow usage of yarn
