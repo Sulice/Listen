@@ -6,6 +6,8 @@ aot/
 *.log
 app/*.js
 app/*.js.map
-parameters.json
-.awcache
-yarn.lock
+/.awcache
+/yarn.lock
+/.cache
+/.yarnrc
+/php/parameters.json

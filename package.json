@@ -1,65 +1,65 @@
 {
-  "name": "listen",
-  "version": "1.0.0",
-  "description": "A tiny web player for your music",
-  "main": "index.html",
-  "scripts": {
-    "build": "npm run clean && npm run ngc && npm run webpack-prod",
-    "dev": "npm run webpack-dev",
-    "clean": "rimraf aot dist",
-    "ncu": "ncu",
-    "ngc": "ngc -p tsconfig.prod.json",
-    "reinstall": "rimraf node_modules; npm cache clean; npm i",
-    "tslint": "./node_modules/.bin/tslint -c tslint.json --project tsconfig.dev.json --type-check",
-    "webpack-dev": "webpack --config config/webpack.dev.js --progress --bail --hide-modules",
-    "webpack-prod": "webpack --config config/webpack.prod.js --progress --profile --bail -p"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nrobinaubertin/listen.git"
-  },
-  "keywords": [
-    "tiny",
-    "web",
-    "player",
-    "music"
-  ],
-  "author": "Niels Robin-Aubertin",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/nrobinaubertin/listen/issues"
-  },
-  "homepage": "https://github.com/nrobinaubertin/listen#readme",
-  "dependencies": {
-    "@angular/common": "4.1.3",
-    "@angular/compiler": "4.1.3",
-    "@angular/compiler-cli": "4.1.3",
-    "@angular/core": "4.1.3",
-    "@angular/forms": "4.1.3",
-    "@angular/http": "4.1.3",
-    "@angular/platform-browser": "4.1.3",
-    "@angular/platform-browser-dynamic": "4.1.3",
-    "@angular/platform-server": "4.1.3",
-    "@angular/router": "4.1.3",
-    "core-js": "2.4.1",
-    "rxjs": "5.4.0",
-    "zone.js": "0.8.10"
-  },
-  "devDependencies": {
-    "@types/jquery": "2.0.45",
-    "@types/node": "7.0.18",
-    "@types/rx": "4.1.1",
-    "angular2-perfect-scrollbar": "2.0.6",
-    "angular2-template-loader": "0.6.2",
-    "awesome-typescript-loader": "3.1.3",
-    "codelyzer": "3.0.1",
-    "html-loader": "0.4.5",
-    "npm-check-updates": "2.11.1",
-    "raw-loader": "0.5.1",
-    "rimraf": "2.6.1",
-    "tslint": "5.2.0",
-    "typescript": "2.3.2",
-    "webpack": "2.5.1",
-    "webpack-merge": "4.1.0"
-  }
+    "name": "listen",
+    "version": "1.0.0",
+    "description": "A tiny web player for your music",
+    "main": "index.html",
+    "scripts": {
+        "build": "npm run clean && npm run ngc && npm run webpack-prod",
+        "dev": "npm run webpack-dev",
+        "clean": "rimraf aot dist",
+        "ncu": "ncu",
+        "ngc": "ngc -p tsconfig.prod.json",
+        "reinstall": "rimraf node_modules; npm cache clean; npm i",
+        "tslint": "./node_modules/.bin/tslint -c tslint.json --project tsconfig.dev.json --type-check",
+        "webpack-dev": "webpack --config config/webpack.dev.js --progress --bail --hide-modules",
+        "webpack-prod": "webpack --config config/webpack.prod.js --progress --profile --bail -p"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/nrobinaubertin/listen.git"
+    },
+    "keywords": [
+        "tiny",
+        "web",
+        "player",
+        "music"
+    ],
+    "author": "Niels Robin-Aubertin",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/nrobinaubertin/listen/issues"
+    },
+    "homepage": "https://github.com/nrobinaubertin/listen#readme",
+    "dependencies": {
+        "@angular/common": "4.1.3",
+        "@angular/compiler": "4.1.3",
+        "@angular/compiler-cli": "4.1.3",
+        "@angular/core": "4.1.3",
+        "@angular/forms": "4.1.3",
+        "@angular/http": "4.1.3",
+        "@angular/platform-browser": "4.1.3",
+        "@angular/platform-browser-dynamic": "4.1.3",
+        "@angular/platform-server": "4.1.3",
+        "@angular/router": "4.1.3",
+        "core-js": "2.4.1",
+        "rxjs": "5.4.0",
+        "zone.js": "0.8.10"
+    },
+    "devDependencies": {
+        "@types/jquery": "2.0.45",
+        "@types/node": "7.0.18",
+        "@types/rx": "4.1.1",
+        "angular2-perfect-scrollbar": "2.0.6",
+        "angular2-template-loader": "0.6.2",
+        "awesome-typescript-loader": "3.1.3",
+        "codelyzer": "3.0.1",
+        "html-loader": "0.4.5",
+        "npm-check-updates": "2.11.1",
+        "raw-loader": "0.5.1",
+        "rimraf": "2.6.1",
+        "tslint": "5.2.0",
+        "typescript": "2.3.2",
+        "webpack": "2.5.1",
+        "webpack-merge": "4.1.0"
+    }
 }
