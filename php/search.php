@@ -6,24 +6,26 @@ require_once('findMP3.php');
 $p = json_decode(file_get_contents("parameters.json"), true);
 
 $dir = $p['music_dir'];
+$p['root_url'] = "/php/read.php?q=";
 $q = urldecode($_GET['q']);
 $d = urldecode($_GET['d']);
 
 // if nothing in query, return nothing
-if(preg_match("/^\s*$/",$q)==1) {
+if (preg_match("/^\s*$/", $q) == 1) {
     exit;
 }
 
 // first we separate terms of search (with spaces)
-$s = explode(" ",$q);
+$s = explode(" ", $q);
 
 // find all mp3 files
 $files = findMP3($dir."/".$d);
 
 // create filter function
-function create_filter($filter, $inverse) {
-    return function($str) use($filter, $inverse) {
-        if($inverse) {
+function create_filter($filter, $inverse)
+{
+    return function ($str) use ($filter, $inverse) {
+        if ($inverse) {
             return !(preg_match('/'.$filter.'/i', $str));
         } else {
             return preg_match('/'.$filter.'/i', $str);
@@ -32,8 +34,8 @@ function create_filter($filter, $inverse) {
 }
 
 // find lines where ALL search terms appear (or don't appear following first char of filter)
-for($i = 0; $i < count($s); $i++) {
-    if(mb_substr($s[$i], 0, 1) === "-") {
+for ($i = 0; $i < count($s); $i++) {
+    if (mb_substr($s[$i], 0, 1) === "-") {
         $filter = mb_substr($s[$i], 1);
         $inverse = true;
     } else {
@@ -53,16 +55,16 @@ $files = array_slice($files, 0, 50);
 // replace root_url with music_dir (cf parameters.json)
 // get file duration when mp3 file
 $results = [];
-for($i=0;$i<count($files);$i++) {
-    if(is_dir($files[$i])) {
-        $e = preg_replace("/\/+/","/",$files[$i]);
+for ($i = 0; $i < count($files); $i++) {
+    if (is_dir($files[$i])) {
+        $e = preg_replace("/\/+/", "/", $files[$i]);
         $results[] = array(
-            str_replace($dir,"/",$e)
+            str_replace($dir, "/", $e)
         );
     } else {
         $mp3file = new fastMP3File($files[$i]);
         $results[] = array(
-            str_replace($dir,$p['root_url'],$files[$i]),
+            str_replace($dir, $p['root_url'], $files[$i]),
             $mp3file->getDuration()
         );
     }

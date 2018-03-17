@@ -1,34 +1,38 @@
 <?php
 
 // optimized version of http://www.zedwood.com/article/php-calculate-duration-of-mp3
-class fastMP3File {
+class fastMP3File
+{
     protected $filename;
 
-    public function __construct($filename) {
+    public function __construct($filename)
+    {
         $this->filename = $filename;
     }
- 
-    public static function formatTime($duration) { 
+
+    public static function formatTime($duration)
+    {
         $hours = floor($duration / 3600);
-        $minutes = floor( ($duration - ($hours * 3600)) / 60);
+        $minutes = floor(($duration - ($hours * 3600)) / 60);
         $seconds = $duration - ($hours * 3600) - ($minutes * 60);
-        if($hours == 0) {
+        if ($hours == 0) {
             return sprintf("%02d:%02d", $minutes, $seconds);
         }
         return sprintf("%02d:%02d:%02d", $hours, $minutes, $seconds);
     }
- 
+
     // Read entire file, frame by frame... ie: Variable Bit Rate (VBR)
-    public function getDuration() {
+    public function getDuration()
+    {
         $fd = fopen($this->filename, "rb");
         // return 0 if not readable.
-        if($fd === false) {
+        if ($fd === false) {
             return 0;
         }
         $duration=0;
         $block = fread($fd, 100);
         // return 0 if filesize under 100 bytes.
-        if(strlen($block) < 100) {
+        if (strlen($block) < 100) {
             return 0;
         }
         $offset = $this->skipID3v2Tag($block);
@@ -43,39 +47,37 @@ class fastMP3File {
         $skipped = 0;
         while (!feof($fd)) {
             $block = fread($fd, 10);
-            if (strlen($block) < 10) { 
+            if (strlen($block) < 10) {
                 break; // EOF has been reached
-            } 
+            }
             //looking for 1111 1111 111 (frame synchronization bits)
-            if ($block[0]=="\xff" && (ord($block[1])&0xe0) ) {
-
+            if ($block[0]=="\xff" && (ord($block[1])&0xe0)) {
                 $i++;
                 $info = self::parseFrameHeader(substr($block, 0, 4));
-                
+
                 //some corrupt frames
-                if (empty($info[0])) { 
+                if (empty($info[0])) {
                     $skipped++;
                     continue;
-                } 
+                }
 
                 $framesRead++;
                 $frames[] = $info[2] / $info[1];
-                if($framesRead > $maxFramesRead) {
+                if ($framesRead > $maxFramesRead) {
                     break;
                 }
-                if($i > $maxOps) {
+                if ($i > $maxOps) {
                     break;
                 }
                 fseek($fd, $info[0]-10, SEEK_CUR);
-
-            } else if (substr($block, 0, 3)=='TAG') {
+            } elseif (substr($block, 0, 3)=='TAG') {
                 fseek($fd, 128-10, SEEK_CUR); //skip over id3v1 tag size
                 $skipped++;
             } else {
                 // keep moving forward to sync
                 fseek($fd, 1, SEEK_CUR);
                 $i++;
-                if($i > $maxOps) {
+                if ($i > $maxOps) {
                     break;
                 }
             }
@@ -87,11 +89,11 @@ class fastMP3File {
         sort($frames);
         // cut the extreme values
         $toCut = count($frames)/10;
-        for($k = 0; $k < $toCut; $k++) {
+        for ($k = 0; $k < $toCut; $k++) {
             array_shift($frames);
             array_pop($frames);
         }
-        if(count($frames) != 0) {
+        if (count($frames) != 0) {
             $avgFrameSize = array_sum($frames)/count($frames);
         } else {
             $avgFrameSize = 0;
@@ -105,8 +107,9 @@ class fastMP3File {
 
         return $duration;
     }
- 
-    public static function parseFrameHeader($fourbytes) {
+
+    public static function parseFrameHeader($fourbytes)
+    {
         static $versions = array(
             0x0=>'2.5',0x1=>'x',0x2=>'2',0x3=>'1', // x=>'reserved'
         );
@@ -134,19 +137,19 @@ class fastMP3File {
         $b1=ord($fourbytes[1]);
         $b2=ord($fourbytes[2]);
         //$b3=ord($fourbytes[3]);
- 
+
         $version_bits = ($b1 & 0x18) >> 3;
         $version = $versions[$version_bits];
         $simple_version =  ($version=='2.5' ? 2 : $version);
- 
+
         $layer_bits = ($b1 & 0x06) >> 1;
         $layer = $layers[$layer_bits];
- 
+
         //$protection_bit = ($b1 & 0x01);
-        $bitrate_key = sprintf('V%dL%d', $simple_version , $layer);
+        $bitrate_key = sprintf('V%dL%d', $simple_version, $layer);
         $bitrate_idx = ($b2 & 0xf0) >> 4;
         $bitrate = isset($bitrates[$bitrate_key][$bitrate_idx]) ? $bitrates[$bitrate_key][$bitrate_idx] : 0;
- 
+
         $sample_rate_idx = ($b2 & 0x0c) >> 2;//0xc => b1100
         $sample_rate = isset($sample_rates[$version][$sample_rate_idx]) ? $sample_rates[$version][$sample_rate_idx] : 0;
         $padding_bit = ($b2 & 0x02) >> 1;
@@ -156,11 +159,11 @@ class fastMP3File {
         //$copyright_bit = ($b3 & 0x08) >> 3;
         //$original_bit = ($b3 & 0x04) >> 2;
         //$emphasis = ($b3 & 0x03);
- 
+
         $info = [];
         $info[] = self::framelength($layer, $bitrate, $sample_rate, $padding_bit);
         $info[] = $sample_rate;
-        if(isset($samples[$simple_version]) && isset($samples[$simple_version][$layer])) {
+        if (isset($samples[$simple_version]) && isset($samples[$simple_version][$layer])) {
             $info[] = $samples[$simple_version][$layer];
         } else {
             $info[] = 0;
@@ -171,19 +174,22 @@ class fastMP3File {
 
         return $info;
     }
- 
-    private static function framelength($layer, $bitrate,$sample_rate,$padding_bit) {
+
+    private static function framelength($layer, $bitrate, $sample_rate, $padding_bit)
+    {
         if ($sample_rate === 0) {
             return 0;
         }
-        if ($layer==1)
+        if ($layer==1) {
             return intval(((12 * $bitrate*1000 /$sample_rate) + $padding_bit) * 4);
-        else //layer 2, 3
+        } else { //layer 2, 3
             return intval(((144 * $bitrate*1000)/$sample_rate) + $padding_bit);
+        }
     }
-    
-    private function skipID3v2Tag(&$block) {
-        if (substr($block, 0,3)=="ID3") {
+
+    private function skipID3v2Tag(&$block)
+    {
+        if (substr($block, 0, 3)=="ID3") {
             //$id3v2_major_version = ord($block[3]);
             //$id3v2_minor_version = ord($block[4]);
             $id3v2_flags = ord($block[5]);
@@ -195,7 +201,7 @@ class fastMP3File {
             $z1 = ord($block[7]);
             $z2 = ord($block[8]);
             $z3 = ord($block[9]);
-            if ( (($z0&0x80)==0) && (($z1&0x80)==0) && (($z2&0x80)==0) && (($z3&0x80)==0) ) {
+            if ((($z0&0x80)==0) && (($z1&0x80)==0) && (($z2&0x80)==0) && (($z3&0x80)==0)) {
                 $header_size = 10;
                 $tag_size = (($z0&0x7f) * 2097152) + (($z1&0x7f) * 16384) + (($z2&0x7f) * 128) + ($z3&0x7f);
                 $footer_size = $flag_footer_present ? 10 : 0;
@@ -204,7 +210,4 @@ class fastMP3File {
         }
         return 0;
     }
- 
 }
-
-?>
